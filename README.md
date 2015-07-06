@@ -4,7 +4,7 @@ just starting and not quite sure, but here is the direction
 
 # Debugger
 
-I don't want to use gdb anymore, and it would be easier with using the qemu setup, so:
+I don't want to use gdb anymore, and it would be easier without using the qemu setup, so:
 
 - single step debugging of the register machine level (as close to arm as need be)
 - visual transitions for steps

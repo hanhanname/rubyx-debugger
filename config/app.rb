@@ -100,8 +100,8 @@ Volt.configure do |config|
   # config.message_bus.bus_name = 'peer_to_peer'
   #
   # Encrypt message bus - messages on the message bus are encrypted by default
-  # using rbnacl.
-  # config.message_bus.disable_encryption = true
+  # but this is meant to be used locally by a developer
+  config.message_bus.disable_encryption = true
   #
   # ## MessageBus Server -- the message bus binds to a port and ip which the
   # other volt instances need to be able to connect to.  You can customize
