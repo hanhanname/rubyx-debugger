@@ -3,8 +3,9 @@
 
 module Main
   class MainController < Volt::ModelController
+
     def index
-      require "game"
+      require "main/lib/game"
 
       Game.new()
 
