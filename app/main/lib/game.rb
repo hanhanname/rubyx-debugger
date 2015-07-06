@@ -1,4 +1,6 @@
 
+require "opal-phaser"
+
 class Score
   attr_accessor :score
   attr_reader   :scoreText

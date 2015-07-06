@@ -1,11 +1,12 @@
 # By default Volt generates this controller for your Main component
 
-
+if RUBY_PLATFORM == 'opal'
+  require "main/lib/game"
+end
 module Main
   class MainController < Volt::ModelController
 
     def index
-      require "main/lib/game"
 
       Game.new()
 
