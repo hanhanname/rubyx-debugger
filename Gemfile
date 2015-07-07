@@ -13,7 +13,7 @@ gem 'volt-bootstrap', '~> 0.0.10'
 gem 'csso-rails', '~> 0.3.4', require: false
 gem 'uglifier', '>= 2.4.0', require: false
 
-gem 'opal-phaser' , :path => "../opal-phaser"
+gem 'opal-pixi' , :path => "../opal-pixi"
 
 group :test do
   # Testing dependencies

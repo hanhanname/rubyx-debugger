@@ -1,6 +1,5 @@
-# rcov generated
-coverage
-coverage.data
+# database
+db
 
 # rdoc generated
 rdoc
