@@ -2,6 +2,7 @@ require 'opal/pixi'
 require 'native'
 require "main/lib/registers_view"
 require "main/lib/space_view"
+require "salama"
 
 class MainView
 
@@ -28,6 +29,26 @@ class MainView
       renderer.render @container
     end
     animate.call
+
+    string_input    = '"Hello again\n".putstring()'
+
+    machine = ::Virtual::Machine.boot
+    expressions = machine.compile_main string_input
+    if( expressions.first.is_a? Parfait::Method )
+      # stops the whole objectspace beeing tested
+      # with the class comes superclass and all methods
+      expressions.first.instance_variable_set :@for_class , nil
+      expressions.first.secret_layout_hammer
+      expressions.first.code.secret_layout_hammer
+    end
+    if( expressions.first.is_a? Virtual::Self )
+      # stops the whole objectspace beeing tested
+      # with the class comes superclass and all methods
+      expressions.first.type.instance_variable_set :@of_class , nil
+    end
+    is = Sof.write(expressions)
+    #puts is
+    is.gsub!("\n" , "*^*")
 
   end
 
