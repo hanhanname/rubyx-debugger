@@ -1,6 +1,7 @@
 require 'opal/pixi'
 require 'native'
 require "main/lib/registers_view"
+require "main/lib/space_view"
 
 class MainView
 
@@ -15,11 +16,16 @@ class MainView
     html_con = body.firstElementChild
     html_con.insertBefore renderer.view , html_con.lastElementChild
 
-    @container.add_child RegisterView.new(height - 150)
+    registers = RegisterView.new(height - 150)
+    @container.add_child registers
+    space = SpaceView.new
+    @container.add_child space
 
     animate = Proc.new do
       `requestAnimationFrame(animate)`
-       renderer.render @container
+      registers.update
+      space.update
+      renderer.render @container
     end
     animate.call
 
