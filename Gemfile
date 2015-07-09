@@ -15,6 +15,10 @@ gem 'uglifier', '>= 2.4.0', require: false
 
 gem 'opal-pixi' , :path => "../opal-pixi"
 
+#gem "salama" , "0.2" , :path => "../salama"
+gem "salama"
+
+
 group :test do
   # Testing dependencies
   gem 'rspec', '~> 3.2.0'
