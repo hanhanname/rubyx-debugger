@@ -7,9 +7,7 @@ module Main
   class MainController < Volt::ModelController
 
     def index
-
       Game.new()
-
     end
 
     def about
