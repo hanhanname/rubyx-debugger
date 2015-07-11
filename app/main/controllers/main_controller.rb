@@ -1,4 +1,5 @@
 # By default Volt generates this controller for your Main component
+require "salama"
 
 if RUBY_PLATFORM == 'opal'
   require "main/lib/main_view"
@@ -12,7 +13,11 @@ module Main
     end
 
     def about
-      # Add code for when the about view is loaded
+      promise = ParseTask.parse(1).then do |result|
+        puts result
+      end.fail do |error|
+        puts "Error: #{error}"
+      end
     end
 
     private
