@@ -6,6 +6,6 @@ class ParseTask < Volt::Task
     parser = Parser::Salama.new
     out = parser.parse(string_input)
     parts = Parser::Transform.new.apply(out)
-    Sof.write parts
+    parts.to_basic
   end
 end

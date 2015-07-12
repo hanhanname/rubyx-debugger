@@ -5,6 +5,8 @@ if RUBY_PLATFORM == 'opal'
   require "main/lib/main_view"
 end
 
+Virtual::Machine.boot
+
 module Main
   class MainController < Volt::ModelController
 
@@ -13,11 +15,16 @@ module Main
     end
 
     def about
-      promise = ParseTask.parse(1).then do |result|
+      ParseTask.parse(1).then do |result|
         puts result
+        is = Ast::Expression.from_basic(result)
+        puts "back #{is.class}"
+        Virtual::Compiler.compile( is , Virtual.machine.space.get_main )
+        puts Virtual.machine.space.objects
       end.fail do |error|
         puts "Error: #{error}"
       end
+
     end
 
     private
