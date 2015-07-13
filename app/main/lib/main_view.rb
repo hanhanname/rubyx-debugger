@@ -1,8 +1,10 @@
 require 'opal/pixi'
 require 'native'
-require "main/lib/registers_view"
-require "main/lib/space_view"
 require "salama"
+
+require_relative "registers_view"
+require_relative "object_view"
+require_relative "space_view"
 
 class MainView
 
@@ -26,13 +28,13 @@ class MainView
     end.fail do |error|
       raise "Error: #{error}"
     end
-    space = SpaceView.new  
+    space = SpaceView.new
     @container.add_child space
 
     animate = Proc.new do
       `requestAnimationFrame(animate)`
-      registers.update
-      space.update
+      registers.draw_me
+      space.draw_me
       renderer.render @container
     end
     animate.call

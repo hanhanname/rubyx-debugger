@@ -14,7 +14,7 @@ class RegisterView < PIXI::Container
       @registers[name] = reg
       self.add_child reg
     end
-    def update
+    def draw_me
 
     end
   end
