@@ -1,5 +1,6 @@
 
 class SpaceView < PIXI::Graphics
+  include Sof::Util
 
   def initialize
     super()
@@ -13,7 +14,7 @@ class SpaceView < PIXI::Graphics
 
     @objects.each do |i , o|
       view = Volt::Model.new
-#      view._object_id = i
+      view._object = o
       @view_objects[i] = view
       at = PIXI::Point.new 100 , 100
       name = PIXI::Text.new i.to_s
@@ -43,4 +44,52 @@ class SpaceView < PIXI::Graphics
       view._name.position.x += 1
     end
   end
+
+  def fill_attributes
+    @view_objects.each do |i , view|
+      object = view._object
+      case object.class.name
+      when "Array" , "Parfait::List"
+        fill_array view
+      when "Hash" , "Parfait::Dictionary"
+        fill_hash view
+      else
+        # and recursively add attributes
+        attributes = attributes_for(object)
+        attributes.each do |a|
+          val = get_value( object , a)
+          if( @view_objects[vol.object_id])
+            #ref
+          end
+          view.set(a , val )
+        end
+        superclasses = [object.class.superclass.name]
+        if superclasses.include?( "Array") or superclasses.include?( "Parfait::List")
+          fill_array view
+        end
+        if superclasses.include?( "Hash") or superclasses.include?( "Parfait::Dictionary")
+          fill_hash view
+        end
+        view._object = nil
+      end
+    end
+  end
+
+  # and hash keys/values
+  def fill_hash hash
+    return
+    hash.each do |a,b|
+      next_level << a
+      next_level << b
+    end
+  end
+  # and array values
+  def fill_array array
+    return
+    array.each do |a|
+      next_level << a
+    end
+  end
+
+
 end
