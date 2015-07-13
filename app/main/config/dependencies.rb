@@ -3,3 +3,6 @@
 
 # bootstrap css framework
 component 'bootstrap'
+
+
+Opal.use_gem("salama")

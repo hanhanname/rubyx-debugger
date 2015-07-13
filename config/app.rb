@@ -1,11 +1,6 @@
 # app.rb is used to configure your app.  This code is only run on the server,
 # then any config options in config.public are passed to the client as well.
 
-["parslet", "salama-object-file", "salama-reader","salama" ].each do |g|
-  lib_path = Gem.loaded_specs[g].full_gem_path + '/lib'
-  Opal.append_path(lib_path)
-end
-
 Volt.configure do |config|
   # Setup your global app config here.
 
