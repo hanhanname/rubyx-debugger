@@ -15,15 +15,6 @@ module Main
     end
 
     def about
-      ParseTask.parse(1).then do |result|
-        puts result
-        is = Ast::Expression.from_basic(result)
-        puts "back #{is.class}"
-        Virtual::Compiler.compile( is , Virtual.machine.space.get_main )
-        puts Virtual.machine.space.objects
-      end.fail do |error|
-        puts "Error: #{error}"
-      end
 
     end
 
