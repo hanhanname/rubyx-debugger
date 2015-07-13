@@ -23,11 +23,10 @@ class MainView
     ParseTask.parse(1).then do |result|
       is = Ast::Expression.from_basic(result)
       Virtual::Compiler.compile( is , Virtual.machine.space.get_main )
-      puts Virtual.machine.space
     end.fail do |error|
-      puts "Error: #{error}"
+      raise "Error: #{error}"
     end
-    space = SpaceView.new  Sof::Members.new(Virtual.machine.space).objects
+    space = SpaceView.new  
     @container.add_child space
 
     animate = Proc.new do
