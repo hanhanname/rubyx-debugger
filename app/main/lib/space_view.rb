@@ -36,8 +36,10 @@ class SpaceView < PIXI::Graphics
     @view_objects = {}
 
     @objects.each do |i , o|
-      next unless o.object
-      view = ObjectView.new o.object
+      ob = o.object
+      next if basic?(ob)
+
+      view = ObjectView.new ob
       @view_objects[i] = view
       add_child view.text
     end
@@ -58,24 +60,24 @@ class SpaceView < PIXI::Graphics
         puts "v2" if view.nil?
         puts "0" if v.nil?
         self.moveTo( view.position.x , view.position.y )
-        self.lineTo( v.position.x , v.position.y )
+#        self.lineTo( v.position.x , v.position.y )
       end
     end
   end
 
   def force from , to
-    dir_x = from.x - to.x - 100
-    dir_x2 = dir_x * dir_x
-    dir_y = from.y - to.y - 100
-    dir_y2 = dir_y * dir_y
+    dir_x = from.x - to.x
+    dir_x2 = (dir_x - 30 ) * (dir_x - 30 )
+    dir_y = from.y - to.y
+    dir_y2 =( dir_y - 30) * (dir_y - 30)
     if( dir_x2 < 0.1 and dir_y2 < 0.1 )
       puts "Were close"
-      dir_x = rand(10) - 5
-      dir_y = rand(10) - 5
+      dir_x = rand(10)
+      dir_y = rand(10)
     end
     f = dir_x * dir_x + dir_y * dir_y
     f = 0.01 if f < 0.01
-    f = f / 100
+    f = f / 500
     #puts "force #{f}"
     PIXI::Point.new( dir_x / f  , dir_y / f)
   end
@@ -86,8 +88,6 @@ class SpaceView < PIXI::Graphics
         next if n == :id
         next unless v.is_a? ObjectView
         next unless v.is_parfait
-        puts "v2" if view.nil?
-        puts "0" if v.nil?
         view.position.add force( view.position , v.position )
       end
       offset = 0.0
@@ -108,12 +108,7 @@ class SpaceView < PIXI::Graphics
       when "Hash" , "Parfait::Dictionary"
         fill_hash view
       else
-        next if ob.class.name.include?("::") and !ob.class.name.include?("Parfait")
-        next if ob.class.name == "Proc"
-        next if ob.class.name == "String"
-        next if ob.class.name == "Numeric"
-        next if ob.class.name == "Class"
-        #puts "object #{ob.class.name}"
+#        next if basic?(ob)
 
         attributes = attributes_for(ob)
         attributes.each do |a|
@@ -139,21 +134,35 @@ class SpaceView < PIXI::Graphics
     end
   end
 
+  def basic? ob
+    return true if ob.class.name.include?("::") and !ob.class.name.include?("Parfait")
+    return true if ob.class.name == "Proc"
+    return true if ob.class.name == "String"
+    return true if ob.class.name == "Numeric"
+    return true if ob.class.name == "Class"
+    puts "object #{ob.class.name}"
+    false
+  end
   # and hash keys/values
-  def fill_hash hash
-    return
-    hash.each do |a,b|
-      next_level << a
-      next_level << b
+  def fill_hash view_hash
+    view_hash.object.each do |k , val|
+      if( @view_objects[val.object_id])
+        val = @view_objects[val.object_id]
+      end
+      view_hash.set(k , val )
     end
   end
   # and array values
-  def fill_array array
-    return
-    array.each do |a|
-      next_level << a
+  def fill_array view_array
+    index = 0
+    view_array.object.each do |val|
+      if( @view_objects[val.object_id])
+        val = @view_objects[val.object_id]
+      end
+      view_array.set("#{index}" , val )
+      index += 1
     end
+    #puts "set #{a}"
   end
-
 
 end

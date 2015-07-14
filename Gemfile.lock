@@ -2,7 +2,7 @@ PATH
   remote: ../opal-pixi
   specs:
     opal-pixi (0.1.0)
-      opal (~> 0.7.0)
+      opal (~> 0.7.2)
 
 PATH
   remote: ../parslet
