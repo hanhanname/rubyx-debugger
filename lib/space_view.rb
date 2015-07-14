@@ -21,7 +21,7 @@ Point.class_eval do
   end
 end
 
-class SpaceView < Graphics
+class SpaceView 
   include Sof::Util
 
   def initialize

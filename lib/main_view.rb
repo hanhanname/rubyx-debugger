@@ -1,6 +1,7 @@
 require 'browser'
 require 'native'
 require "salama"
+require "point"
 
 require_relative "registers_view"
 require_relative "object_view"
