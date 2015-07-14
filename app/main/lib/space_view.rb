@@ -1,31 +1,12 @@
 
-require "math"
-
-PIXI::Point.class_eval do
-  alias_native :y=
-
-  def add point
-    self.x += point.x
-    self.x = 0    if self.x  < 0
-    self.x = 1100  if self.x  > 1100
-    self.y += point.y
-    self.y = 0    if self.y  < 0
-    self.y = 550    if self.y  > 550
-  end
-
-  def scale_by num
-    min = 0.001
-    num = min if num <= min
-    self.x = self.x / num
-    self.y = self.y / num
-  end
-end
-
 class SpaceView < PIXI::Graphics
   include Sof::Util
 
-  def initialize
+  def initialize max
     super()
+    @max = max
+    @max.x -= 50
+    @max.y -= 20
     space = Virtual.machine.space
     # just a way to get the space into a list. objects is an id => occurence mapping.
     # occurence.object is the object
@@ -37,7 +18,11 @@ class SpaceView < PIXI::Graphics
 
     @objects.each do |i , o|
       ob = o.object
+      next unless ob
       next if basic?(ob)
+      next if ob.class.name.include? "Binary"
+      next if ob.class.name.include? "Array"
+      puts "object #{ob.class.name}"
 
       view = ObjectView.new ob
       @view_objects[i] = view
@@ -65,19 +50,19 @@ class SpaceView < PIXI::Graphics
     end
   end
 
-  def force from , to
+  def force from , to , offset = 0
     dir_x = from.x - to.x
-    dir_x2 = (dir_x - 30 ) * (dir_x - 30 )
+    dir_x2 = (dir_x - offset ) * (dir_x - offset )
     dir_y = from.y - to.y
-    dir_y2 =( dir_y - 30) * (dir_y - 30)
+    dir_y2 =( dir_y - offset) * (dir_y - offset)
     if( dir_x2 < 0.1 and dir_y2 < 0.1 )
       puts "Were close"
-      dir_x = rand(10)
-      dir_y = rand(10)
+      dir_x = rand(3)
+      dir_y = rand(3)
     end
     f = dir_x * dir_x + dir_y * dir_y
+    f = f / 200
     f = 0.01 if f < 0.01
-    f = f / 500
     #puts "force #{f}"
     PIXI::Point.new( dir_x / f  , dir_y / f)
   end
@@ -88,13 +73,17 @@ class SpaceView < PIXI::Graphics
         next if n == :id
         next unless v.is_a? ObjectView
         next unless v.is_parfait
-        view.position.add force( view.position , v.position )
+        view.position.add_and_bounce force( view.position , v.position , 20 ).scale_by(-1.5) , @max
       end
-      offset = 0.0
-      view.position.add force( view.position , PIXI::Point.new(view.position.x , -offset) )
-      view.position.add force( view.position , PIXI::Point.new(-offset , view.position.y) )
-      view.position.add force( view.position , PIXI::Point.new(view.position.x , 550 + offset) )
-      view.position.add force( view.position , PIXI::Point.new(1000 + offset , view.position.y) )
+      @view_objects.each do |ii , vv |
+        next if i == ii
+        view.position.add_and_bounce force( view.position , vv.position ) , @max
+      end
+      offset = 100
+      view.position.add_and_bounce force( view.position , view.position.at_x(-offset) ) , @max
+      view.position.add_and_bounce force( view.position , view.position.at_y(-offset) ) , @max
+      view.position.add_and_bounce force( view.position , view.position.at_y(@max.y + offset) ) , @max
+      view.position.add_and_bounce force( view.position , view.position.at_x(@max.x + offset) ) , @max
     end
   end
 
@@ -140,7 +129,6 @@ class SpaceView < PIXI::Graphics
     return true if ob.class.name == "String"
     return true if ob.class.name == "Numeric"
     return true if ob.class.name == "Class"
-    puts "object #{ob.class.name}"
     false
   end
   # and hash keys/values
