@@ -25,6 +25,7 @@ class MainView
     ParseTask.parse(1).then do |result|
       is = Ast::Expression.from_basic(result)
       Virtual::Compiler.compile( is , Virtual.machine.space.get_main )
+      Virtual.machine.run_before Virtual::Machine::FIRST_PASS
     end.fail do |error|
       raise "Error: #{error}"
     end
