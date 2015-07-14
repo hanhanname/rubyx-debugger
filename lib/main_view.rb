@@ -1,4 +1,7 @@
+
 require 'browser'
+require 'browser/canvas'
+require 'browser/http'
 require 'native'
 require "salama"
 require "point"
@@ -11,6 +14,18 @@ class MainView
 
   def initialize
     @canvas = Browser::Canvas.new
+    @canvas.element.width = 1000
+    @canvas.element.height = 500
+    Browser::HTTP.get "/tasks.json" do
+      on :success do |res|
+        is = Ast::Expression.from_basic(res.json)
+        Virtual::Compiler.compile( is , Virtual.machine.space.get_main )
+        Virtual.machine.run_before Virtual::Machine::FIRST_PASS
+      end
+    end
+    @canvas.append_to($document.body)
+  end
+  def no
 
     height = `window.innerHeight`
     width =  `window.innerWidth`
@@ -23,13 +38,6 @@ class MainView
     registers = RegisterView.new(height - 150)
     @canvas.add_child registers
 
-    ParseTask.parse(1).then do |result|
-      is = Ast::Expression.from_basic(result)
-      Virtual::Compiler.compile( is , Virtual.machine.space.get_main )
-      Virtual.machine.run_before Virtual::Machine::FIRST_PASS
-    end.fail do |error|
-      raise "Error: #{error}"
-    end
     space = SpaceView.new
     @container.add_child space
 

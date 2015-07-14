@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 
-gem 'opal-browser'
+gem 'opal-browser' , :path => "../opal-browser"
 
 #gem "salama" , "0.2" , :path => "../salama"
 
