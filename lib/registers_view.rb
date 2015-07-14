@@ -1,5 +1,5 @@
 
-class RegisterView < PIXI::Container
+class RegisterView
 
   @@register_names = (0..8).collect {|i| "r#{i}"}
 
@@ -8,8 +8,8 @@ class RegisterView < PIXI::Container
     @registers = {}
     x = 0
     @@register_names.each do |name|
-      reg = PIXI::Text.new( name )
-      reg.position = PIXI::Point.new x  , at_y
+      reg = Text.new( name )
+      reg.position = Point.new x  , at_y
       x += reg.width + 20
       @registers[name] = reg
       self.add_child reg

@@ -1,7 +1,7 @@
 
 require "math"
 
-PIXI::Point.class_eval do
+Point.class_eval do
   alias_native :y=
 
   def add point
@@ -21,7 +21,7 @@ PIXI::Point.class_eval do
   end
 end
 
-class SpaceView < PIXI::Graphics
+class SpaceView < Graphics
   include Sof::Util
 
   def initialize
@@ -77,7 +77,7 @@ class SpaceView < PIXI::Graphics
     f = 0.01 if f < 0.01
     f = f / 100
     #puts "force #{f}"
-    PIXI::Point.new( dir_x / f  , dir_y / f)
+    Point.new( dir_x / f  , dir_y / f)
   end
 
   def update_positions
@@ -91,10 +91,10 @@ class SpaceView < PIXI::Graphics
         view.position.add force( view.position , v.position )
       end
       offset = 0.0
-      view.position.add force( view.position , PIXI::Point.new(view.position.x , -offset) )
-      view.position.add force( view.position , PIXI::Point.new(-offset , view.position.y) )
-      view.position.add force( view.position , PIXI::Point.new(view.position.x , 550 + offset) )
-      view.position.add force( view.position , PIXI::Point.new(1000 + offset , view.position.y) )
+      view.position.add force( view.position , Point.new(view.position.x , -offset) )
+      view.position.add force( view.position , Point.new(-offset , view.position.y) )
+      view.position.add force( view.position , Point.new(view.position.x , 550 + offset) )
+      view.position.add force( view.position , Point.new(1000 + offset , view.position.y) )
     end
   end
 

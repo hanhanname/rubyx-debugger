@@ -1,4 +1,4 @@
-require 'opal/pixi'
+require 'browser'
 require 'native'
 require "salama"
 
@@ -9,18 +9,18 @@ require_relative "space_view"
 class MainView
 
   def initialize
-    @container = PIXI::Container.new
+    @canvas = Browser::Canvas.new
 
     height = `window.innerHeight`
     width =  `window.innerWidth`
-    renderer = PIXI::WebGLRenderer.new( width - 100 , height - 100, {"backgroundColor" => 0xFFFFFF})
+
     body = Native(`window.document.body`)
     # bit of a hack as it assumes index's structure
     html_con = body.firstElementChild
     html_con.insertBefore renderer.view , html_con.lastElementChild
 
     registers = RegisterView.new(height - 150)
-    @container.add_child registers
+    @canvas.add_child registers
 
     ParseTask.parse(1).then do |result|
       is = Ast::Expression.from_basic(result)

@@ -5,8 +5,8 @@ class ObjectView
 
   def initialize o
     super()
-    self.text =  PIXI::Text.new("no")
-    self.text.position = PIXI::Point.new( rand(1000) , rand(550))
+    self.text =  Text.new("no")
+    self.text.position = Point.new( rand(1000) , rand(550))
     puts "NO O " unless o
     self.object = o
     self.text.text = short
