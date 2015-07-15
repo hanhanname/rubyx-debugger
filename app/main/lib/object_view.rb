@@ -5,11 +5,9 @@ class ObjectView
 
   def initialize o
     super()
-    self.text =  PIXI::Text.new("no")
-    self.text.position = PIXI::Point.new( rand(1000) , rand(550))
     puts "NO O " unless o
     self.object = o
-    self.text.text = short
+    self.text = short
     @attributes = {}
   end
 
@@ -27,12 +25,5 @@ class ObjectView
   def get(name)
     @attributes[name]
   end
-  def position
-    #raise "NONAME" unless self.text
-    self.text.position
-  end
 
-  def distance to
-    self.position - to.position
-  end
 end

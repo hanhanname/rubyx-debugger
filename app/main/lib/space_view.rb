@@ -1,12 +1,10 @@
 
-class SpaceView < PIXI::Graphics
+class SpaceView
   include Sof::Util
 
   def initialize max
     super()
-    @max = max
-    @max.x -= 50
-    @max.y -= 20
+
     space = Virtual.machine.space
     # just a way to get the space into a list. objects is an id => occurence mapping.
     # occurence.object is the object
@@ -31,61 +29,6 @@ class SpaceView < PIXI::Graphics
     fill_attributes
   end
 
-  # should almost be called draw by now
-  def draw_me
-    update_positions
-    self.clear
-    @view_objects.each do |i , view|
-      self.lineStyle(4, 0xffd900, 2)
-      puts "v" if view.nil?
-      view.attributes.each do |n , v |
-        next if n == :id
-        next unless v.is_a? ObjectView
-        next unless v.is_parfait
-        puts "v2" if view.nil?
-        puts "0" if v.nil?
-        self.moveTo( view.position.x , view.position.y )
-#        self.lineTo( v.position.x , v.position.y )
-      end
-    end
-  end
-
-  def force from , to , offset = 0
-    dir_x = from.x - to.x
-    dir_x2 = (dir_x - offset ) * (dir_x - offset )
-    dir_y = from.y - to.y
-    dir_y2 =( dir_y - offset) * (dir_y - offset)
-    if( dir_x2 < 0.1 and dir_y2 < 0.1 )
-      puts "Were close"
-      dir_x = rand(3)
-      dir_y = rand(3)
-    end
-    f = dir_x * dir_x + dir_y * dir_y
-    f = f / 200
-    f = 0.01 if f < 0.01
-    #puts "force #{f}"
-    PIXI::Point.new( dir_x / f  , dir_y / f)
-  end
-
-  def update_positions
-    @view_objects.each do |i , view|
-      view.attributes.each do |n , v |
-        next if n == :id
-        next unless v.is_a? ObjectView
-        next unless v.is_parfait
-        view.position.add_and_bounce force( view.position , v.position , 20 ).scale_by(-1.5) , @max
-      end
-      @view_objects.each do |ii , vv |
-        next if i == ii
-        view.position.add_and_bounce force( view.position , vv.position ) , @max
-      end
-      offset = 100
-      view.position.add_and_bounce force( view.position , view.position.at_x(-offset) ) , @max
-      view.position.add_and_bounce force( view.position , view.position.at_y(-offset) ) , @max
-      view.position.add_and_bounce force( view.position , view.position.at_y(@max.y + offset) ) , @max
-      view.position.add_and_bounce force( view.position , view.position.at_x(@max.x + offset) ) , @max
-    end
-  end
 
   def fill_attributes
     @view_objects.each do |i , view|
