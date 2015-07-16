@@ -6,15 +6,18 @@
     {{ page._classes.each do |c| }}
       <div class="col-md-1">
         {{ c._name }} <br/>
-
       </div>
     {{ end }}
   </div>
-
   <div class="row">
-    {{ page._registers.each do |c| }}
+    <div class="col-md-1">
+
+    </div>
+  </div>
+  <div class="row">
+    {{ page._registers.each do |r| }}
       <div class="col-md-1">
-        {{ c._name }}
+        {{ r._name }} : {{ r._content }}
       </div>
     {{ end }}
   </div>
