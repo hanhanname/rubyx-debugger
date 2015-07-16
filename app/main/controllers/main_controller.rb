@@ -1,9 +1,6 @@
-# By default Volt generates this controller for your Main component
-require "salama"
 
-if RUBY_PLATFORM == 'opal'
-  require "main/lib/main_view"
-end
+require "opal/parser" # to get eval to work
+require "salama"
 
 Virtual::Machine.boot
 
@@ -11,7 +8,12 @@ module Main
   class MainController < Volt::ModelController
 
     def index
-      MainView.new()
+      page._registers!.clear
+      page._classes!.clear
+      page._objects!.clear
+
+      fill_regs
+      parse_and_fill
     end
 
     def about
@@ -20,6 +22,34 @@ module Main
 
     private
 
+    def parse_and_fill
+      ParseTask.parse(1).then do |result|
+        is = Ast::Expression.from_basic(result)
+        Virtual::Compiler.compile( is , Virtual.machine.space.get_main )
+        begin
+          Virtual.machine.run_before Virtual::Machine::FIRST_PASS
+        rescue => e
+          puts "FILL #{e}"
+        end
+        fill_classes
+      end.fail do |error|
+        raise "Error: #{error}"
+      end
+    end
+    def fill_classes
+      Virtual.machine.space.classes.each do |name , claz|
+        next if [:Kernel,:Module,:MetaClass,:BinaryCode].index name
+        c = Volt::Model.new :name => name
+        page._classes << c
+      end
+    end
+    def fill_regs
+      register_names = (0..8).collect {|i| "r#{i}"}
+      register_names.each do |reg_name|
+        reg = Volt::Model.new :name => reg_name
+        page._registers << reg
+      end
+    end
     # The main template contains a #template binding that shows another
     # template.  This is the path to that template.  It may change based
     # on the params._component, params._controller, and params._action values.
