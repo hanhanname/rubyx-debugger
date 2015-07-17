@@ -11,7 +11,7 @@ module Main
       page._registers!.clear
       page._classes!.clear
       page._objects!.clear
-
+      page._block = BlockModel.new nil
       fill_regs
       parse_and_fill
     end
@@ -26,11 +26,7 @@ module Main
       ParseTask.parse(1).then do |result|
         is = Ast::Expression.from_basic(result)
         Virtual::Compiler.compile( is , Virtual.machine.space.get_main )
-        begin
-          Virtual.machine.run_before Virtual::Machine::FIRST_PASS
-        rescue => e
-          puts "FILL #{e}"
-        end
+        Virtual.machine.run_before "Register::CallImplementation"
         fill_classes
       end.fail do |error|
         raise "Error: #{error}"
@@ -42,6 +38,7 @@ module Main
         c = Volt::Model.new :name => name
         page._classes << c
       end
+      page._block = BlockModel.new Virtual.machine.init
     end
     def fill_regs
       register_names = (0..8).collect {|i| "r#{i}"}

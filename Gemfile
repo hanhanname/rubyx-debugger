@@ -13,8 +13,6 @@ gem 'volt-bootstrap', '~> 0.0.10'
 gem 'csso-rails', '~> 0.3.4', require: false
 gem 'uglifier', '>= 2.4.0', require: false
 
-#gem "salama" , "0.2" , :path => "../salama"
-
 gem "parslet" , path: "../parslet"
 gem "salama" , path: "../salama"
 gem "salama-reader" , path: "../salama-reader"
