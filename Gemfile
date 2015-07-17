@@ -14,7 +14,7 @@ gem 'csso-rails', '~> 0.3.4', require: false
 gem 'uglifier', '>= 2.4.0', require: false
 
 gem "parslet" , path: "../parslet"
-gem "salama" , path: "../salama"
+#gem "salama" , path: "../salama"
 gem "salama-reader" , path: "../salama-reader"
 gem "salama-object-file" , path: "../salama-object-file"
 

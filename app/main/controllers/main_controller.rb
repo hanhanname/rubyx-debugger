@@ -1,5 +1,8 @@
 
 require "opal/parser" # to get eval to work
+
+$LOAD_PATH.unshift("/Users/raisa/salama/salama-debugger/app/main/lib")
+
 require "salama"
 
 Virtual::Machine.boot
@@ -11,6 +14,7 @@ module Main
       page._registers!.clear
       page._classes!.clear
       page._objects!.clear
+      page._source = InstructionModel.new nil
       page._block = BlockModel.new nil
       fill_regs
       parse_and_fill

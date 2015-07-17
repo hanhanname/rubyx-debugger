@@ -1,6 +1,9 @@
 # database
 db
 
+#salama copied lib (for reloads)
+app/main/lib
+
 # rdoc generated
 rdoc
 

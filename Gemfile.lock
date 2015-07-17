@@ -4,13 +4,6 @@ PATH
     parslet (1.7.0)
 
 PATH
-  remote: ../salama
-  specs:
-    salama (0.2.0)
-      salama-object-file (~> 0.2)
-      salama-reader (~> 0.2)
-
-PATH
   remote: ../salama-object-file
   specs:
     salama-object-file (0.2.0)
@@ -170,7 +163,6 @@ DEPENDENCIES
   parslet!
   poltergeist (~> 1.5.0)
   rspec (~> 3.2.0)
-  salama!
   salama-object-file!
   salama-reader!
   selenium-webdriver (~> 2.43.0)
