@@ -42,7 +42,9 @@ module Main
         c = Volt::Model.new :name => name
         page._classes << c
       end
-      page._block = BlockModel.new Virtual.machine.init
+      b = Virtual.machine.init
+      page._block = BlockModel.new b
+      page._source = InstructionModel.new b.codes.first.source
     end
     def fill_regs
       register_names = (0..8).collect {|i| "r#{i}"}
