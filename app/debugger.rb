@@ -1,12 +1,16 @@
 require 'opal'
 require 'opal-jquery'
+require "opal/parser"
 require "json"
 require 'opal-react'
 
+require "salama"
 require "class_view"
 require "register_view"
 require "source_view"
 require "block_view"
+
+Virtual.machine.boot
 
 Document.ready? do  # Document.ready? is a opal-jquery method.
   React.render( React.create_element( Debugger),  Element['#content']    )
@@ -29,20 +33,27 @@ class Debugger
   # end
 
   def render
-    div do
-      ClassView classes: { :class1 => "Object"}
-      div :class => "row" do
-        div :class => "col-md-4" do
-          "Future one"
+    div :class => "container" do
+      div :class => :row do
+        div :class => "col-md-1" do
+          ClassView classes: Virtual.machine.space.classes
         end
-        div :class => "col-md-4" do
-          "Future two"
-        end
-        div :class => "col-md-4" do
-          BlockView block: [ "block 1" , "block 2"]
+        div :class => "col-md-11" do
+          div :class => "row" do
+            div :class => "col-md-4" do
+              "Future one"
+            end
+            div :class => "col-md-4" do
+              "Future two"
+            end
+            div :class => "col-md-4" do
+              BlockView block: [ "block 1" , "block 2"]
+            end
+          end
+          RegisterView registers: ["r1" , "r2"]
         end
       end
-      RegisterView registers: ["r1" , "r2"]
     end
+
   end
 end

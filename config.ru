@@ -1,6 +1,8 @@
 # config.ru
 require 'bundler'
 Bundler.require
+Opal.use_gem "salama"
+Opal.use_gem "salama-arm"
 
 require "react/source"
 
