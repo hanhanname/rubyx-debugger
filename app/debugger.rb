@@ -1,5 +1,4 @@
 require 'opal'
-require 'browser'
 require 'opal-jquery'
 require "json"
 require 'opal-react'

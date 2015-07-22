@@ -1,8 +1,6 @@
 source 'https://rubygems.org'
 
 gem 'opal-react', :path => '../react.rb'
-gem 'opal-browser'
-gem 'sinatra'
 gem 'opal-jquery'
 gem 'react-source'
 
