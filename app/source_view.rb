@@ -7,7 +7,7 @@ class SourceView
   def render
     div :class => :row  do
       "Virtual Machine Instruction".span
-      source.name
+      source
     end
   end
 

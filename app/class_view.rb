@@ -7,7 +7,7 @@ class ClassView
     div.row do
       classes.each do |name , clas|
         div.row do
-           clas.name.span
+           clas.name
         end
       end
     end
