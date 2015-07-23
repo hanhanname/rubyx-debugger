@@ -5,6 +5,6 @@ class Interpreter
   attr_accessor :registers
 
   def initialize
-    @registers = (0...12).collect{|i| "r#{i}"}
+    @registers = Hash[(0...12).collect{|i| ["r#{i}" , "undefined"]}]
   end
 end
