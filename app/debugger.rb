@@ -9,6 +9,7 @@ class Debugger
     code = Ast::ExpressionList.new( [Ast::CallSiteExpression.new(:putstring, [] ,Ast::StringExpression.new("Hello again"))])
     Virtual::Compiler.compile( code , machine.space.get_main )
     machine.run_before "Register::CallImplementation"
+    interpreter.start machine.init
   end
   def render
     div.container do
@@ -22,10 +23,10 @@ class Debugger
               "Future one"
             end
             div.col_md_8 do
-              BlockView block: machine.init
+              BlockView interpreter: interpreter
             end
           end
-          RegisterView registers: interpreter.registers
+          RegisterView interpreter: interpreter
         end
       end
     end
