@@ -9,6 +9,7 @@ require "react/source"
 
 run Opal::Server.new {|s|
   s.append_path 'app'
+  s.append_path 'lib'
   s.append_path File.dirname(::React::Source.bundled_path_for("react-with-addons.js"))
   s.main = 'debugger'
   s.debug = true
