@@ -2,10 +2,10 @@ class SourceView
 
   include React::Component
 
-  define_state :source
+  required_param :source, type: Virtual::Instruction
 
   def render
-    div :class => :row  do
+    div.row  do
       "Virtual Machine Instruction".span
       source
     end
