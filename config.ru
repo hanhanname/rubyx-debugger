@@ -1,7 +1,6 @@
 # config.ru
 require 'bundler'
 Bundler.require
-require "opal/parser"
 
 Opal.use_gem "salama"
 Opal.use_gem "salama-arm"

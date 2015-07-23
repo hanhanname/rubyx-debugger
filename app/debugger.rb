@@ -2,18 +2,8 @@
 class Debugger
 
   include React::Component
-#  required_param :machine
-  define_state  :machine => Virtual.machine.boot
-
-  before_mount do
-    code = Ast::ExpressionList.new [Ast::CallSiteExpression.new( "putstring", [], Ast::StringExpression.new("Hello again"))]
-    Virtual::Compiler.compile( code , machine.space.get_main )
-    machine.run_before "Register::CallImplementation"
-  end
-
-  def initialize
-    @interpreter = Interpreter.new
-  end
+  required_param :machine , :type => Virtual::Machine
+  define_state :interpreter  => Interpreter.new
 
   def render
     div.container do
@@ -33,7 +23,7 @@ class Debugger
               BlockView block: [ "block 1" , "block 2"]
             end
           end
-          RegisterView registers: @interpreter.registers
+          RegisterView registers: interpreter.registers
         end
       end
     end
