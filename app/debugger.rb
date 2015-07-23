@@ -1,37 +1,16 @@
-require 'opal'
-require 'opal-jquery'
-require "opal/parser"
-require "json"
-require 'opal-react'
-
-require "salama"
-require "class_view"
-require "register_view"
-require "source_view"
-require "block_view"
-require "interpreter"
-
-Virtual.machine.boot
-
-Document.ready? do  # Document.ready? is a opal-jquery method.
-  React.render( React.create_element( Debugger),  Element['#content']    )
-end
 
 class Debugger
 
   include React::Component
-#  required_param :url
-#  define_state sources: JSON.from_object(`window.initial_sources`)
+#  required_param :machine
+  define_state  :machine => Virtual.machine.boot
 
-  # before_mount do
-  #   HTTP.get(url) do |response|
-  #     if response.ok?
-  #       sources! JSON.parse(response.body)
-  #     else
-  #       puts "failed with status #{response.status_code}"
-  #     end
-  #   end
-  # end
+  before_mount do
+    code = Ast::ExpressionList.new [Ast::CallSiteExpression.new( "putstring", [], Ast::StringExpression.new("Hello again"))]
+    Virtual::Compiler.compile( code , machine.space.get_main )
+    machine.run_before "Register::CallImplementation"
+  end
+
   def initialize
     @interpreter = Interpreter.new
   end
@@ -40,7 +19,7 @@ class Debugger
     div.container do
       div.row do
         div.col_md_1 do
-          ClassView classes: Virtual.machine.space.classes
+          ClassView classes: machine.space.classes
         end
         div.col_md_11 do
           div.row do
