@@ -1,12 +1,12 @@
 class ClassView
   include React::Component
 
-  required_param :classes, type: Hash
+  required_param :classes, type: {}
 
   def render
-    div :class => "row" do
+    div.row do
       classes.each do |name , clas|
-        div :class => "row" do
+        div.row do
            clas.name.span
         end
       end

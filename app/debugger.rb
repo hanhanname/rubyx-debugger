@@ -9,6 +9,7 @@ require "class_view"
 require "register_view"
 require "source_view"
 require "block_view"
+require "interpreter"
 
 Virtual.machine.boot
 
@@ -31,26 +32,29 @@ class Debugger
   #     end
   #   end
   # end
+  def initialize
+    @interpreter = Interpreter.new
+  end
 
   def render
-    div :class => "container" do
-      div :class => :row do
-        div :class => "col-md-1" do
+    div.container do
+      div.row do
+        div.col_md_1 do
           ClassView classes: Virtual.machine.space.classes
         end
-        div :class => "col-md-11" do
-          div :class => "row" do
-            div :class => "col-md-4" do
+        div.col_md_11 do
+          div.row do
+            div.col_md_4 do
               "Future one"
             end
-            div :class => "col-md-4" do
+            div.col_md_4 do
               "Future two"
             end
-            div :class => "col-md-4" do
+            div.col_md_4 do
               BlockView block: [ "block 1" , "block 2"]
             end
           end
-          RegisterView registers: ["r1" , "r2"]
+          RegisterView registers: @interpreter.registers
         end
       end
     end
