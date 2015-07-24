@@ -50,9 +50,17 @@ class Interpreter
     name = @instruction.class.name.split("::").last
     fetch = send "execute_#{name}"
     return unless fetch
-    get_next_intruction
+    fetch_next_intruction
   end
 
+  def fetch_next_intruction
+    if(@instruction != @block.codes.last)
+      set_instruction @block.codes[  @block.codes.index(@instruction)  + 1]
+    else
+      next_b = @block.method.source.blocks.index(@block) + 1
+      set_block @block.method.source.blocks[next_b]
+    end
+  end
   def execute_Branch
     target = @instruction.block
     set_block target
