@@ -9,3 +9,8 @@ gem "salama" , path: "../salama"
 gem "salama-reader" , path: "../salama-reader"
 gem "salama-arm" , path: "../salama-arm"
 gem "salama-object-file" , path: "../salama-object-file"
+
+group :development do
+  gem "minitest"
+  gem "rubygems-tasks"
+end
