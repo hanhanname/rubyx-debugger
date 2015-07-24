@@ -11,7 +11,25 @@ class InterpreterTest < MiniTest::Test
     @interpreter.start Virtual.machine.init
   end
 
-  def test_first
-    @interpreter.tick
+  def ticks num
+    last = nil
+    num.times do
+      last = @interpreter.tick
+    end
+    return last
+  end
+  def test_takes_branch
+    was = @interpreter.block
+    ticks 1
+    assert was != @interpreter.block
+  end
+  def test_second
+    ticks 2
+    assert_equal Parfait::Space ,  Virtual.machine.objects[ @interpreter.get_register(:r1)].class
+    assert_equal Register::GetSlot ,  @interpreter.instruction.class
+    assert_equal :r1,  @interpreter.instruction.array.symbol
+  end
+  def test_third
+    assert ticks 4
   end
 end

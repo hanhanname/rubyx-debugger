@@ -31,6 +31,7 @@ class Interpreter
   def set_instruction i
     return if @instruction == i
     raise "Error, nil instruction" unless i
+    puts "next up #{i.class}"
     old = @instruction
     @instruction = i
     trigger(:instruction_changed, old , i)
@@ -65,6 +66,12 @@ class Interpreter
       set_block @block.method.source.blocks[next_b]
     end
   end
+
+  def object_for reg
+    id = get_register(reg)
+    object = Virtual.machine.objects[id]
+  end
+  # Instruction interpretation starts here
   def execute_Branch
     target = @instruction.block
     set_block target
@@ -76,4 +83,17 @@ class Interpreter
     set_register( to , value )
     true
   end
+  def execute_GetSlot
+    object = object_for( @instruction.array )
+    value = object.internal_object_get( @instruction.index )
+    set_register( @instruction.register , value )
+    true
+  end
+  def execute_SetSlot
+    object = object_for( @instruction.register )
+    value = object_for( @instruction.array )
+    object.internal_object_set( @instruction.index , value )
+    true
+  end
+
 end
