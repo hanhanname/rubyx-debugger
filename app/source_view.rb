@@ -6,8 +6,8 @@ class SourceView
 
   def render
     div.row  do
-      "Virtual Machine Instruction".span
-      source
+      "Virtual Machine Instruction".br
+      source.class.name
     end
   end
 

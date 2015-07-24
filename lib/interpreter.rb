@@ -36,7 +36,8 @@ class Interpreter
   end
 
   def execute_Branch
-    target = @instruction.to
+    target = @instruction.block
     set_block target
+    false
   end
 end
