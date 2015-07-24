@@ -35,7 +35,7 @@ run DebugServer.new {|s|
   s.append_path 'lib'
   s.append_path File.dirname(::React::Source.bundled_path_for("react-with-addons.js"))
   s.main = 'main'
-  s.debug = true
+  s.debug = false
   s.source_map = true
   s.index_path = "index.html.erb"
 }
