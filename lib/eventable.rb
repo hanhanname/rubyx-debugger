@@ -3,17 +3,19 @@
 module Eventable
 
   # Register a handler for the given event name.
+  # The event name is the method name called on the handler object
   #
-  #   obj.on(:foo) { puts "foo was called" }
+  #   obj.on(:foo , some_object_that_implements foo( whateverargs)
   #
   # @param [String, Symbol] name event name
+  # @param [Object] object handling the event, ie implement the function name
   # @return handler
-  def on(name, &handler)
+  def register_event(name, handler)
     event_table[name] << handler
     handler
   end
 
-  def off(name, handler)
+  def unregister_event(name, handler)
     event_table[name].delete handler
   end
 
@@ -30,6 +32,6 @@ module Eventable
   #
   # @param [String, Symbol] name event name to trigger
   def trigger(name, *args)
-    event_table[name].each { |handler| handler.call(*args) }
+    event_table[name].each { |handler| handler.send( name.to_sym , *args) }
   end
 end

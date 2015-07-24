@@ -17,18 +17,26 @@ class Interpreter
   end
   def set_block block
     return if @block == block
+    old = @block
     @block = block
-    trigger(:block, block)
-    set_instruction block.codes.first
+     trigger(:block_changed , old , block)
+     set_instruction block.codes.first
   end
   def set_instruction i
     return if @instruction == i
+    old = @instruction
     @instruction = i
-    trigger(:instruction, i)
+    trigger(:instruction_changed, old , i)
   end
   def tick
     name = @instruction.class.name.split("::").last
-    send "execute_#{name}"
+    fetch = send "execute_#{name}"
+    return unless fetch
+    get_next_intruction
   end
 
+  def execute_Branch
+    target = @instruction.to
+    set_block target
+  end
 end
