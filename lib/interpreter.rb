@@ -9,7 +9,10 @@ class Interpreter
   attr_accessor :registers
 
   def initialize
-    @registers = Hash[(0...12).collect{|i| ["r#{i}" , "undefined"]}]
+    @registers = {}
+    (0...12).each do |r|
+      set_register "r#{r}".to_sym , "undefined"
+    end
   end
 
   def start bl
@@ -34,7 +37,7 @@ class Interpreter
   end
 
   def get_register( reg )
-    reg = reg.symbol if  reg.is_a? Register::RegisterReference
+    reg = reg.symbol if reg.is_a? Register::RegisterReference
     raise "Not a register #{reg}" unless Register::RegisterReference.look_like_reg(reg)
     @registers[reg]
   end
@@ -42,6 +45,7 @@ class Interpreter
   def set_register reg , val
     old = get_register( reg ) # also ensures format
     return if old === val
+    reg = reg.symbol if reg.is_a? Register::RegisterReference
     @registers[reg] = val
     trigger(:register_changed, reg ,  old , val)
   end
