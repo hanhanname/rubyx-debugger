@@ -10,10 +10,15 @@ class InstructionView
 
   before_mount do
     interpreter.register_event(:instruction_changed,  self)
+    check_active interpreter.instruction
   end
 
+  def check_active i
+    active! instruction == i ? "active" : ""
+
+  end
   def instruction_changed old , ins
-    active! instruction == ins ? "active" : ""
+    check_active ins
   end
 
   def render
