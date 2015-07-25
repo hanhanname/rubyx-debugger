@@ -1,5 +1,6 @@
 
 require "source_view"
+require "instruction_view"
 
 class BlockView
 
@@ -26,7 +27,7 @@ class BlockView
       div.col_md_5 do
         h6 { "Block: #{block.name}"}
         block.codes.each do |code|
-          code.to_s.br
+          InstructionView  :interpreter => interpreter , :instruction => code
         end
       end
       div.col_md_2 do
