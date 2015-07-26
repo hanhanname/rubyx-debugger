@@ -7,9 +7,11 @@ class Interpreter
   attr_accessor :instruction
   attr_accessor :link
   attr_accessor :block
-  attr_accessor :registers
+  attr_reader :registers
+  attr_reader :stdout
 
   def initialize
+    @stdout = ""
     @registers = {}
     (0...12).each do |r|
       set_register "r#{r}".to_sym , "undefined"
@@ -32,7 +34,6 @@ class Interpreter
   def set_instruction i
     return if @instruction == i
     raise "Error, nil instruction" unless i
-    puts "next up #{i.class}"
     old = @instruction
     @instruction = i
     trigger(:instruction_changed, old , i)
@@ -70,8 +71,9 @@ class Interpreter
 
   def object_for reg
     id = get_register(reg)
-    object = Virtual.machine.objects[id]
+    Virtual.machine.objects[id]
   end
+
   # Instruction interpretation starts here
   def execute_Branch
     target = @instruction.block
@@ -95,8 +97,8 @@ class Interpreter
   end
 
   def execute_SetSlot
-    object = object_for( @instruction.register )
-    value = object_for( @instruction.array )
+    value = object_for( @instruction.register )
+    object = object_for( @instruction.array )
     object.internal_object_set( @instruction.index , value )
     true
   end
@@ -116,8 +118,21 @@ class Interpreter
 
   def execute_SaveReturn
     object = object_for @instruction.register
+    raise "save return has nothing to save" unless @link
     object.internal_object_set @instruction.index , @link
     true
   end
 
+  def execute_Syscall
+    name = @instruction.name
+    case name
+    when :putstring
+      str = object_for( :r1 ) # should test length, ie r2
+      raise "NO string for putstring #{str}" unless str.is_a? Symbol
+      @stdout += str.to_s
+    else
+      raise "un-implemented syscall #{name}"
+    end
+    true
+  end
 end
