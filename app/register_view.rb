@@ -27,6 +27,8 @@ class RegisterView
               end
               object.get_instance_variables.each do |variable|
                 div.col_md_12 do
+                  ## deal with String
+                  ## even better, make ObjectView
                   object.get_instance_variable(variable).to_s.span
                 end
               end

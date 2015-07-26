@@ -7,26 +7,35 @@ class BlockView
   include React::Component
   required_param :interpreter
 
-  define_state :block
+  define_state :block => []
+  define_state :block_name => ""
 
   before_mount do
-    interpreter.register_event(:block_changed,  self)
-    block! interpreter.block
+    interpreter.register_event(:instruction_changed,  self)
+    update_block
   end
 
-  def block_changed old , bl
-    block! bl
+  def update_block
+    block_name! interpreter.block.name
+    codes = interpreter.block.codes.dup
+    codes.shift while( codes.index(interpreter.instruction) > 1 )
+    codes.pop while(codes.length > 4)
+    block! codes
+  end
+
+  def instruction_changed
+    update_block
   end
 
   def render
     return unless block
     div.row  do
       div.col_md_5 do
-        SourceView  :source => block.codes.first.source
+        SourceView  :source => interpreter.instruction.source
       end
       div.col_md_5 do
-        h6 { "Block: #{block.name}"}
-        block.codes.each do |code|
+        h6 { "Block: #{block_name}"}
+        block.each do |code|
           InstructionView  :interpreter => interpreter , :instruction => code
         end
       end
