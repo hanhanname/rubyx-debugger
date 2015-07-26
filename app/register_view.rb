@@ -26,9 +26,10 @@ class RegisterView
       has_fields = []
       clazz = object.class.name.split("::").last
       puts "found #{clazz}"
-      has_fields <<  clazz
+      has_fields << clazz
       object.get_instance_variables.each do |variable|
-        has_fields << object.get_instance_variable(variable).to_s
+        f = object.get_instance_variable(variable)
+        has_fields << f
       end
       fields! has_fields
     end
@@ -39,12 +40,15 @@ class RegisterView
       div.col_md_12 do
         objects_id.to_s
       end
-      fields.each do |variable|
+      fields.each do |attribute|
         div.col_md_12 do
-          variable.span
+          "#{marker(attribute)} - #{attribute.object_id}".span
         end
       end
     end
   end
 
+  def marker var
+    var.class.name.split("::").last[0]
+  end
 end

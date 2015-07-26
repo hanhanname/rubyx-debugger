@@ -18,7 +18,8 @@ class BlockView
   def update_block
     block_name! interpreter.block.name
     codes = interpreter.block.codes.dup
-    codes.shift while( codes.index(interpreter.instruction) > 1 )
+    slice = codes.index(interpreter.instruction) - 1
+    codes.shift( slice ) if slice >= 0
     codes.pop while(codes.length > 4)
     block! codes
   end

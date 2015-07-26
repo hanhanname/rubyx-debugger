@@ -9,7 +9,6 @@ class InstructionView
   define_state :active => ""
 
   before_mount do
-    interpreter.register_event(:instruction_changed,  self)
     check_active interpreter.instruction
   end
 
