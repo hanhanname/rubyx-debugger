@@ -2,12 +2,22 @@
 require "eventable"
 
 class Interpreter
+  # fire events for changed pc and register contents
   include Eventable
 
-  attr_accessor :instruction
-  attr_accessor :link
-  attr_accessor :block
+  # current instruction or pc
+  attr_reader :instruction
+
+  # an (arm style) link register. store the return address to return to
+  attr_reader :link
+
+  # current executing block. since this is not a hardware simulator this is luxury
+  attr_reader :block
+
+  # the registers, 12
   attr_reader :registers
+
+  # collect the output
   attr_reader :stdout
 
   def initialize
@@ -54,6 +64,7 @@ class Interpreter
   end
 
   def tick
+    return unless @instruction
     name = @instruction.class.name.split("::").last
     fetch = send "execute_#{name}"
     return unless fetch
@@ -130,9 +141,21 @@ class Interpreter
       str = object_for( :r1 ) # should test length, ie r2
       raise "NO string for putstring #{str}" unless str.is_a? Symbol
       @stdout += str.to_s
+    when :exit
+      @instruction = nil
+      return false
     else
       raise "un-implemented syscall #{name}"
     end
+    true
+  end
+
+  def execute_FunctionReturn
+    object = object_for( @instruction.register )
+    #wouldn't need to assign to link, but makes tsting easier
+    @link = object.internal_object_get( @instruction.index )
+    @block , @instruction = @link
+    # we jump back to the call instruction. so it is as if the call never happened and we continue
     true
   end
 end
