@@ -6,10 +6,6 @@ require "interpreter"
 
 require 'opal-react'
 
-require "class_view"
-require "register_view"
-require "source_view"
-require "block_view"
 require "debugger"
 
 require 'opal-jquery'

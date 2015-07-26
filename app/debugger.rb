@@ -1,4 +1,9 @@
 
+require "register_view"
+require "class_view"
+require "source_view"
+require "block_view"
+
 class Debugger
 
   include React::Component
@@ -26,7 +31,13 @@ class Debugger
               BlockView interpreter: interpreter
             end
           end
-          RegisterView interpreter: interpreter
+          div.row do
+            interpreter.registers.each do |r , oid|
+              div.col_md_1 do
+                RegisterView interpreter: interpreter , register: r
+              end
+            end
+          end
         end
       end
     end
