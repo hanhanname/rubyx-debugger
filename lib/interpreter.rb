@@ -5,6 +5,7 @@ class Interpreter
   include Eventable
 
   attr_accessor :instruction
+  attr_accessor :link
   attr_accessor :block
   attr_accessor :registers
 
@@ -24,8 +25,8 @@ class Interpreter
     raise "Error, nil block" unless bl
     old = @block
     @block = bl
-     trigger(:block_changed , old , bl)
-     set_instruction bl.codes.first
+    trigger(:block_changed , old , bl)
+    set_instruction bl.codes.first
   end
 
   def set_instruction i
@@ -77,22 +78,45 @@ class Interpreter
     set_block target
     false
   end
+
   def execute_LoadConstant
     to = @instruction.register
     value = @instruction.constant.object_id
     set_register( to , value )
     true
   end
+
   def execute_GetSlot
     object = object_for( @instruction.array )
     value = object.internal_object_get( @instruction.index )
+    value = value.object_id unless value.is_a? Integer
     set_register( @instruction.register , value )
     true
   end
+
   def execute_SetSlot
     object = object_for( @instruction.register )
     value = object_for( @instruction.array )
     object.internal_object_set( @instruction.index , value )
+    true
+  end
+
+  def execute_RegisterTransfer
+    value = get_register @instruction.from
+    set_register @instruction.to , value
+    true
+  end
+
+  def execute_FunctionCall
+    @link = [@block , @instruction]
+    next_block = @instruction.method.source.blocks.first
+    set_block next_block
+    false
+  end
+
+  def execute_SaveReturn
+    object = object_for @instruction.register
+    object.internal_object_set @instruction.index , @link
     true
   end
 
