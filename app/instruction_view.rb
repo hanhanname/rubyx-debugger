@@ -13,7 +13,7 @@ class InstructionView
   end
 
   def check_active i
-    active! instruction == i ? "active" : ""
+    active! instruction == i ? "bright" : ""
 
   end
   def instruction_changed old , ins
@@ -21,9 +21,8 @@ class InstructionView
   end
 
   def render
-    return unless instruction
     div :class => active do
-      instruction.to_s
+      instruction.to_s if instruction
     end
   end
 end

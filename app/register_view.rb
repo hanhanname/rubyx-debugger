@@ -20,12 +20,12 @@ class RegisterView
   end
 
   def calc_fields
-    puts "My id #{objects_id} , #{objects_id.class}"
+    #puts "My id #{objects_id} , #{objects_id.class}"
     object = Virtual.machine.objects[objects_id]
     if object and ! object.is_a?(String)
       has_fields = []
       clazz = object.class.name.split("::").last
-      puts "found #{clazz}"
+      #puts "found #{clazz}"
       has_fields << clazz
       object.get_instance_variables.each do |variable|
         f = object.get_instance_variable(variable)
@@ -36,8 +36,8 @@ class RegisterView
   end
 
   def render
-    div.row do
-      div.col_md_12 do
+    div.register_view do
+      div do
         objects_id.to_s
       end
       fields.each do |attribute|

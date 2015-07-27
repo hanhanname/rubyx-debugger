@@ -50,9 +50,12 @@ GEM
     rack (1.6.4)
     react-source (0.13.3)
     rubygems-tasks (0.2.4)
+    sass (3.4.16)
     sourcemap (0.1.1)
     sprockets (3.2.0)
       rack (~> 1.0)
+    susy (2.2.5)
+      sass (>= 3.3.0, < 3.5)
     tilt (2.0.1)
 
 PLATFORMS
@@ -69,6 +72,7 @@ DEPENDENCIES
   salama-arm!
   salama-object-file!
   salama-reader!
+  susy
 
 BUNDLED WITH
    1.10.5

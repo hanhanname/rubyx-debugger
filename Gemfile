@@ -9,6 +9,7 @@ gem "salama" , path: "../salama"
 gem "salama-reader" , path: "../salama-reader"
 gem "salama-arm" , path: "../salama-arm"
 gem "salama-object-file" , path: "../salama-object-file"
+gem "susy"
 
 group :development do
   gem "minitest"

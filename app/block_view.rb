@@ -30,18 +30,13 @@ class BlockView
 
   def render
     return unless block
-    div.row  do
-      div.col_md_5 do
-        SourceView  :source => interpreter.instruction.source
-      end
-      div.col_md_5 do
-        h6 { "Block: #{block_name}"}
-        block.each do |code|
-          InstructionView  :interpreter => interpreter , :instruction => code
-        end
-      end
-      div.col_md_2 do
+    div.block_view do
+      div do
+        h4 {"Block: #{block_name}"}
         button.btn.btn_default { "next" }.on(:click) { interpreter.tick }
+      end
+      block.each do |code|
+        InstructionView  :interpreter => interpreter , :instruction => code
       end
     end
   end

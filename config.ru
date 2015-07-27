@@ -6,6 +6,7 @@ Opal.use_gem "salama"
 Opal.use_gem "salama-arm"
 
 require "tilt/erb"
+require "susy"
 require "json"
 require "react/source"
 

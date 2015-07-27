@@ -1,0 +1,30 @@
+@import "susy";
+
+.debugger-view { @include container(80em); }
+
+.classes { @include span(2 of 12); }
+
+.file-view { @include span(3 of 12); }
+
+.source-view { @include span(3 of 12); }
+
+.block-view {
+  @include span(4 of 12 at 9);
+  height: 200px;
+}
+
+.registers-view {
+  @include span(10 of 12 at 3);
+}
+
+.register-view {
+  @include span(1 of 13);
+}
+
+.half {
+  @include span(5 of 12);
+}
+
+.bright {
+  background-color: orange ;
+}

@@ -17,27 +17,16 @@ class Debugger
     interpreter.start machine.init
   end
   def render
-    div.container do
-      div.row do
-        div.col_md_1 do
-          ClassView classes: machine.space.classes
-        end
-        div.col_md_11 do
-          div.row do
-            div.col_md_4 do
-              "Future one"
-            end
-            div.col_md_8 do
-              BlockView interpreter: interpreter
-            end
-          end
-          div.row do
-            interpreter.registers.each do |r , oid|
-              div.col_md_1 do
-                RegisterView interpreter: interpreter , register: r
-              end
-            end
-          end
+    div.debugger_view do
+      ClassView classes: machine.space.classes
+      div.file_view do
+        "Future Source code view"
+      end
+      SourceView  :interpreter => interpreter
+      BlockView :interpreter => interpreter
+      div.registers_view do
+        interpreter.registers.each do |r , oid|
+          RegisterView interpreter: interpreter , register: r
         end
       end
     end
