@@ -20,7 +20,10 @@ class Interpreter
   # collect the output
   attr_reader :stdout
 
+  attr_reader :state
+
   def initialize
+    @state = "runnnig"
     @stdout = ""
     @registers = {}
     (0...12).each do |r|
@@ -42,8 +45,8 @@ class Interpreter
   end
 
   def set_instruction i
+    @state = "exited" unless i
     return if @instruction == i
-    raise "Error, nil instruction" unless i
     old = @instruction
     @instruction = i
     trigger(:instruction_changed, old , i)
@@ -142,7 +145,7 @@ class Interpreter
       raise "NO string for putstring #{str}" unless str.is_a? Symbol
       @stdout += str.to_s
     when :exit
-      @instruction = nil
+      set_instruction(nil)
       return false
     else
       raise "un-implemented syscall #{name}"

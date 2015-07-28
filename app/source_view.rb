@@ -12,7 +12,7 @@ class SourceView
   end
 
   def instruction_changed old , ins
-    text = source_text(ins.source)
+    text = ins ? source_text(ins.source) : "exit"
     return if sources.last == text
     sources << text
     sources.shift if sources.length > 5

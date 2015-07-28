@@ -1,5 +1,4 @@
 
-require "source_view"
 require "instruction_view"
 
 class BlockView
@@ -16,6 +15,7 @@ class BlockView
   end
 
   def update_block
+    return unless interpreter.instruction
     block_name! interpreter.block.name
     codes = interpreter.block.codes.dup
     slice = codes.index(interpreter.instruction) #- 1
@@ -32,12 +32,18 @@ class BlockView
     return unless block
     div.block_view do
       div do
+        h4 { method_name}
         h4 {"Block: #{block_name}"}
-        button.btn.btn_default { "next" }.on(:click) { interpreter.tick }
       end
       block.each do |code|
         InstructionView  :interpreter => interpreter , :instruction => code
       end
     end
+  end
+
+  def method_name
+    bl = interpreter.block
+    return bl.method if bl.method.is_a? String
+    "#{bl.method.for_class.name}.#{bl.method.name}"
   end
 end

@@ -3,6 +3,7 @@ require "register_view"
 require "class_view"
 require "source_view"
 require "block_view"
+require "status_view"
 
 class Debugger
 
@@ -24,6 +25,7 @@ class Debugger
       end
       SourceView  :interpreter => interpreter
       BlockView :interpreter => interpreter
+      StatusView :interpreter => interpreter
       div.registers_view do
         interpreter.registers.each do |r , oid|
           RegisterView interpreter: interpreter , register: r
