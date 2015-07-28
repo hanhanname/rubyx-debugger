@@ -23,7 +23,7 @@ class StatusView
   def render
     div.status_view do
       div do
-        button.btn.btn_default { "next" }.on(:click) { interpreter.tick }
+        button.bright { "next" }.on(:click) { interpreter.tick }
         " ".br
       end
       div do
