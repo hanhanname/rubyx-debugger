@@ -1,28 +1,37 @@
 @import "susy";
 
-.debugger-view { @include container(80em); }
+$susy: (
+  columns: 24 ,
+  gutter-position: split ,
+);
 
-.classes { @include span(2 of 12); }
+.debugger-view { @include container(90%); }
 
-.file-view { @include span(3 of 12); }
+.classes { @include span(3); }
 
-.source-view { @include span(3 of 12); }
+.file-view {
+  @include span(4); 
+  margin: span(1);
+}
+
+.source-view { @include span(6); }
 
 .block-view {
-  @include span(4 of 12 at 9);
+  @include span(4);
+  margin-right: span(3);
   height: 200px;
 }
 
+.status-view {
+  @include span(2 at 22);
+}
+
 .registers-view {
-  @include span(10 of 12 at 3);
+  @include span(20 at 3);
 }
 
 .register-view {
-  @include span(1 of 13);
-}
-
-.half {
-  @include span(5 of 12);
+  @include gallery(2);
 }
 
 .bright {
