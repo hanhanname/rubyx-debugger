@@ -4,12 +4,14 @@ After some tryouts it ended up being an Opal application. That is ruby as javasc
 
 ![Debugger](https://raw.githubusercontent.com/salama/salama-debugger/master/static/debugger.png)
 
-- On the left are the claases of the system. Next idea is to have hover info about them.
-- Middle is in three sections of source, only last really working
-- last section, current block with current instruction highlighted
+- On the left are the classes of the system. Next idea is to have hover info about them.
+- Next a source code view (not implemented)
+- next a view of the Virtual Instructions
+- last section, current block with current Register Instruction highlighted
 - step (next) button for single stepping
+- status: starting , running , exited
 - bottom row are the registers. If the register hold an object the variables are shown.
-    (also should have hoer info)
+    (also should have hover info) , the first letter indicates the class, the number is the address
 
 So lots to do, but a good start.
 
