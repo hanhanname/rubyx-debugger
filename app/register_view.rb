@@ -10,12 +10,21 @@ class RegisterView
 
   before_mount do
     interpreter.register_event(:register_changed,  self)
+    interpreter.register_event(:object_changed,  self)
     register_changed( register , nil , interpreter.registers[register])
   end
 
   def register_changed reg , old , value
+    reg = reg.symbol unless reg.is_a? Symbol
     return unless reg == register
     objects_id! value
+    calc_fields
+  end
+
+  def object_changed reg
+    reg = reg.symbol unless reg.is_a? Symbol
+    return unless reg == register
+    puts "Object changed in #{reg}"
     calc_fields
   end
 
@@ -49,6 +58,7 @@ class RegisterView
   end
 
   def marker var
+    return "W" if var.is_a? String
     var.class.name.split("::").last[0]
   end
 end

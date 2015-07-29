@@ -10,7 +10,7 @@ $susy: (
 .classes { @include span(3); }
 
 .file-view {
-  @include span(4); 
+  @include span(4);
   margin: span(1);
 }
 
@@ -31,7 +31,8 @@ $susy: (
 }
 
 .register-view {
-  @include gallery(2);
+  @include gallery(3);
+  margin-top: 10px;
 }
 
 .bright {

@@ -26,8 +26,8 @@ class Interpreter
     @state = "runnnig"
     @stdout = ""
     @registers = {}
-    (0...12).each do |r|
-      set_register "r#{r}".to_sym , "undefined"
+    (0...16).each do |r|
+      set_register "r#{r}".to_sym , "r#{r}:unknown"
     end
   end
 
@@ -114,6 +114,7 @@ class Interpreter
     value = object_for( @instruction.register )
     object = object_for( @instruction.array )
     object.internal_object_set( @instruction.index , value )
+    trigger(:object_changed, @instruction.register )
     true
   end
 
@@ -133,6 +134,7 @@ class Interpreter
   def execute_SaveReturn
     object = object_for @instruction.register
     raise "save return has nothing to save" unless @link
+    trigger(:object_changed, @instruction.register )
     object.internal_object_set @instruction.index , @link
     true
   end
