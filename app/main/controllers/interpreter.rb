@@ -1,5 +1,5 @@
 
-require "eventable"
+require_relative "eventable"
 
 class Interpreter
   # fire events for changed pc and register contents

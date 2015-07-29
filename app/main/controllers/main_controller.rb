@@ -1,11 +1,12 @@
 # By default Volt generates this controller for your Main component
+require "salama"
+require_relative "interpreter"
+
 module Main
   class MainController < Volt::ModelController
     def index
-#      code = Ast::ExpressionList.new( [Ast::CallSiteExpression.new(:putstring, [] ,Ast::StringExpression.new("Hello again"))])
-#      Virtual::Compiler.compile( code , machine.space.get_main )
-#      machine.run_before "Register::CallImplementation"
-#      interpreter.start machine.init
+      init_machine
+      init_classes
     end
 
     def about
@@ -13,7 +14,22 @@ module Main
     end
 
     private
-
+    def init_machine
+      machine = Virtual.machine.boot
+      machine.run_before "Register::CallImplementation"
+      code = Ast::ExpressionList.new( [Ast::CallSiteExpression.new(:putstring, [] ,Ast::StringExpression.new("Hello again"))])
+      Virtual::Compiler.compile( code , machine.space.get_main )
+      @interpreter = Interpreter.new
+      @interpreter.start machine.init
+    end
+    def init_classes
+      page._classes!.clear
+      Virtual.machine.space.classes.each do |name , claz|
+        next if [:Kernel,:Module,:MetaClass,:BinaryCode].index name
+        c = Volt::Model.new :name => name
+        page._classes << c
+      end
+    end
     # The main template contains a #template binding that shows another
     # template.  This is the path to that template.  It may change based
     # on the params._component, params._controller, and params._action values.
