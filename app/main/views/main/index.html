@@ -50,7 +50,14 @@
     </div>
 
     <div class="registers-view">
-      registers.each do |r , oid|
-        RegisterView interpreter: interpreter , register: r
-      end
+      {{ page._registers.each do |reg| }}
+        <div class="register-view">
+          <div>
+            {{ reg._name }}
+          </div>
+          <div>
+            {{ reg._value }}
+          </div>
+        </div>
+      {{end}}
     </div>

@@ -7,6 +7,7 @@ module Main
     def index
       init_machine
       init_classes
+      init_registers
     end
 
     def about
@@ -21,6 +22,14 @@ module Main
       Virtual::Compiler.compile( code , machine.space.get_main )
       @interpreter = Interpreter.new
       @interpreter.start machine.init
+    end
+    def init_registers
+      page._registers!.clear
+      @interpreter.registers.each do |reg , val|
+        r = Volt::Model.new :name => reg
+        r._value = val
+        page._registers << r
+      end
     end
     def init_classes
       page._classes!.clear
