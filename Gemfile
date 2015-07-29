@@ -1,31 +1,16 @@
 source 'https://rubygems.org'
 
-gem 'volt', '0.9.4'
+gem 'volt', '0.9.5.pre3'
 
 # volt uses mongo as the default data store.
 gem 'volt-mongo', '~> 0.1.0'
 
-# The following gem's are optional for themeing
-# Twitter bootstrap
-gem 'volt-bootstrap', '~> 0.0.10'
-
-# Simple theme for bootstrap, remove to theme yourself.
-gem 'volt-bootstrap_jumbotron_theme', '~> 0.1.0'
-
-# User templates for login, signup, and logout menu.
-gem 'volt-user_templates', '~> 0.4.0'
-
-# Add ability to send e-mail from apps.
-gem 'volt-mailer', '~> 0.1.0'
-
-# Use rbnacl for message bus encrpytion
-# (optional, if you don't need encryption, disable in app.rb and remove)
-#
-# Message Bus encryption is not supported on Windows at the moment.
-platform :ruby, :jruby do
-  gem 'rbnacl', require: false
-  gem 'rbnacl-libsodium', require: false
-end
+gem "parslet" , path: "../parslet"
+gem "salama" , path: "../salama"
+gem "salama-reader" , path: "../salama-reader"
+gem "salama-arm" , path: "../salama-arm"
+gem "salama-object-file" , path: "../salama-object-file"
+gem "susy" , "2.2.5"
 
 # Asset compilation gems, they will be required when needed.
 gem 'csso-rails', '~> 0.3.4', require: false
