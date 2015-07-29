@@ -2,7 +2,10 @@
 module Main
   class MainController < Volt::ModelController
     def index
-      # Add code for when the index view is loaded
+      code = Ast::ExpressionList.new( [Ast::CallSiteExpression.new(:putstring, [] ,Ast::StringExpression.new("Hello again"))])
+      Virtual::Compiler.compile( code , machine.space.get_main )
+      machine.run_before "Register::CallImplementation"
+      interpreter.start machine.init
     end
 
     def about

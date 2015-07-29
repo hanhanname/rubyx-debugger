@@ -2,5 +2,51 @@
   Home
 
 <:Body>
-  <h1>Home</h1>
 
+  <div class="debugger_view">
+    ClassView classes: machine.space.classes
+    <div class="file_view">
+      "Future Source code view"
+    </div>
+
+    <div class="source_view">
+      <h4> Virtual Machine Instruction </h4>
+      page.sources.each do |s|
+        <br> s </br>
+      end
+    </div>
+
+    <div class="block_view">
+      <div>
+        <h4> method_name </h4>
+        <h4> Block: #{block_name} </h4>
+      </div>
+      block.each do |code|
+        InstructionView  :interpreter => interpreter , :instruction => code
+      end
+    </div>
+
+    <div class="status_view">
+      <div>
+        button.bright { "next" }.on(:click) { interpreter.tick }
+        " ".br
+      </div>
+      <div>
+        <h4> Status </h4>
+        <br> state.to_s </br>
+      </div>
+      <div>
+        <h4> Stdout </h4>
+      </div>
+      <div>
+        <br> interpreter.stdout </br>
+      </div>
+    </div>
+
+    <div class="registers_view">
+      registers.each do |r , oid|
+        RegisterView interpreter: interpreter , register: r
+      end
+    </div>
+
+  </div>
