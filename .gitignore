@@ -1,42 +1,9 @@
-# database
-db
-
-# rdoc generated
-rdoc
-
-# yard generated
-doc
-.yardoc
-
-# bundler
 .bundle
-*.gem
-
-# jeweler generated
-pkg
-
-#
-# Not sure what to needs to be ignored for particular editors/OSes? Here's some ideas to get you started. (Remember, remove the leading # of the line)
-#
-# For MacOS:
-#
+.config
+.yardoc
+tmp
+.idea
+.yardoc
+.sass-cache
 .DS_Store
-
-# For TextMate
-#*.tmproj
-#tmtags
-
-# For emacs:
-#*~
-#\#*
-#.\#*
-
-# For vim:
-#*.swp
-
-
-# Object files
-*.o
-log
-
-tmp/
+compiled
