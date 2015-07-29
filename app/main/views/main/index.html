@@ -3,20 +3,19 @@
 
 <:Body>
 
-  <div class="debugger_view">
     ClassView classes: machine.space.classes
-    <div class="file_view">
+    <div class="file-view">
       "Future Source code view"
     </div>
 
-    <div class="source_view">
+    <div class="source-view">
       <h4> Virtual Machine Instruction </h4>
       page.sources.each do |s|
         <br> s </br>
       end
     </div>
 
-    <div class="block_view">
+    <div class="block-view">
       <div>
         <h4> method_name </h4>
         <h4> Block: #{block_name} </h4>
@@ -26,7 +25,7 @@
       end
     </div>
 
-    <div class="status_view">
+    <div class="status-view">
       <div>
         button.bright { "next" }.on(:click) { interpreter.tick }
         " ".br
@@ -43,10 +42,8 @@
       </div>
     </div>
 
-    <div class="registers_view">
+    <div class="registers-view">
       registers.each do |r , oid|
         RegisterView interpreter: interpreter , register: r
       end
     </div>
-
-  </div>
