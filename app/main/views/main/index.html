@@ -19,33 +19,32 @@
       <h4> Virtual Machine Instruction </h4>
       page.sources.each do |s|
         <br> s </br>
-      end
     </div>
 
     <div class="block-view">
       <div>
-        <h4> method_name </h4>
-        <h4> Block: #{block_name} </h4>
+        <h4> {{page._method_name}} </h4>
+        <h4> Block: {{page._block_name}} </h4>
       </div>
-      block.each do |code|
-        InstructionView  :interpreter => interpreter , :instruction => code
-      end
+      {{ page._blocks.each do |b| }}
+        <div class="{{b._class_name}}">
+          {{b._string}}
+      {{ end }}
     </div>
 
     <div class="status-view">
       <div>
         button.bright { "next" }.on(:click) { interpreter.tick }
-        " ".br
       </div>
       <div>
         <h4> Status </h4>
-        <br> state.to_s </br>
+        <br> {{@interpreter.state}} </br>
       </div>
       <div>
         <h4> Stdout </h4>
       </div>
       <div>
-        <br> interpreter.stdout </br>
+        <br> {{@interpreter.stdout}} </br>
       </div>
     </div>
 
@@ -53,10 +52,10 @@
       {{ page._registers.each do |reg| }}
         <div class="register-view">
           <div>
-            {{ reg._name }}
+            {{ reg.name }}
           </div>
           <div>
-            {{ reg._value }}
+            {{ reg.value }}
           </div>
         </div>
       {{end}}

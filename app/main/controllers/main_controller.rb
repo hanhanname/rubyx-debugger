@@ -2,12 +2,14 @@
 require "salama"
 require_relative "interpreter"
 
+
 module Main
   class MainController < Volt::ModelController
     def index
       init_machine
       init_classes
       init_registers
+      init_blocks
     end
 
     def about
@@ -26,9 +28,7 @@ module Main
     def init_registers
       page._registers!.clear
       @interpreter.registers.each do |reg , val|
-        r = Volt::Model.new :name => reg
-        r._value = val
-        page._registers << r
+        page._registers <<  RegisterModel.new( :name => reg , :value => val)
       end
     end
     def init_classes
@@ -38,6 +38,11 @@ module Main
         c = Volt::Model.new :name => name
         page._classes << c
       end
+    end
+    def init_blocks
+      blocks = BlocksModel.new
+      page._blocks = blocks
+      @interpreter.register_event(:instruction_changed,  blocks)
     end
     # The main template contains a #template binding that shows another
     # template.  This is the path to that template.  It may change based
