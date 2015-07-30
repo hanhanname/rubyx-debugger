@@ -10,19 +10,41 @@ module Main
       init_classes
       init_registers
       init_blocks
+      init_source
     end
 
+    def tick
+      @interpreter.tick
+      update_interpreter
+    end
+    def update_interpreter
+      page._interpreter._clock = @interpreter.clock
+      page._interpreter._state = @interpreter.state
+      page._interpreter._stdout = @interpreter.stdout
+      page._interpreter._link = @interpreter.link.to_s
+      page._method_name = method_name
+      page._block_name = @interpreter.block ? @interpreter.block.name : " "
+    end
     private
     def marker var
       return "W" if var.is_a? String
       var.class.name.split("::").last[0]
     end
+    def method_name
+      bl = @interpreter.block
+      return " " unless bl
+      return bl.method if bl.method.is_a? String
+      "#{bl.method.for_class.name}.#{bl.method.name}"
+    end
+
     def init_machine
       machine = Virtual.machine.boot
       code = Ast::ExpressionList.new( [Ast::CallSiteExpression.new(:putstring, [] ,Ast::StringExpression.new("Hello again"))])
       Virtual::Compiler.compile( code , machine.space.get_main )
       machine.run_before "Register::CallImplementation"
       @interpreter = Interpreter.new
+      page._interpreter = { }
+      update_interpreter
       @interpreter.start machine.init
     end
     def init_registers
@@ -47,6 +69,11 @@ module Main
       blocks = BlocksModel.new
       page._blocks = blocks
       @interpreter.register_event(:instruction_changed,  blocks)
+    end
+    def init_source
+      sources = SourceModel.new
+      page._sources = sources
+      @interpreter.register_event(:instruction_changed,  sources)
     end
     # The main template contains a #template binding that shows another
     # template.  This is the path to that template.  It may change based

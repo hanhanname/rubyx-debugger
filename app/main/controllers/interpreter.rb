@@ -8,6 +8,9 @@ class Interpreter
   # current instruction or pc
   attr_reader :instruction
 
+  # current instruction or pc
+  attr_reader :clock
+
   # an (arm style) link register. store the return address to return to
   attr_reader :link
 
@@ -26,6 +29,7 @@ class Interpreter
     @state = "runnnig"
     @stdout = ""
     @registers = {}
+    @clock = 0
     (0...16).each do |r|
       set_register "r#{r}".to_sym , "r#{r}:unknown"
     end
@@ -68,6 +72,7 @@ class Interpreter
 
   def tick
     return unless @instruction
+    @clock += 1
     name = @instruction.class.name.split("::").last
     fetch = send "execute_#{name}"
     return unless fetch
@@ -136,6 +141,7 @@ class Interpreter
     raise "save return has nothing to save" unless @link
     trigger(:object_changed, @instruction.register )
     object.internal_object_set @instruction.index , @link
+    @link = nil
     true
   end
 
@@ -157,9 +163,9 @@ class Interpreter
 
   def execute_FunctionReturn
     object = object_for( @instruction.register )
-    #wouldn't need to assign to link, but makes tsting easier
-    @link = object.internal_object_get( @instruction.index )
-    @block , @instruction = @link
+    #wouldn't need to assign to link, but makes testing easier
+    link = object.internal_object_get( @instruction.index )
+    @block , @instruction = link
     # we jump back to the call instruction. so it is as if the call never happened and we continue
     true
   end
