@@ -1,8 +1,21 @@
-### statement of intent
-
-just starting and not quite sure, but here is the direction
-
 # Debugger
+
+After some tryouts it ended up being an Opal application. That is ruby as javascript in the browser.
+
+![Debugger](https://raw.githubusercontent.com/salama/salama-debugger/master/static/debugger.png)
+
+- On the left are the classes of the system. Next idea is to have hover info about them.
+- Next a source code view (not implemented)
+- next a view of the Virtual Instructions
+- last section, current block with current Register Instruction highlighted
+- step (next) button for single stepping
+- status: starting , running , exited
+- bottom row are the registers. If the register hold an object the variables are shown.
+    (also should have hover info) , the first letter indicates the class, the number is the address
+
+So lots to do, but a good start.
+
+
 
 I don't want to use gdb anymore, and it would be easier without using the qemu setup, so:
 

@@ -18,6 +18,7 @@ gem 'uglifier', '>= 2.4.0', require: false
 
 group :test do
   # Testing dependencies
+  gem "minitest"
   gem 'rspec', '~> 3.2.0'
   gem 'opal-rspec', '~> 0.4.2'
   gem 'capybara', '~> 2.4.2'

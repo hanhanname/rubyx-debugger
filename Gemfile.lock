@@ -68,6 +68,7 @@ GEM
     method_source (0.8.2)
     mime-types (2.6.1)
     mini_portile (0.6.2)
+    minitest (5.7.0)
     mongo (1.9.2)
       bson (~> 1.9.2)
     multi_json (1.11.2)
@@ -161,6 +162,7 @@ DEPENDENCIES
   chromedriver2-helper (~> 0.0.8)
   concurrent-ruby-ext (~> 0.8.0)
   csso-rails (~> 0.3.4)
+  minitest
   opal-rspec (~> 0.4.2)
   parslet!
   poltergeist (~> 1.5.0)
