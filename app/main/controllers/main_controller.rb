@@ -1,6 +1,6 @@
 # By default Volt generates this controller for your Main component
 require "salama"
-require_relative "interpreter"
+require "interpreter"
 
 
 module Main
