@@ -12,16 +12,16 @@ module Main
       init_blocks
     end
 
-    def about
-      # Add code for when the about view is loaded
+    def tick
+      @interpreter.tick
     end
 
     private
     def init_machine
       machine = Virtual.machine.boot
-      machine.run_before "Register::CallImplementation"
       code = Ast::ExpressionList.new( [Ast::CallSiteExpression.new(:putstring, [] ,Ast::StringExpression.new("Hello again"))])
       Virtual::Compiler.compile( code , machine.space.get_main )
+      machine.run_before "Register::CallImplementation"
       @interpreter = Interpreter.new
       @interpreter.start machine.init
     end

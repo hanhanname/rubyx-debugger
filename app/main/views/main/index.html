@@ -28,13 +28,14 @@
       </div>
       {{ page._blocks.each do |b| }}
         <div class="{{b._class_name}}">
-          {{b._string}}
+          {{b._name}}
+        </div>
       {{ end }}
     </div>
 
     <div class="status-view">
       <div>
-        button.bright { "next" }.on(:click) { interpreter.tick }
+        <button e-click="tick">Next</button>
       </div>
       <div>
         <h4> Status </h4>
