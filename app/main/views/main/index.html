@@ -4,60 +4,60 @@
 <:Body>
   <div class="classes">
     <h4> Classes </h4>
-    {{page._classes!.each do |clas| }}
-    <div class="one-class">
-      {{ clas._name }}
-     </div>
+     {{page._classes!.each do |clas| }}
+      <div class="one-class">
+        {{ clas._name }}
+      </div>
      {{end}}
-   </div>
+  </div>
 
-    <div class="file-view">
-      "Future Source code view"
+  <div class="file-view">
+    "Future Source code view"
+  </div>
+
+  <div class="source-view">
+    <h4> Virtual Machine Instruction </h4>
+    page.sources.each do |s|
+      <br> s </br>
+  </div>
+
+  <div class="block-view">
+    <div>
+      <h4> {{page._method_name}} </h4>
+      <h4> Block: {{page._block_name}} </h4>
     </div>
-
-    <div class="source-view">
-      <h4> Virtual Machine Instruction </h4>
-      page.sources.each do |s|
-        <br> s </br>
-    </div>
-
-    <div class="block-view">
-      <div>
-        <h4> {{page._method_name}} </h4>
-        <h4> Block: {{page._block_name}} </h4>
+    {{ page._blocks.each do |b| }}
+      <div class="{{b._class_name}}">
+        {{b._name}}
       </div>
-      {{ page._blocks.each do |b| }}
-        <div class="{{b._class_name}}">
-          {{b._name}}
+    {{ end }}
+  </div>
+
+  <div class="status-view">
+    <div>
+      <button e-click="tick">Next</button>
+    </div>
+    <div>
+      <h4> Status </h4>
+      <br> {{@interpreter.state}} </br>
+    </div>
+    <div>
+      <h4> Stdout </h4>
+    </div>
+    <div>
+      <br> {{@interpreter.stdout}} </br>
+    </div>
+  </div>
+
+  <div class="registers-view">
+    {{ page._registers.each do |reg| }}
+      <div class="register-view">
+        <div>
+          {{ reg.name }}
         </div>
-      {{ end }}
-    </div>
-
-    <div class="status-view">
-      <div>
-        <button e-click="tick">Next</button>
-      </div>
-      <div>
-        <h4> Status </h4>
-        <br> {{@interpreter.state}} </br>
-      </div>
-      <div>
-        <h4> Stdout </h4>
-      </div>
-      <div>
-        <br> {{@interpreter.stdout}} </br>
-      </div>
-    </div>
-
-    <div class="registers-view">
-      {{ page._registers.each do |reg| }}
-        <div class="register-view">
-          <div>
-            {{ reg.name }}
-          </div>
-          <div>
-            {{ reg.value }}
-          </div>
+        <div>
+          {{ reg.value }}
         </div>
-      {{end}}
-    </div>
+      </div>
+    {{end}}
+  </div>
