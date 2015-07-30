@@ -5,11 +5,11 @@ gem 'volt', '0.9.5.pre3'
 # volt uses mongo as the default data store.
 gem 'volt-mongo', '~> 0.1.0'
 
-gem "parslet" , path: "../parslet"
-gem "salama" , path: "../salama"
-gem "salama-reader" , path: "../salama-reader"
-gem "salama-arm" , path: "../salama-arm"
-gem "salama-object-file" , path: "../salama-object-file"
+gem "parslet" , github: "salama/parslet"
+gem "salama" , github: "salama/salama"
+gem "salama-reader" , github: "salama/salama-reader"
+gem "salama-arm" , github: "salama/salama-arm"
+gem "salama-object-file" , github: "salama/salama-object-file"
 gem "susy" , "2.2.5"
 
 # Asset compilation gems, they will be required when needed.
