@@ -1,6 +1,6 @@
 # By default Volt generates this controller for your Main component
 require "salama"
-require "interpreter"
+require "interpreter/interpreter"
 
 
 module Main
@@ -42,7 +42,7 @@ module Main
       code = Ast::ExpressionList.new( [Ast::CallSiteExpression.new(:putstring, [] ,Ast::StringExpression.new("Hello again"))])
       Virtual::Compiler.compile( code , machine.space.get_main )
       machine.run_before "Register::CallImplementation"
-      @interpreter = Interpreter.new
+      @interpreter = Interpreter::Interpreter.new
       page._interpreter = { }
       update_interpreter
       @interpreter.start machine.init
