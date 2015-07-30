@@ -12,11 +12,11 @@ module Main
       init_blocks
     end
 
-    def tick
-      @interpreter.tick
-    end
-
     private
+    def marker var
+      return "W" if var.is_a? String
+      var.class.name.split("::").last[0]
+    end
     def init_machine
       machine = Virtual.machine.boot
       code = Ast::ExpressionList.new( [Ast::CallSiteExpression.new(:putstring, [] ,Ast::StringExpression.new("Hello again"))])
@@ -28,7 +28,11 @@ module Main
     def init_registers
       page._registers!.clear
       @interpreter.registers.each do |reg , val|
-        page._registers <<  RegisterModel.new( :name => reg , :value => val)
+        model = RegisterModel.new( :name => reg , :value => val)
+        page._registers <<  model
+        @interpreter.register_event(:register_changed,  model)
+        @interpreter.register_event(:object_changed,  model)
+        model.register_changed( reg , nil , @interpreter.registers[reg])
       end
     end
     def init_classes

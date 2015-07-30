@@ -35,7 +35,7 @@
 
   <div class="status-view">
     <div>
-      <button e-click="tick">Next</button>
+      <button e-click="@interpreter.tick">Next</button>
     </div>
     <div>
       <h4> Status </h4>
@@ -58,6 +58,11 @@
         <div>
           {{ reg.value }}
         </div>
+        {{ reg.fields.each do |attribute| }}
+          <div class="col-md-12">
+            {{marker(attribute)}} {{attribute.object_id}}
+          </div>
+        {{end}}
       </div>
     {{end}}
   </div>

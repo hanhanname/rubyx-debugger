@@ -114,7 +114,7 @@ class Interpreter
     value = object_for( @instruction.register )
     object = object_for( @instruction.array )
     object.internal_object_set( @instruction.index , value )
-    trigger(:object_changed, @instruction.register )
+    trigger(:object_changed, @instruction.array )
     true
   end
 
