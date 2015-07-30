@@ -24,7 +24,7 @@ class RegisterView
   def object_changed reg
     reg = reg.symbol unless reg.is_a? Symbol
     return unless reg == register
-    puts "Object changed in #{reg}"
+    #puts "Object changed in #{reg}"
     calc_fields
   end
 

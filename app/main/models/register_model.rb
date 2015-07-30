@@ -18,15 +18,15 @@ class RegisterModel < Volt::Model
   def object_changed reg
     reg = reg.symbol unless reg.is_a? Symbol
     return unless reg == name
-    puts "Object changed in #{reg}"
+    #puts "Object changed in #{reg}"
     calc_fields
   end
 
   def calc_fields
     #puts "My id #{objects_id} , #{objects_id.class}"
     object = Virtual.machine.objects[value]
+    self.fields.clear
     if object and ! object.is_a?(String)
-      self.fields.clear
       clazz = object.class.name.split("::").last
       #puts "found #{clazz}"
       self.fields << clazz
