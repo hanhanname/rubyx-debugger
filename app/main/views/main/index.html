@@ -4,7 +4,7 @@
 <:Body>
   <div class="classes">
     <h4> Classes </h4>
-     {{page._classes!.each do |clas| }}
+     {{page._classes.each do |clas| }}
       <div class="one-class">
         {{ clas._name }}
       </div>
@@ -12,13 +12,16 @@
   </div>
 
   <div class="file-view">
-    "Future Source code view"
+    Future Source code view
   </div>
 
   <div class="source-view">
     <h4> Virtual Machine Instruction </h4>
-    page.sources.each do |s|
-      <br> s </br>
+     {{page._sources.each do |source| }}
+       <div class="{{source._class_name}}">
+         {{source._name}}
+       </div>
+     {{end}}
   </div>
 
   <div class="block-view">
@@ -34,19 +37,17 @@
   </div>
 
   <div class="status-view">
-    <div>
-      <button e-click="@interpreter.tick">Next</button>
-    </div>
-    <div>
-      <h4> Status </h4>
-      <br> {{@interpreter.state}} </br>
-    </div>
-    <div>
-      <h4> Stdout </h4>
-    </div>
-    <div>
-      <br> {{@interpreter.stdout}} </br>
-    </div>
+      <h4> Interpreter </h4>
+      Instruction {{ page._interpreter._clock}}
+      <button e-click="tick"> Next </button>
+      <br/>
+      <span> State </span>
+      <span> {{page._interpreter._state}} </span>
+      <br/>
+      <span> Link: {{page._interpreter._link}} </span>
+      <br/>
+       Stdout <br/>
+      <span> {{page._interpreter._stdout}} </span>
   </div>
 
   <div class="registers-view">
