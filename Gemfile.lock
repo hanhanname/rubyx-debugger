@@ -137,7 +137,7 @@ GEM
     uglifier (2.7.1)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
-    volt (0.9.5.pre3)
+    volt (0.9.5.pre4)
       bcrypt (~> 3.1.9)
       bundler (>= 1.5)
       concurrent-ruby (= 0.8.0)
@@ -180,7 +180,7 @@ DEPENDENCIES
   susy (= 2.2.5)
   thin (~> 1.6.0)
   uglifier (>= 2.4.0)
-  volt (= 0.9.5.pre3)
+  volt (= 0.9.5.pre4)
   volt-mongo (~> 0.1.0)
 
 BUNDLED WITH

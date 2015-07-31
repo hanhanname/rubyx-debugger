@@ -15,7 +15,6 @@ module Main
     def index
       init_machine
       init_classes
-      init_registers
       init_blocks
       init_source
     end
@@ -34,16 +33,7 @@ module Main
       page._interpreter = { }
       @volt_app.interpreter.start machine.init
     end
-    def init_registers
-      page._registers!.clear
-      @volt_app.interpreter.registers.each do |reg , val|
-        model = RegisterModel.new( :name => reg , :value => val)
-        page._registers <<  model
-        @volt_app.interpreter.register_event(:register_changed,  model)
-        @volt_app.interpreter.register_event(:object_changed,  model)
-        model.register_changed( reg , nil , @volt_app.interpreter.registers[reg])
-      end
-    end
+
     def init_classes
       page._classes!.clear
       Virtual.machine.space.classes.each do |name , claz|
