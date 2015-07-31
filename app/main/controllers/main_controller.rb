@@ -5,6 +5,13 @@ require "interpreter/interpreter"
 
 module Main
   class MainController < Volt::ModelController
+
+    def initialize *args
+      super(*args)
+      @volt_app.class.attr_accessor :interpreter
+      @volt_app.interpreter = Interpreter::Interpreter.new
+    end
+
     def index
       init_machine
       init_classes
@@ -24,18 +31,17 @@ module Main
       code = Ast::ExpressionList.new( [Ast::CallSiteExpression.new(:putstring, [] ,Ast::StringExpression.new("Hello again"))])
       Virtual::Compiler.compile( code , machine.space.get_main )
       machine.run_before "Register::CallImplementation"
-      @interpreter = Interpreter::Interpreter.new
       page._interpreter = { }
-      @interpreter.start machine.init
+      @volt_app.interpreter.start machine.init
     end
     def init_registers
       page._registers!.clear
-      @interpreter.registers.each do |reg , val|
+      @volt_app.interpreter.registers.each do |reg , val|
         model = RegisterModel.new( :name => reg , :value => val)
         page._registers <<  model
-        @interpreter.register_event(:register_changed,  model)
-        @interpreter.register_event(:object_changed,  model)
-        model.register_changed( reg , nil , @interpreter.registers[reg])
+        @volt_app.interpreter.register_event(:register_changed,  model)
+        @volt_app.interpreter.register_event(:object_changed,  model)
+        model.register_changed( reg , nil , @volt_app.interpreter.registers[reg])
       end
     end
     def init_classes
@@ -49,12 +55,12 @@ module Main
     def init_blocks
       blocks = BlocksModel.new
       page._blocks = blocks
-      @interpreter.register_event(:instruction_changed,  blocks)
+      @volt_app.interpreter.register_event(:instruction_changed,  blocks)
     end
     def init_source
       sources = SourceModel.new
       page._sources = sources
-      @interpreter.register_event(:instruction_changed,  sources)
+      @volt_app.interpreter.register_event(:instruction_changed,  sources)
     end
     # The main template contains a #template binding that shows another
     # template.  This is the path to that template.  It may change based

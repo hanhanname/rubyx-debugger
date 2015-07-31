@@ -1,19 +1,20 @@
 module Main
   class RegistersController < Volt::ModelController
 
-    def initialize app , context
-      super(app , context)
+    def initialize *args
+      super(*args)
       self.model = []
-      init_registers attrs.interpreter
+      init_registers
     end
 
-    def init_registers interpreter
-      interpreter.registers.each do |reg , val|
+
+    def init_registers
+      @volt_app.interpreter.registers.each do |reg , val|
         r = RegisterModel.new( :name => reg , :value => val)
         self.model <<  r
-        interpreter.register_event(:register_changed,  r)
-        interpreter.register_event(:object_changed,  r)
-        r.register_changed( reg , nil , interpreter.registers[reg])
+        @volt_app.interpreter.register_event(:register_changed,  r)
+        @volt_app.interpreter.register_event(:object_changed,  r)
+        r.register_changed( reg , nil , @volt_app.interpreter.registers[reg])
       end
     end
 
