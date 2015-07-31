@@ -1,30 +1,30 @@
 GIT
-  remote: git://github.com/salama/parslet.git
+  remote: https://github.com/salama/parslet.git
   revision: beeb9b441a9ade1504f7f0e848d805e36a02c544
   specs:
     parslet (1.7.0)
 
 GIT
-  remote: git://github.com/salama/salama-arm.git
+  remote: https://github.com/salama/salama-arm.git
   revision: 0bd5091e3f284ecf040e0086a41d2449cd5afb7a
   specs:
     salama-arm (0.0.1)
 
 GIT
-  remote: git://github.com/salama/salama-object-file.git
+  remote: https://github.com/salama/salama-object-file.git
   revision: fbae6a02764dbe97e01e4833f9ffffe09879b100
   specs:
     salama-object-file (0.2.0)
 
 GIT
-  remote: git://github.com/salama/salama-reader.git
+  remote: https://github.com/salama/salama-reader.git
   revision: 841592c667acea1e796f950851262e6938b231bc
   specs:
     salama-reader (0.2.0)
       parslet (~> 1.7.0)
 
 GIT
-  remote: git://github.com/salama/salama.git
+  remote: https://github.com/salama/salama.git
   revision: 96c7b7133d0dfc70563bc7f78740ea10065d1b15
   specs:
     salama (0.2.0)
