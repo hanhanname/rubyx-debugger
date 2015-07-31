@@ -3,6 +3,7 @@ require "instruction_view"
 
 class BlockView
 
+
   include React::Component
   required_param :interpreter
 
