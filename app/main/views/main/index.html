@@ -12,7 +12,6 @@
   </div>
 
   <div class="file-view">
-    Future Source code view
   </div>
 
   <div class="source-view">
@@ -50,20 +49,4 @@
       <span> {{page._interpreter._stdout}} </span>
   </div>
 
-  <div class="registers-view">
-    {{ page._registers.each do |reg| }}
-      <div class="register-view">
-        <div>
-          {{ reg.name }}
-        </div>
-        <div>
-          {{ reg.value }}
-        </div>
-        {{ reg.fields.each do |attribute| }}
-          <div class="col-md-12">
-            {{marker(attribute)}} {{attribute.object_id}}
-          </div>
-        {{end}}
-      </div>
-    {{end}}
-  </div>
+  <:registers interpreter="{{ @interpreter }}"/>

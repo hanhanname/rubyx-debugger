@@ -1,0 +1,21 @@
+<:Title>
+  registers index
+
+<:Body>
+  <div class="registers-view">
+    {{ model.each do |reg| }}
+      <div class="register-view">
+        <div>
+          {{ reg.name }}
+        </div>
+        <div>
+          {{ reg.value }}
+        </div>
+        {{ reg.fields.each do |attribute| }}
+          <div class="col-md-12">
+            {{marker(attribute)}} {{attribute.object_id}}
+          </div>
+        {{end}}
+      </div>
+    {{end}}
+  </div>
