@@ -5,7 +5,7 @@ gem 'volt', '0.9.5.pre4'
 # volt uses mongo as the default data store.
 gem 'volt-mongo', '~> 0.1.0'
 
-gem "parslet" , git: "https://github.com/salama/parslet.git"
+#gem "parslet" , git: "https://github.com/salama/parslet.git"
 gem "salama" , git: "https://github.com/salama/salama.git"
 gem "salama-reader" , git: "https://github.com/salama/salama-reader.git"
 gem "salama-arm" , git: "https://github.com/salama/salama-arm.git"
