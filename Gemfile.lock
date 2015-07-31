@@ -1,4 +1,10 @@
 GIT
+  remote: https://github.com/salama/parslet.git
+  revision: beeb9b441a9ade1504f7f0e848d805e36a02c544
+  specs:
+    parslet (1.7.0)
+
+GIT
   remote: https://github.com/salama/salama-arm.git
   revision: 0bd5091e3f284ecf040e0086a41d2449cd5afb7a
   specs:
@@ -29,7 +35,6 @@ GEM
   remote: https://rubygems.org/
   specs:
     bcrypt (3.1.10)
-    blankslate (3.1.3)
     bson (1.9.2)
     bson_ext (1.9.2)
       bson (~> 1.9.2)
@@ -81,8 +86,6 @@ GEM
       tilt (>= 1.4)
     opal-rspec (0.4.3)
       opal (>= 0.7.0, < 0.9)
-    parslet (1.7.0)
-      blankslate (>= 2.0, <= 4.0)
     poltergeist (1.5.1)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
@@ -166,6 +169,7 @@ DEPENDENCIES
   csso-rails (~> 0.3.4)
   minitest
   opal-rspec (~> 0.4.2)
+  parslet!
   poltergeist (~> 1.5.0)
   rspec (~> 3.2.0)
   salama!
