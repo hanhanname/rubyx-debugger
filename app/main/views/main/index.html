@@ -7,26 +7,9 @@
   <div class="file-view">
   </div>
 
-  <div class="source-view">
-    <h4> Virtual Machine Instruction </h4>
-     {{page._sources.each do |source| }}
-       <div class="{{source._class_name}}">
-         {{source._name}}
-       </div>
-     {{end}}
-  </div>
+  <:sources />
 
-  <div class="block-view">
-    <div>
-      <h4> {{page._method_name}} </h4>
-      <h4> Block: {{page._block_name}} </h4>
-    </div>
-    {{ page._blocks.each do |b| }}
-      <div class="{{b._class_name}}">
-        {{b._name}}
-      </div>
-    {{ end }}
-  </div>
+  <:blocks />
 
   <:status/>
 

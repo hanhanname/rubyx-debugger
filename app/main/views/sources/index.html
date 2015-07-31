@@ -1,0 +1,12 @@
+<:Title>
+  sources index
+
+<:Body>
+  <div class="source-view">
+    <h4> Virtual Machine Instruction </h4>
+     {{page._sources.each do |source| }}
+       <div class="{{source._class_name}}">
+         {{source._name}}
+       </div>
+     {{end}}
+  </div>
