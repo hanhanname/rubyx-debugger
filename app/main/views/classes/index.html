@@ -1,0 +1,12 @@
+<:Title>
+  classes index
+
+<:Body>
+  <div class="classes">
+    <h4> Classes </h4>
+     {{page._classes.each do |clas| }}
+      <div class="one-class">
+        {{ clas._name }}
+      </div>
+     {{end}}
+  </div>

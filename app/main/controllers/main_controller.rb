@@ -14,7 +14,6 @@ module Main
 
     def index
       init_machine
-      init_classes
       init_blocks
       init_source
     end
@@ -34,14 +33,6 @@ module Main
       @volt_app.interpreter.start machine.init
     end
 
-    def init_classes
-      page._classes!.clear
-      Virtual.machine.space.classes.each do |name , claz|
-        next if [:Kernel,:Module,:MetaClass,:BinaryCode].index name
-        c = Volt::Model.new :name => name
-        page._classes << c
-      end
-    end
     def init_blocks
       blocks = BlocksModel.new
       page._blocks = blocks
