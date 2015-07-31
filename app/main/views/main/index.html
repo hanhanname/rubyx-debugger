@@ -35,18 +35,6 @@
     {{ end }}
   </div>
 
-  <div class="status-view">
-      <h4> Interpreter </h4>
-      Instruction {{ page._interpreter._clock}}
-      <button e-click="tick"> Next </button>
-      <br/>
-      <span> State </span>
-      <span> {{page._interpreter._state}} </span>
-      <br/>
-      <span> Link: {{page._interpreter._link}} </span>
-      <br/>
-       Stdout <br/>
-      <span> {{page._interpreter._stdout}} </span>
-  </div>
+  <:status interpreter="{{ @interpreter }}"/>
 
   <:registers interpreter="{{ @interpreter }}"/>

@@ -13,28 +13,10 @@ module Main
       init_source
     end
 
-    def tick
-      @interpreter.tick
-      update_interpreter
-    end
-    def update_interpreter
-      page._interpreter._clock = @interpreter.clock
-      page._interpreter._state = @interpreter.state
-      page._interpreter._stdout = @interpreter.stdout
-      page._interpreter._link = @interpreter.link.to_s
-      page._method_name = method_name
-      page._block_name = @interpreter.block ? @interpreter.block.name : " "
-    end
     private
     def marker var
       return "W" if var.is_a? String
       var.class.name.split("::").last[0]
-    end
-    def method_name
-      bl = @interpreter.block
-      return " " unless bl
-      return bl.method if bl.method.is_a? String
-      "#{bl.method.for_class.name}.#{bl.method.name}"
     end
 
     def init_machine
@@ -44,7 +26,6 @@ module Main
       machine.run_before "Register::CallImplementation"
       @interpreter = Interpreter::Interpreter.new
       page._interpreter = { }
-      update_interpreter
       @interpreter.start machine.init
     end
     def init_registers
