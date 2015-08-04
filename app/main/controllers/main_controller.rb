@@ -20,7 +20,7 @@ module Main
 
     def init_machine
       machine = Virtual.machine.boot
-      code = Ast::ExpressionList.new( [Ast::CallSiteExpression.new(:putstring, [] ,Ast::StringExpression.new("Hello again"))])
+      code = Ast::OperatorExpression.new("+", Ast::IntegerExpression.new(2),Ast::IntegerExpression.new(5))
       Virtual::Compiler.compile( code , machine.space.get_main )
       machine.run_before "Register::CallImplementation"
       page._interpreter = { }
