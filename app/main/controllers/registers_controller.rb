@@ -19,8 +19,8 @@ module Main
     end
 
     def marker var
-      return "W" if var.is_a? String
-      var.class.name.split("::").last[0]
+      return "Wo" if var.is_a? String
+      var.class.name.split("::").last[0,2]
     end
 
   end

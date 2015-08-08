@@ -7,13 +7,16 @@
       <div class="register-view">
         <div>
           {{ reg.name }}
-        </div>
-        <div>
           {{ reg.value }}
         </div>
-        {{ reg.fields.each do |attribute| }}
-          <div class="col-md-12">
-            {{marker(attribute)}} {{attribute.object_id}}
+        {{ reg.fields.each_with_index do |attribute, index| }}
+          <div>
+            <div class="field">
+              {{index}}{{marker(attribute)}}
+            </div>
+            <div class="value">
+              {{attribute.object_id}}
+            </div>
           </div>
         {{end}}
       </div>

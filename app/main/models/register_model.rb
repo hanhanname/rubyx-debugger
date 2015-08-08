@@ -3,11 +3,6 @@ class RegisterModel < Volt::Model
   field :value
   field :fields
 
-  def register_changed reg , old , ins
-    self.last._class_name = "" if( self.length > 0)
-    self << { :name => ins.to_s , :class_name => "active" }
-  end
-
   def register_changed reg , old , value
     reg = reg.symbol unless reg.is_a? Symbol
     return unless reg == name
@@ -29,7 +24,7 @@ class RegisterModel < Volt::Model
     if object and ! object.is_a?(String)
       clazz = object.class.name.split("::").last
       #puts "found #{clazz}"
-      self.fields << clazz
+      self.fields << "#{clazz}:#{object.internal_object_length}"
       object.get_instance_variables.each do |variable|
         f = object.get_instance_variable(variable)
         self.fields << f
