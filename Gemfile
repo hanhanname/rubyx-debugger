@@ -13,6 +13,8 @@ gem "salama-arm" , git: "https://github.com/salama/salama-arm.git"
 gem "salama-object-file" , git: "https://github.com/salama/salama-object-file.git"
 gem "susy" , "2.2.5"
 
+gem "simptip" , "1.0" , git: "https://github.com/arashmanteghi/simptip.git" , :require => false
+
 # Asset compilation gems, they will be required when needed.
 gem 'csso-rails', '~> 0.3.4', require: false
 gem 'uglifier', '>= 2.4.0', require: false

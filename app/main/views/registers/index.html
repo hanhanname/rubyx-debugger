@@ -6,16 +6,26 @@
     {{ model.each do |reg| }}
       <div class="register-view">
         <div>
-          {{ reg.name }}
-          {{ reg.value }}
+          <div class="field">
+            {{ reg.name }}
+          </div>
+          <div class="value">
+            <span class="value-head">
+              {{ reg.value }}
+            </span>
+          </div>
         </div>
         {{ reg.fields.each_with_index do |attribute, index| }}
           <div>
             <div class="field">
-              {{index}}{{marker(attribute)}}
+              <span class="simptip-position-left" data-tooltip="{{attribute.class}}">
+                {{index}}{{marker(attribute)}}
+              </span>
             </div>
             <div class="value">
-              {{attribute.object_id}}
+              <span class="simptip-position-right simptip-multiline" data-tooltip="long text with initlong text with initlong text with initlong text with initlong text with initlong text with initlong text with init">
+                {{attribute.object_id}}
+              </span>
             </div>
           </div>
         {{end}}

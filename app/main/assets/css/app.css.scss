@@ -1,5 +1,6 @@
 // Place your apps css here
 @import "susy";
+@import "simptip";
 
 $susy: (
   columns: 24 ,
@@ -42,6 +43,10 @@ $susy: (
 
 .value {
   @include span(18)
+}
+
+.value-head {
+  background-color: #C5FFD9;
 }
 
 .bright {

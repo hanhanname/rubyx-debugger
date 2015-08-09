@@ -1,4 +1,10 @@
 GIT
+  remote: https://github.com/arashmanteghi/simptip.git
+  revision: afd3f735a027ac03458371ebd719434bac94cd0d
+  specs:
+    simptip (1.0)
+
+GIT
   remote: https://github.com/salama/parslet.git
   revision: beeb9b441a9ade1504f7f0e848d805e36a02c544
   specs:
@@ -58,7 +64,7 @@ GEM
       execjs (>= 1)
     daemons (1.2.3)
     diff-lcs (1.2.5)
-    eventmachine (1.0.7)
+    eventmachine (1.0.8)
     execjs (2.5.2)
     faye-websocket (0.10.0)
       eventmachine (>= 0.12.0)
@@ -72,7 +78,7 @@ GEM
     method_source (0.8.2)
     mime-types (2.6.1)
     mini_portile (0.6.2)
-    minitest (5.7.0)
+    minitest (5.8.0)
     mongo (1.9.2)
       bson (~> 1.9.2)
     multi_json (1.11.2)
@@ -176,6 +182,7 @@ DEPENDENCIES
   salama-object-file!
   salama-reader!
   selenium-webdriver (~> 2.43.0)
+  simptip (= 1.0)!
   susy (= 2.2.5)
   thin (~> 1.6.0)
   uglifier (>= 2.4.0)
