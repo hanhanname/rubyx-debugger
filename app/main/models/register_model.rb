@@ -25,6 +25,7 @@ class RegisterModel < Volt::Model
       clazz = object.class.name.split("::").last
       #puts "found #{clazz}"
       self.fields << "#{clazz}:#{object.internal_object_length}"
+      self.fields << object.get_layout
       object.get_instance_variables.each do |variable|
         f = object.get_instance_variable(variable)
         self.fields << f
