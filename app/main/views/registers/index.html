@@ -17,14 +17,19 @@
         </div>
         {{ reg.fields.each_with_index do |attribute, index| }}
           <div>
-            <div class="field">
-              <span class="simptip-position-left" data-tooltip="{{attribute.class}}">
-                {{index}}{{marker(attribute)}}
+            <div class="field tooltip">
+              {{index}}{{marker(attribute)}}
+              <span>
+                {{attribute.class}}
               </span>
             </div>
-            <div class="value">
-              <span class="simptip-position-right simptip-multiline" data-tooltip="long text with initlong text with initlong text with initlong text with initlong text with initlong text with initlong text with init">
-                {{attribute.object_id}}
+            <div class="value tooltip">
+              {{attribute.object_id}}
+              <span>
+                  long text with initlong text with initlong <br/>
+                  text with initlong text with initlong
+                  <h3>text with initlong </h3>
+                  text with initlong text with init
               </span>
             </div>
           </div>

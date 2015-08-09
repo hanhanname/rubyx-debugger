@@ -1,10 +1,4 @@
 GIT
-  remote: https://github.com/arashmanteghi/simptip.git
-  revision: afd3f735a027ac03458371ebd719434bac94cd0d
-  specs:
-    simptip (1.0)
-
-GIT
   remote: https://github.com/salama/parslet.git
   revision: beeb9b441a9ade1504f7f0e848d805e36a02c544
   specs:
@@ -182,7 +176,6 @@ DEPENDENCIES
   salama-object-file!
   salama-reader!
   selenium-webdriver (~> 2.43.0)
-  simptip (= 1.0)!
   susy (= 2.2.5)
   thin (~> 1.6.0)
   uglifier (>= 2.4.0)

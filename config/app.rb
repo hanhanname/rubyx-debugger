@@ -2,13 +2,8 @@
 # then any config options in config.public are passed to the client as well.
 
 
-hint_path =  Bundler.definition.specs["simptip"].first.full_gem_path
-
-if ENV.has_key?("SASS_PATH")
-  ENV["SASS_PATH"] = ENV["SASS_PATH"] + File::PATH_SEPARATOR + hint_path
-else
-  ENV["SASS_PATH"] = hint_path
-end
+#hint_path =  Bundler.definition.specs["simptip"].first.full_gem_path
+#ENV["SASS_PATH"] = ENV["SASS_PATH"] + File::PATH_SEPARATOR + hint_path
 
 Volt.configure do |config|
   # Setup your global app config here.
