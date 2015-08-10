@@ -5,8 +5,13 @@
   <div class="classes">
     <h4> Classes </h4>
      {{page._classes.each do |clas| }}
-      <div class="one-class">
+      <div class="one-class tooltip">
         {{ clas._name }}
+        <span>
+          {{clas._name}}<br/>
+          -------------- <br/>
+          {{variables(clas).join("\n") }}
+        </span>
       </div>
      {{end}}
   </div>

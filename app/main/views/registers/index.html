@@ -20,16 +20,13 @@
             <div class="field tooltip">
               {{index}}{{marker(attribute)}}
               <span>
-                {{attribute.class}}
+                {{variables(attribute).join("\n")}}
               </span>
             </div>
             <div class="value tooltip">
               {{attribute.object_id}}
               <span>
-                  long text with initlong text with initlong <br/>
-                  text with initlong text with initlong
-                  <h3>text with initlong </h3>
-                  text with initlong text with init
+                {{content(attribute.object_id).join("\n")}}
               </span>
             </div>
           </div>

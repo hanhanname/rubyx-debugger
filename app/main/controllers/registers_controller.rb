@@ -23,5 +23,25 @@ module Main
       var.class.name.split("::").last[0,2]
     end
 
+    def variables val
+      name = val.class.name.split("::").last
+      ClassesController.variables(name)
+    end
+
+    def content(id)
+      object = Virtual.machine.objects[id]
+      fields = []
+      if object and ! object.is_a?(String)
+        clazz = object.class.name.split("::").last
+        fields << "#{clazz}:#{object.internal_object_length}"
+        fields << "--------------------"
+        object.get_instance_variables.each do |variable|
+          f = object.get_instance_variable(variable)
+          fields << "#{f.class.name.split('::').last} : #{f.object_id}"
+        end
+      end
+      fields
+    end
+
   end
 end
