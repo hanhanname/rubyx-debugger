@@ -1,0 +1,112 @@
+/* Based partially on Matthew Carroll's keyboard accessible flavor of Suckerfish
+ * Dropdowns by Patrick Griffiths and Dan Webb.
+ * http://carroll.org.uk/sandbox/suckerfish/bones2.html
+
+http://greengeckodesign.com:8880/menumatic/demos/vertical/index.htm
+
+
+ */
+
+/* ----[ LINKS ]----*/
+
+/* all menu links */
+#nav a {
+	text-decoration:none;
+	display:block;
+	padding:10px 20px;
+	background-color:#fff ;
+	-moz-border-radius: 7px;
+	-webkit-border-radius: 7px;
+}
+
+/* Just main menu links --[for non-javascript users this applies to submenu links as well]*/
+#nav a{
+	margin:0;
+}
+
+/* All menu links on hover or focus */
+#nav a:hover, #nav a:focus {
+	background-color:#F6C739 ;
+	color:#FFF;
+}
+
+/* sub menu links on hover or focus */
+#nav li a:hover,
+#nav li a:focus{
+	background-color:#F6C739 ;
+	color:#FFF;
+}
+
+/* ----[ OLs ULs, LIs, and DIVs ]----*/
+
+/* All submenu OLs and ULs */
+#nav ol, #nav ul {
+	/*border around submenu goes here*/
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	background:#fff;
+	border:1px solid #C3D46A;
+	left:0;
+}
+
+/* All ULs and OLs */
+#nav, #nav ul, #nav ol {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	line-height: 1em;
+}
+
+/* List items in main menu --[for non-javascript users this applies to submenus as well]  */
+#nav li {
+	/*great place to use a background image as a divider*/
+	display:block;
+	list-style:none;
+	position:relative;
+}
+
+/* main menu ul or ol elment */
+#nav{
+	display:block;
+	position: absolute;
+	list-style:none;
+	margin:0 0 0 -280px;
+	width:186px;
+	z-index:5;
+	top:60px;
+	left:50%;
+	text-align: right;
+	display:block;
+}
+
+
+
+/* --------------------------[ The below is just for non-javscript users ]--------------------------*/
+#nav li li{	float:none; }
+
+#nav li li a{ /* Just submenu links*/
+	position:relative;
+	float:none;
+}
+
+#nav li ul { /* second-level lists */
+	position: absolute;
+	width: 10em;
+	margin-left: -1000em; /* using left instead of display to hide menus because display: none isn't read by screen readers */
+}
+
+/* third-and-above-level lists */
+#nav li ul ul { margin: -1em 0 0 -1000em; }
+#nav li:hover ul ul {	margin-left: -1000em; }
+
+ /* lists nested under hovered list items */
+#nav li:hover ul{	margin-left: 186px; margin-top:-2.5em;}
+#nav li li:hover ul {	margin-left: 10em; }
+
+/* extra positioning rules for limited noscript keyboard accessibility */
+#nav li a:focus + ul {  margin-left: 186px; margin-top:-2.5em; }
+#nav li li a:focus + ul { left:186px; margin-left: 1010em; margin-top:-2.5em;}
+#nav li li a:focus {left:186px;  margin-left:1000em; width:10em;  margin-top:-2.5em;}
+#nav li li li a:focus {left:186px; margin-left: 2010em; width: 10em;  margin-top:-2.5em;}
+#nav li:hover a:focus{ margin-left: 0; }
+#nav li li:hover a:focus + ul { margin-left: 10em; }

@@ -4,14 +4,21 @@
 <:Body>
   <div class="classes">
     <h4> Classes </h4>
-     {{page._classes.each do |clas| }}
-      <div class="one-class tooltip">
-        {{ clas._name }}
-        <span>
-          {{clas._name}}<br/>
-          -------------- <br/>
-          {{variables(clas).join("\n") }}
-        </span>
-      </div>
-     {{end}}
+    <div class="one-class">
+      <ul id="nav">
+       {{page._classes.each do |clas| }}
+         <li>
+           <a href="#">{{ clas._name }}</a>
+           <ul>
+             <li><a href="#">Echeneis</a></li>
+             <li><a href="#">Phtheirichthys</a></li>
+             <li><a href="#">Remora</a></li>
+             <li><a href="#">Remorina</a></li>
+
+             <li><a href="#">Rhombochirus</a></li>
+           </ul>
+         </li>
+       {{end}}
+     </ul>
+   </div>
   </div>
