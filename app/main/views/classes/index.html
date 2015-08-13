@@ -9,24 +9,15 @@
        {{page._classes.each do |clas| }}
          <li>
            <a href="#">{{ clas._name }}</a>
-           <ul>
-             <li>
-               <a href="#">Echeneis</a>
-               <ul>
-                 <li><a href="#">Echeneis</a></li>
-                 <li><a href="#">Phtheirichthys</a></li>
-                 <li><a href="#">Remora</a></li>
-                 <li><a href="#">Remorina</a></li>
-
-                 <li><a href="#">Rhombochirus</a></li>
-               </ul>
-             </li>
-             <li><a href="#">Phtheirichthys</a></li>
-             <li><a href="#">Remora</a></li>
-             <li><a href="#">Remorina</a></li>
-
-             <li><a href="#">Rhombochirus</a></li>
-           </ul>
+           {{ unless variables(clas).empty? }}
+             <ul>
+               {{variables(clas).each do |var| }}
+               <li>
+                 <a href="#">{{var}}</a>
+               </li>
+               {{ end }}
+             </ul>
+             {{ end }}
          </li>
        {{end}}
      </ul>

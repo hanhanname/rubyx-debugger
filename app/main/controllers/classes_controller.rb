@@ -17,14 +17,10 @@ module Main
     end
 
     def variables(clas_model)
-      self.variables(clas_model.name)
-    end
-
-    def self.variables(clas_name)
-      layout = Virtual.machine.space.get_class_by_name(clas_name).object_layout
+      layout = Virtual.machine.space.get_class_by_name(clas_model._name).object_layout
       vars = []
       layout.object_instance_names.each do |name|
-        vars << name
+        vars.push name
       end
       vars
     end

@@ -34,7 +34,8 @@ body {
 }
 
 #nav li a {
-	width : 9em;
+	margin-left: 0.5em;
+	width : 8.5em;
 	display : block;
 	color : black;
 	font-weight : bold;
