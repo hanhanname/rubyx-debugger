@@ -2,35 +2,57 @@ body {
 	font-family: arial, helvetica, serif;
 }
 
-}
-
-/* ----[ OLs ULs, LIs, and DIVs ]----*/
+#nav, #nav ul { /* all lists */
+	padding: 0;
+	margin: 0;
+	list-style: none;
 	float : left;
-
-/* All submenu OLs and ULs */
-#nav ol, #nav ul {
+	width : 9em;
 	/*border around submenu goes here*/
 	-moz-border-radius: 8px;
 	-webkit-border-radius: 8px;
 	background:#fff;
-	border:1px solid #C3D46A;
-	left:0;
+	border:1px solid #C3D46A
 }
 
-/* All ULs and OLs */
-#nav, #nav ul, #nav ol {
-	padding: 0;
-	margin: 0;
-	list-style: none;
+#nav li { /* all list items */
+	position : relative;
+	float : left;
+	line-height : 1.25em;
+	width: 8em;
 }
 
+#nav li ul { /* second-level lists */
+	position : absolute;
+	left: -999em;
+	margin-left : 9.05em;
+	margin-top : -1.35em;
 }
 
+#nav li ul ul { /* third-and-above-level lists */
+	left: -999em;
 }
 
+#nav li a {
+	width : 9em;
+	display : block;
+	color : black;
+	font-weight : bold;
+	text-decoration : none;
+	background-color : white;
+	-moz-border-radius: 7px;
+	-webkit-border-radius: 7px;
 }
 
+#nav li a:hover {
+	color : white;
+	background-color : #F6C739;
 }
 
+#nav li:hover ul ul, #nav li:hover ul ul ul, #nav li.sfhover ul ul, #nav li.sfhover ul ul ul {
+	left: -999em;
+}
 
-
+#nav li:hover ul, #nav li li:hover ul, #nav li li li:hover ul, #nav li.sfhover ul, #nav li li.sfhover ul, #nav li li li.sfhover ul { /* lists nested under hovered list items */
+	left: auto;
+}
