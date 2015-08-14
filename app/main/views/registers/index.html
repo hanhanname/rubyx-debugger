@@ -13,13 +13,33 @@
                 {{index}}{{marker(attribute)}}
                  {{attribute.object_id}}
               </a>
-              <ul>
-                {{content(attribute.object_id).each do |con| }}
-                  <li>
-                    <a href="#">{{con[0]}}</a>
-                  </li>
-                {{end}}
-              </ul>
+              {{ if(is_object?(attribute.object_id)) }}
+                <ul>
+                  {{content(attribute.object_id).each do |con| }}
+                    <li>
+                      <a href="#">{{con[0]}}</a>
+                      {{ if is_object?( con[1])}}
+                        <ul>
+                          {{content(con[1]).each do |con2| }}
+                            <li>
+                              <a href="#">{{con2[0]}}</a>
+                              {{ if is_object?( con2[1])}}
+                                <ul>
+                                  {{content(con2[1]).each do |con3| }}
+                                    <li>
+                                      <a href="#">{{con3[0]}}</a>
+                                    </li>
+                                  {{end}}
+                                </ul>
+                              {{ end }}
+                            </li>
+                          {{end}}
+                        </ul>
+                      {{ end }}
+                    </li>
+                  {{end}}
+                </ul>
+              {{ end }}
             </li>
           {{end}}
         </ul>

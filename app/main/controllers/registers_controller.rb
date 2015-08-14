@@ -23,11 +23,6 @@ module Main
       var.class.name.split("::").last[0,2]
     end
 
-    def variables val
-      name = val.class.name.split("::").last
-      ClassesController.variables(name)
-    end
-
     def content(id)
       object = Virtual.machine.objects[id]
       fields = []
@@ -43,17 +38,8 @@ module Main
       fields
     end
 
-    def variables(attribute)
-      model_name = attribute.class.name.split("::").last
-      vars = []
-      cl = Virtual.machine.space.get_class_by_name(model_name)
-      return vars unless cl
-      layout = cl.object_layout
-      layout.object_instance_names.each do |name|
-        vars.push name
-      end
-      vars
+    def is_object?( id )
+      Virtual.machine.objects[id] != nil
     end
-
   end
 end
