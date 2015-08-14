@@ -5,32 +5,24 @@
   <div class="registers-view">
     {{ model.each do |reg| }}
       <div class="register-view">
-        <div>
-          <div class="field">
-            {{ reg.name }}
-          </div>
-          <div class="value">
-            <span class="value-head">
-              {{ reg.value }}
-            </span>
-          </div>
-        </div>
-        {{ reg.fields.each_with_index do |attribute, index| }}
-          <div>
-            <div class="field tooltip">
-              {{index}}{{marker(attribute)}}
-              <span>
-                {{variables(attribute).join("\n")}}
-              </span>
-            </div>
-            <div class="value tooltip">
-              {{attribute.object_id}}
-              <span>
-                {{content(attribute.object_id).join("\n")}}
-              </span>
-            </div>
-          </div>
-        {{end}}
+        <ul id="nav">
+            <a href="#">{{reg.name}} : {{reg.value}}</a>
+          {{ reg.fields.each_with_index do |attribute, index| }}
+            <li class="field">
+              <a href="#">
+                {{index}}{{marker(attribute)}}
+                 {{attribute.object_id}}
+              </a>
+              <ul>
+                {{content(attribute.object_id).each do |con| }}
+                  <li>
+                    <a href="#">{{con[0]}}</a>
+                  </li>
+                {{end}}
+              </ul>
+            </li>
+          {{end}}
+        </ul>
       </div>
     {{end}}
   </div>

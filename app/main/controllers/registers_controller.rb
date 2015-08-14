@@ -33,14 +33,26 @@ module Main
       fields = []
       if object and ! object.is_a?(String)
         clazz = object.class.name.split("::").last
-        fields << "#{clazz}:#{object.internal_object_length}"
-        fields << "--------------------"
+        fields << ["#{clazz}:#{object.internal_object_length}" , 0]
+        fields << ["--------------------" ,  0 ]
         object.get_instance_variables.each do |variable|
           f = object.get_instance_variable(variable)
-          fields << "#{f.class.name.split('::').last} : #{f.object_id}"
+          fields << ["#{variable} : #{marker(f)} : #{f.object_id}" , f.object_id]
         end
       end
       fields
+    end
+
+    def variables(attribute)
+      model_name = attribute.class.name.split("::").last
+      vars = []
+      cl = Virtual.machine.space.get_class_by_name(model_name)
+      return vars unless cl
+      layout = cl.object_layout
+      layout.object_instance_names.each do |name|
+        vars.push name
+      end
+      vars
     end
 
   end
