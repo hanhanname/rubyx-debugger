@@ -21,18 +21,7 @@
                       {{ if is_object?( con[1])}}
                         <ul>
                           {{content(con[1]).each do |con2| }}
-                            <li>
-                              <a href="#">{{con2[0]}}</a>
-                              {{ if is_object?( con2[1])}}
-                                <ul>
-                                  {{content(con2[1]).each do |con3| }}
-                                    <li>
-                                      <a href="#">{{con3[0]}}</a>
-                                    </li>
-                                  {{end}}
-                                </ul>
-                              {{ end }}
-                            </li>
+                            <:object con2={{con2}} />
                           {{end}}
                         </ul>
                       {{ end }}
@@ -46,3 +35,17 @@
       </div>
     {{end}}
   </div>
+
+<:Object>
+  <li>
+    <a href="#">{{attrs.con2[0]}}</a>
+    {{ if is_object?( attrs.con2[1])}}
+      <ul>
+        {{content(attrs.con2[1]).each do |con3| }}
+          <li>
+            <a href="#">{{con3[0]}}</a>
+          </li>
+        {{end}}
+      </ul>
+    {{ end }}
+  </li>
