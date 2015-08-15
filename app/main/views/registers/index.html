@@ -21,7 +21,7 @@
                       {{ if is_object?( con[1])}}
                         <ul>
                           {{content(con[1]).each do |con2| }}
-                            <:object con2={{con2}} />
+                            <:object object={{con2[0]}} id={{con2[1]}} level={{3}} />
                           {{end}}
                         </ul>
                       {{ end }}
@@ -38,10 +38,10 @@
 
 <:Object>
   <li>
-    <a href="#">{{attrs.con2[0]}}</a>
-    {{ if is_object?( attrs.con2[1])}}
+    <a href="#">{{attrs.object}}</a>
+    {{ if(is_object?(attrs.id) and (attrs.level < 4)) }}
       <ul>
-        {{content(attrs.con2[1]).each do |con3| }}
+        {{content(attrs.id).each do |con3| }}
           <li>
             <a href="#">{{con3[0]}}</a>
           </li>
