@@ -7,29 +7,8 @@
       <div class="register-view">
         <ul id="nav">
             <a href="#">{{reg.name}} : {{reg.value}}</a>
-          {{ reg.fields.each_with_index do |attribute, index| }}
-            <li class="field">
-              <a href="#">
-                {{index}}{{marker(attribute)}}
-                 {{attribute.object_id}}
-              </a>
-              {{ if(is_object?(attribute.object_id)) }}
-                <ul>
-                  {{content(attribute.object_id).each do |con| }}
-                    <li>
-                      <a href="#">{{con[0]}}</a>
-                      {{ if is_object?( con[1])}}
-                        <ul>
-                          {{content(con[1]).each do |con2| }}
-                            <:objects object={{con2[0]}} id={{con2[1]}} level={{3}} />
-                          {{end}}
-                        </ul>
-                      {{ end }}
-                    </li>
-                  {{end}}
-                </ul>
-              {{ end }}
-            </li>
+          {{ reg.fields.each do |attribute| }}
+            <:objects object={{attribute}} id={{attribute.object_id}}  />
           {{end}}
         </ul>
       </div>

@@ -4,12 +4,12 @@
 <:Body>
     <li>
       <a href="#">{{attrs.object}}</a>
-      {{ if(is_object?(attrs.id) and (attrs.level < 4)) }}
+      {{ if(is_object?(attrs.id) ) }}
         <ul>
           {{content(attrs.id).each do |con3| }}
             <li>
                 <a href="#">{{con3[0]}}</a>
-            </li>   
+            </li>
           {{end}}
         </ul>
       {{ end }}

@@ -1,5 +1,18 @@
+if RUBY_PLATFORM == 'opal'
+  require "native"
+end
+
 module Main
   class ObjectsController < Volt::ModelController
+
+    def index_ready
+      container = Native(self.container).querySelector("ul")
+      return unless container
+      puts "li " + container.innerHTML + " lo"
+#      red = -> (event) {  container.style.backgroundColor = "red" }
+      red = -> (event) {  puts container.tagName }
+      container.addEventListener("mouseenter" , red)
+    end
 
     def marker var
       return "Wo" if var.is_a? String
