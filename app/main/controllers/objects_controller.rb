@@ -14,7 +14,8 @@ module Main
       container.addEventListener("mouseenter" , red)
     end
 
-    def marker var
+    def marker id
+      var = Virtual.machine.objects[id]
       return "Wo" if var.is_a? String
       var.class.name.split("::").last[0,2]
     end
@@ -24,11 +25,11 @@ module Main
       fields = []
       if object and ! object.is_a?(String)
         clazz = object.class.name.split("::").last
-        fields << ["#{clazz}:#{object.internal_object_length}" , 0]
+        fields << ["#{clazz}:#{object.object_id}" , 0]
         fields << ["--------------------" ,  0 ]
         object.get_instance_variables.each do |variable|
           f = object.get_instance_variable(variable)
-          fields << ["#{variable} : #{marker(f)} : #{f.object_id}" , f.object_id]
+          fields << ["#{variable} : #{marker(f.object_id)} : #{f.object_id}" , f.object_id]
         end
       end
       fields

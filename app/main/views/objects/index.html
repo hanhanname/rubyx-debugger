@@ -3,7 +3,7 @@
 
 <:Body>
     <li>
-      <a href="#">{{attrs.object}}</a>
+      <a href="#">{{marker(attrs.id)}} {{attrs.id}}</a>
       {{ if(is_object?(attrs.id) ) }}
         <ul>
           {{content(attrs.id).each do |con3| }}
