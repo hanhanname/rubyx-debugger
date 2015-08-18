@@ -16,8 +16,12 @@ module Main
 
     def marker id
       var = Virtual.machine.objects[id]
-      return "Wo" if var.is_a? String
-      var.class.name.split("::").last[0,2]
+      if var.is_a? String
+        str "Wo"
+      else
+        str = var.class.name.split("::").last[0,2]
+      end
+      str + " : #{id.to_s}"
     end
 
     def content(id)
@@ -29,7 +33,7 @@ module Main
         fields << ["--------------------" ,  0 ]
         object.get_instance_variables.each do |variable|
           f = object.get_instance_variable(variable)
-          fields << ["#{variable} : #{marker(f.object_id)} : #{f.object_id}" , f.object_id]
+          fields << ["#{variable} : #{marker(f.object_id)}" , f.object_id]
         end
       end
       fields

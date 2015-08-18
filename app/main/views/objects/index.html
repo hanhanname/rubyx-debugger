@@ -2,8 +2,6 @@
   objects index
 
 <:Body>
-    <li>
-      <a href="#">{{marker(attrs.id)}} {{attrs.id}}</a>
       {{ if(is_object?(attrs.id) ) }}
         <ul>
           {{content(attrs.id).each do |con3| }}
@@ -13,4 +11,3 @@
           {{end}}
         </ul>
       {{ end }}
-    </li>

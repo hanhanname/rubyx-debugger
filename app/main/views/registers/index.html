@@ -4,13 +4,16 @@
 <:Body>
   <div class="registers-view">
     {{ model.each do |reg| }}
-      <div class="register-view">
-        <ul id="nav">
-            <a href="#">{{reg.name}} : {{reg.value}}</a>
-          {{ reg.fields.each do |attribute| }}
-            <:objects id={{attribute.object_id}}  />
-          {{end}}
-        </ul>
+      <div class="register-view" id="nav">
+        {{ if(is_object?(reg.value) ) }}
+          <:objects id={{reg.value}}  />
+        {{else}}
+          <ul>
+            <li>
+              <a href="#">{{reg.value}}</a>
+            </li>
+          </ul>
+        {{ end }}
       </div>
     {{end}}
   </div>
