@@ -4,22 +4,20 @@
 <:Body>
   <div class="classes">
     <h4> Classes </h4>
-    <div class="one-class">
-      <ul id="nav">
-       {{page._classes.each do |clas| }}
-         <li>
-           <a href="#">{{ clas._name }}</a>
-           {{ unless variables(clas).empty? }}
-             <ul>
-               {{variables(clas).each do |var| }}
-               <li>
-                 <a href="#">{{var}}</a>
-               </li>
-               {{ end }}
-             </ul>
+    <ul id="nav">
+     {{page._classes.each do |clas| }}
+       <li>
+         <a href="#">{{ clas._name }}</a>
+         {{ unless variables(clas).empty? }}
+           <ul>
+             {{variables(clas).each do |var| }}
+             <li>
+               <a href="#">{{var}}</a>
+             </li>
              {{ end }}
-         </li>
-       {{end}}
-     </ul>
-   </div>
+           </ul>
+           {{ end }}
+       </li>
+     {{end}}
+   </ul>
   </div>

@@ -7,10 +7,14 @@ module Main
 
     def index_ready
       container = Native(self.container).querySelector("ul")
-      return unless container
-      puts "li " + container.innerHTML + " lo"
+      all = container.querySelectorAll("a")
+      len = all.length - 1
+      while len >= 0
+        puts "li #{len}" + all.item(len).innerHTML + " lo"
+        len = len - 1
+      end
 #      red = -> (event) {  container.style.backgroundColor = "red" }
-      red = -> (event) {  puts container.tagName }
+      red = -> (event) {  puts container.innerHTML }
       container.addEventListener("mouseenter" , red)
     end
 
@@ -24,13 +28,17 @@ module Main
       str + " : #{id.to_s}"
     end
 
+    def class_header(id)
+      object = Virtual.machine.objects[id]
+      return "" unless object
+      clazz = object.class.name.split("::").last
+      "#{clazz}:#{id}"
+    end
+
     def content(id)
       object = Virtual.machine.objects[id]
       fields = []
       if object and ! object.is_a?(String)
-        clazz = object.class.name.split("::").last
-        fields << ["#{clazz}:#{object.object_id}" , 0]
-        fields << ["--------------------" ,  0 ]
         object.get_instance_variables.each do |variable|
           f = object.get_instance_variable(variable)
           fields << ["#{variable} : #{marker(f.object_id)}" , f.object_id]

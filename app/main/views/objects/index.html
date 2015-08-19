@@ -2,12 +2,14 @@
   objects index
 
 <:Body>
-      {{ if(is_object?(attrs.id) ) }}
-        <ul>
-          {{content(attrs.id).each do |con3| }}
-            <li>
-                <a href="#">{{con3[0]}}</a>
-            </li>
-          {{end}}
-        </ul>
-      {{ end }}
+  <ul sid={{attrs.id}}>
+    <li>
+        <span>{{class_header(attrs.id)}}</span>
+    </li>
+    <li>&nbsp;&nbsp;-------------------------</li>
+    {{content(attrs.id).each do |con3| }}
+      <li>
+          <a href="#">{{con3[0]}}</a>
+      </li>
+    {{end}}
+  </ul>
