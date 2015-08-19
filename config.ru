@@ -4,6 +4,7 @@ require_relative "lib/parse_task"
 
 require "opal"
 Opal.use_gem("salama")
+Opal.use_gem("salama-arm")
 
 class DebugServer < Opal::Server
   def call(env)
@@ -18,5 +19,5 @@ run DebugServer.new { |s|
   s.main = 'debugger'
   s.append_path 'lib'
   s.source_map = true
-  s.debug = true
+  s.debug = false
 }

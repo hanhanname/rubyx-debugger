@@ -3,6 +3,6 @@ require "opal"
 require "opal-parser"
 require "main_view"
 
-Virtual::Machine.boot
+Virtual.machine.boot
 
 MainView.new()

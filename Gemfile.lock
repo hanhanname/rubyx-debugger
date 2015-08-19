@@ -1,11 +1,4 @@
 PATH
-  remote: ../opal-browser
-  specs:
-    opal-browser (0.2.0.beta1)
-      opal
-      paggio
-
-PATH
   remote: ../parslet
   specs:
     parslet (1.7.0)
@@ -16,6 +9,11 @@ PATH
     salama (0.2.0)
       salama-object-file (~> 0.2)
       salama-reader (~> 0.2)
+
+PATH
+  remote: ../salama-arm
+  specs:
+    salama-arm (0.0.1)
 
 PATH
   remote: ../salama-object-file
@@ -55,6 +53,9 @@ GEM
       sourcemap (~> 0.1.0)
       sprockets (~> 3.1)
       tilt (>= 1.4)
+    opal-browser (0.2.0)
+      opal
+      paggio
     opal-rspec (0.4.3)
       opal (>= 0.7.0, < 0.9)
     paggio (0.2.4)
@@ -102,12 +103,16 @@ PLATFORMS
 DEPENDENCIES
   capybara (~> 2.4.2)
   chromedriver2-helper (~> 0.0.8)
-  opal-browser!
+  opal-browser
   opal-rspec (~> 0.4.2)
   parslet!
   poltergeist (~> 1.5.0)
   rspec (~> 3.2.0)
   salama!
+  salama-arm!
   salama-object-file!
   salama-reader!
   selenium-webdriver (~> 2.43.0)
+
+BUNDLED WITH
+   1.10.5
