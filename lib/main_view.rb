@@ -1,34 +1,33 @@
 
 require 'browser'
-require 'browser/canvas'
-require 'browser/http'
 require 'native'
 require "salama"
-require "point"
+require "interpreter/interpreter"
 
-require_relative "registers_view"
-require_relative "object_view"
-require_relative "space_view"
+require_relative "class_view"
+#require_relative "registers_view"
+#require_relative "object_view"
+#require_relative "space_view"
 
 class MainView
 
   def initialize
-    @canvas = Browser::Canvas.new
-    @canvas.element.width = 1000
-    @canvas.element.height = 500
-    Browser::HTTP.get "/tasks.json" do
-      on :success do |res|
-        is = Ast::Expression.from_basic(res.json)
-        Virtual::Compiler.compile( is , Virtual.machine.space.get_main )
-        Virtual.machine.run_before Virtual::Machine::FIRST_PASS
-      end
-    end
-    @canvas.append_to($document.body)
+    machine = Virtual.machine.boot
+    code = Ast::OperatorExpression.new("+", Ast::IntegerExpression.new(2),Ast::IntegerExpression.new(5))
+    Virtual::Compiler.compile( code , machine.space.get_main )
+    machine.run_before "Register::CallImplementation"
+    @interpreter = Interpreter::Interpreter.new
+    draw
+  end
+
+  def draw
+    DOM {
+        div.info {
+          span.red "I'm all cooked up."
+        }
+      }.append_to($document.body)
   end
   def no
-
-    height = `window.innerHeight`
-    width =  `window.innerWidth`
 
     body = Native(`window.document.body`)
     # bit of a hack as it assumes index's structure
@@ -51,5 +50,4 @@ class MainView
 
   end
 
-  attr_reader :container
 end
