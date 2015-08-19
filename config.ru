@@ -3,6 +3,8 @@ Bundler.require
 require_relative "lib/parse_task"
 
 require "opal"
+require 'opal-browser'
+
 Opal.use_gem("salama")
 Opal.use_gem("salama-arm")
 
@@ -18,6 +20,7 @@ end
 run DebugServer.new { |s|
   s.main = 'debugger'
   s.append_path 'lib'
-  s.source_map = true
+#  s.source_map = true
   s.debug = false
+  s.sprockets.cache = Sprockets::Cache::MemoryStore.new(5000)
 }
