@@ -7,37 +7,37 @@ $susy: (
   gutter-position: split ,
 );
 
-.debugger-view { @include container(90%); }
+.debugger_view { @include container(90%); }
 
 .classes {
   @include span(3);
 }
 
-.one-class {
+.one_class {
   margin: 10px;
 }
-.file-view {
+.file_view {
   @include span(4);
   margin: span(1);
 }
 
-.source-view { @include span(6); }
+.source_view { @include span(6); }
 
-.block-view {
+.block_view {
   @include span(4);
   margin-right: span(2);
   height: 200px;
 }
 
-.status-view {
+.status_view {
   @include span(2 at 22);
 }
 
-.registers-view {
+.registers_view {
   @include span(20 at 3);
 }
 
-.register-view {
+.register_view {
   @include gallery(4);
   margin-top: 10px;
 }
@@ -50,7 +50,7 @@ $susy: (
   @include span(18)
 }
 
-.value-head {
+.value_head {
   background-color: #C5FFD9;
 }
 
