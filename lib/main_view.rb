@@ -5,6 +5,7 @@ require "salama"
 require "interpreter/interpreter"
 require "list_view"
 require_relative "class_view"
+require_relative "status_view"
 #require_relative "registers_view"
 #require_relative "object_view"
 #require_relative "space_view"
@@ -26,7 +27,7 @@ class MainView < ListView
 
     machine.run_before "Register::CallImplementation"
     @interpreter = Interpreter::Interpreter.new
-    super( [ClassView.new(@interpreter)] )
+    super( [ClassView.new(@interpreter) , StatusView.new(@interpreter)] )
   end
 
   def draww
