@@ -10,15 +10,6 @@ class ClassView < ElementView
     @classes.sort! {|a,b| a.name <=> b.name }
   end
 
-  def variables(clas_model)
-    layout = Virtual.machine.space.get_class_by_name(clas_model._name).object_layout
-    vars = []
-    layout.object_instance_names.each do |name|
-      vars.push name
-    end
-    vars
-  end
-
   def draw
     DOM do |dom|
       dom.div.classes do
@@ -40,14 +31,5 @@ class ClassView < ElementView
       end
     end
   end
-  #             <a href="#">{{ clas._name }}</a>
-  #             {{ unless variables(clas).empty? }}
-  #               <ul>
-  #                 {{variables(clas).each do |var| }}
-  #                 <li>
-  #                   <a href="#">{{var}}</a>
-  #                 </li>
-  #                 {{ end }}
-  #               </ul>
 
 end
