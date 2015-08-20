@@ -3,13 +3,13 @@ require 'browser'
 require 'native'
 require "salama"
 require "interpreter/interpreter"
-
+require "list_view"
 require_relative "class_view"
 #require_relative "registers_view"
 #require_relative "object_view"
 #require_relative "space_view"
 
-class MainView
+class MainView < ListView
 
   def initialize
     machine = Virtual.machine.boot
@@ -17,15 +17,18 @@ class MainView
     Virtual::Compiler.compile( code , machine.space.get_main )
     machine.run_before "Register::CallImplementation"
     @interpreter = Interpreter::Interpreter.new
+    @parent = $document.body
+    puts @parent.parent.name
     draw
   end
 
   def draw
-    DOM {
+    node = DOM {
         div.info {
           span.red "I'm all cooked up."
         }
-      }.append_to($document.body)
+      }
+      node.append_to(@parent)
   end
   def no
 
