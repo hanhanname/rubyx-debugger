@@ -24,22 +24,21 @@ class ClassView < ListView
   end
 
   def draw
-      div.classes do
-        h4 {"Classes"}
-        ul.nav do
-         #{{page._classes.each do |clas| }}
-           li do
-             a { "me "}
-            #             <a href="#">{{ clas._name }}</a>
-            #             {{ unless variables(clas).empty? }}
-            #               <ul>
-            #                 {{variables(clas).each do |var| }}
-            #                 <li>
-            #                   <a href="#">{{var}}</a>
-            #                 </li>
-            #                 {{ end }}
-            #               </ul>
-          end
+    div.classes do
+      h4 {"Classes"}
+      ul.nav do
+      #{{page._classes.each do |clas| }}
+        li do
+          a { "me "}
+          #             <a href="#">{{ clas._name }}</a>
+          #             {{ unless variables(clas).empty? }}
+          #               <ul>
+          #                 {{variables(clas).each do |var| }}
+          #                 <li>
+          #                   <a href="#">{{var}}</a>
+          #                 </li>
+          #                 {{ end }}
+          #               </ul>
         end
       end
     end
