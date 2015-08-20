@@ -18,7 +18,7 @@ $susy: (
 }
 .file_view {
   @include span(4);
-  margin: span(1);
+  margin-left: span(1);
 }
 
 .source_view { @include span(6); }

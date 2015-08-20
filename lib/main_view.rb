@@ -6,6 +6,8 @@ require "interpreter/interpreter"
 require "list_view"
 require_relative "class_view"
 require_relative "status_view"
+require_relative "file_view"
+require_relative "blocks_view"
 #require_relative "registers_view"
 #require_relative "object_view"
 #require_relative "space_view"
@@ -27,41 +29,10 @@ class MainView < ListView
 
     machine.run_before "Register::CallImplementation"
     @interpreter = Interpreter::Interpreter.new
-    super( [ClassView.new(@interpreter) , StatusView.new(@interpreter)] )
-  end
-
-  def draww
-    node = DOM { |m|
-       Kernel.puts "DOM #{self.class}"
-        m.div.info {
-          Kernel.puts "div #{self.class}" ; ""
-          m.span.red @interpreter.state
-        }
-      }
-      node.append_to(@parent)
-  end
-
-  def no
-
-    body = Native(`window.document.body`)
-    # bit of a hack as it assumes index's structure
-    html_con = body.firstElementChild
-    html_con.insertBefore renderer.view , html_con.lastElementChild
-
-    registers = RegisterView.new(height - 150)
-    @canvas.add_child registers
-
-    space = SpaceView.new
-    @container.add_child space
-
-    animate = Proc.new do
-      `requestAnimationFrame(animate)`
-      registers.draw_me
-      space.draw_me
-      renderer.render @container
-    end
-    animate.call
-
+    super( [ClassView.new(@interpreter) ,
+            FileView.new ,
+            BlocksView.new(@interpreter) ,
+            StatusView.new(@interpreter)] )
   end
 
 end
