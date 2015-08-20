@@ -3,4 +3,5 @@ require "opal"
 require "opal-parser"
 require "main_view"
 
-MainView.new()
+view = MainView.new()
+view.draw.append_to($document.body)

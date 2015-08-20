@@ -1,17 +1,13 @@
-class ClassView < ListView
+class ClassView < ElementView
 
-  def initialize
-
-#    page._classes!.clear
-    all = []
+  def initialize interpreter
+    @interpreter = interpreter
+    @classes = []
     Virtual.machine.space.classes.each do |name , claz|
       next if [:Kernel,:Module,:MetaClass,:BinaryCode].index name
-      all << name
+      @classes << name
     end
-    all.sort.each do |name|
-#      c = Volt::Model.new :name => name
-#      page._classes << c
-    end
+    @classes.sort!
   end
 
   def variables(clas_model)
@@ -24,24 +20,27 @@ class ClassView < ListView
   end
 
   def draw
-    div.classes do
-      h4 {"Classes"}
-      ul.nav do
-      #{{page._classes.each do |clas| }}
-        li do
-          a { "me "}
-          #             <a href="#">{{ clas._name }}</a>
-          #             {{ unless variables(clas).empty? }}
-          #               <ul>
-          #                 {{variables(clas).each do |var| }}
-          #                 <li>
-          #                   <a href="#">{{var}}</a>
-          #                 </li>
-          #                 {{ end }}
-          #               </ul>
+    DOM do |dom|
+      dom.div.classes do
+        dom.h4 {"Classes"}
+        dom.ul.nav! do
+          @classes.each do |cl|
+            dom.li do
+              dom.a { cl }
+            end
+          end
         end
       end
     end
   end
+  #             <a href="#">{{ clas._name }}</a>
+  #             {{ unless variables(clas).empty? }}
+  #               <ul>
+  #                 {{variables(clas).each do |var| }}
+  #                 <li>
+  #                   <a href="#">{{var}}</a>
+  #                 </li>
+  #                 {{ end }}
+  #               </ul>
 
 end
