@@ -81,6 +81,7 @@ GEM
       rspec-support (~> 3.2.0)
     rspec-support (3.2.2)
     rubyzip (1.1.7)
+    sass (3.4.16)
     selenium-webdriver (2.43.0)
       childprocess (~> 0.5)
       multi_json (~> 1.0)
@@ -89,6 +90,8 @@ GEM
     sourcemap (0.1.1)
     sprockets (3.2.0)
       rack (~> 1.0)
+    susy (2.2.5)
+      sass (>= 3.3.0, < 3.5)
     tilt (2.0.1)
     websocket (1.2.2)
     websocket-driver (0.5.4)
@@ -112,7 +115,9 @@ DEPENDENCIES
   salama-arm!
   salama-object-file!
   salama-reader!
+  sass
   selenium-webdriver (~> 2.43.0)
+  susy
 
 BUNDLED WITH
    1.10.5

@@ -10,7 +10,8 @@ gem "salama" , path: "../salama"
 gem "salama-reader" , path: "../salama-reader"
 gem "salama-arm" , path: "../salama-arm"
 gem "salama-object-file" , path: "../salama-object-file"
-
+gem "sass"
+gem "susy"
 
 group :test do
   # Testing dependencies

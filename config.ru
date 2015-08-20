@@ -1,5 +1,7 @@
 require 'bundler'
 Bundler.require
+require 'tilt/erb'
+
 require_relative "lib/parse_task"
 
 require "opal"
@@ -20,7 +22,10 @@ end
 run DebugServer.new { |s|
   s.main = 'debugger'
   s.append_path 'lib'
+  s.append_path 'assets'
 #  s.source_map = true
   s.debug = false
+
+  s.index_path = "index.html.erb"
   s.sprockets.cache = Sprockets::Cache::MemoryStore.new(5000)
 }
