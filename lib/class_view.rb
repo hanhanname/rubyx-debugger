@@ -5,9 +5,9 @@ class ClassView < ElementView
     @classes = []
     Virtual.machine.space.classes.each do |name , claz|
       next if [:Kernel,:Module,:MetaClass,:BinaryCode].index name
-      @classes << name
+      @classes << claz
     end
-    @classes.sort!
+    @classes.sort! {|a,b| a.name <=> b.name }
   end
 
   def variables(clas_model)
@@ -26,7 +26,14 @@ class ClassView < ElementView
         dom.ul.nav! do
           @classes.each do |cl|
             dom.li do
-              dom.a { cl }
+              dom.a { cl.name }
+              dom.ul do
+                cl.object_layout.object_instance_names.each do |name|
+                  dom.li do
+                    dom.a{  name }
+                  end
+                end
+              end
             end
           end
         end
