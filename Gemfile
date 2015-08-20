@@ -1,15 +1,15 @@
 source 'https://rubygems.org'
 
-
+gem "opal" , :github => "opal/opal"
 gem 'opal-browser'
 
 #gem "salama" , "0.2" , :path => "../salama"
 
-gem "parslet" , path: "../parslet"
-gem "salama" , path: "../salama"
-gem "salama-reader" , path: "../salama-reader"
-gem "salama-arm" , path: "../salama-arm"
-gem "salama-object-file" , path: "../salama-object-file"
+gem "parslet" , github: "salama/parslet"
+gem "salama" , github: "salama/salama"
+gem "salama-reader" , github: "salama/salama-reader"
+gem "salama-arm" , github: "salama/salama-arm"
+gem "salama-object-file" , github: "salama/salama-object-file"
 gem "sass"
 gem "susy"
 
