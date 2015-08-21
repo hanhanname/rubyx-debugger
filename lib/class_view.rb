@@ -1,4 +1,4 @@
-class ClassView < ElementView
+class ClassView < ListView
 
   def initialize interpreter
     @interpreter = interpreter
@@ -11,6 +11,19 @@ class ClassView < ElementView
   end
 
   def draw
+    create_element(".classes") << div("h4" , "Classes")
+    list = add("ul.nav!")
+
+    @classes.each do |cl|
+      list << (div("li") <<
+                (div( "a" , cl.name ) <<
+                    (ul = div("ul"))))
+      cl.object_layout.object_instance_names.each do |name|
+        ul << (div("li") << div("a", name ))
+      end
+    end
+    return @element
+
     DOM do |dom|
       dom.div.classes do
         dom.h4 {"Classes"}
