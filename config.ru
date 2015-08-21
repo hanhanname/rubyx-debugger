@@ -24,7 +24,7 @@ run DebugServer.new { |s|
   s.append_path 'lib'
   s.append_path 'assets'
 #  s.source_map = true
-  s.debug = false
+  s.debug = !ENV["DEBUG"].nil?
 
   s.index_path = "index.html.erb"
   s.sprockets.cache = Sprockets::Cache::MemoryStore.new(5000)
