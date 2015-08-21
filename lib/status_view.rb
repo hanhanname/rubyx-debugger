@@ -5,7 +5,7 @@ class StatusView < ElementView
   end
 
   def draw
-    create_element(".status_view") <<
+    @element = div(".status_view") <<
       div("h4.tick" , "Interpreter" ) <<
       div("span" , tick_text) <<
       div("button.act" , "Next") <<

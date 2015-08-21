@@ -20,10 +20,10 @@ class RegistersView < ListView
   def draw
     list = super()
     list = list.children.each do |reg|
-      elem = create_element("div.register_view")
+      elem = div("div.register_view")
       wrap_node_with reg , elem
     end
-    @container_element
+    @element
   end
 
   def register_changed reg , old , value

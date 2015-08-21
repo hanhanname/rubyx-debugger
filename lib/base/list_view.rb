@@ -5,7 +5,6 @@ class ListView < ElementView
   def initialize children
     @children = children
     @elements = []
-    @container_element = nil
   end
 
   def root
@@ -13,13 +12,13 @@ class ListView < ElementView
   end
 
   def draw on
-    @container_element = div(self.root)
+    @element = div(self.root)
     @elements = @children.collect do | c |
-      elem = c.draw(@container_element)
-      elem.append_to(@container_element)
+      elem = c.draw(@element)
+      elem.append_to(@element)
       elem
     end
-    @container_element
+    @element
   end
 
 end
