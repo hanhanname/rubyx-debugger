@@ -8,10 +8,11 @@ class ElementView
     raise "implement me to return an Element"
   end
 
-  def create_element name_class
+  def div name_class , text = nil
     name , clazz = name_class.split(".")
     name = "div" if name.empty?
     element = $document.create_element(name)
+    element.text = text if text
     return element unless clazz
     if( clazz.is_a? Array )
       clazz.each { |c| add_class_or_id( element , cl )}
@@ -36,4 +37,13 @@ class ElementView
     node.append_to wrapper
   end
 
+  def create_element class_or_id , text = nil
+    @element = div( class_or_id , text)
+  end
+
+  def add class_or_id , tex = nil
+    element = div( class_or_id , tex)
+    element.append_to @element
+    element
+  end
 end

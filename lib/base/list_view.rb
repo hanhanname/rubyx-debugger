@@ -13,7 +13,7 @@ class ListView < ElementView
   end
 
   def draw on
-    @container_element = create_element(self.root)
+    @container_element = div(self.root)
     @elements = @children.collect do | c |
       elem = c.draw(@container_element)
       elem.append_to(@container_element)
