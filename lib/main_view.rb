@@ -3,7 +3,7 @@ require 'browser'
 require 'native'
 require "salama"
 require "interpreter/interpreter"
-require "list_view"
+require "base/list_view"
 require_relative "class_view"
 require_relative "status_view"
 require_relative "file_view"

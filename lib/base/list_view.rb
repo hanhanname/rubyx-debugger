@@ -1,4 +1,4 @@
-require "element_view"
+require_relative "element_view"
 
 class ListView < ElementView
 
