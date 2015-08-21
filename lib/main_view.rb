@@ -8,9 +8,7 @@ require_relative "class_view"
 require_relative "status_view"
 require_relative "file_view"
 require_relative "blocks_view"
-#require_relative "registers_view"
-#require_relative "object_view"
-#require_relative "space_view"
+require_relative "registers_view"
 
 class MainView < ListView
 
@@ -29,10 +27,11 @@ class MainView < ListView
 
     machine.run_before "Register::CallImplementation"
     @interpreter = Interpreter::Interpreter.new
-    super( [ClassView.new(@interpreter) ,
-            FileView.new ,
-            BlocksView.new(@interpreter) ,
-            StatusView.new(@interpreter)] )
+    super( [ClassView.new(@interpreter)      ,
+            FileView.new                     ,
+            BlocksView.new(@interpreter)     ,
+            StatusView.new(@interpreter)     ,
+            RegistersView.new(@interpreter) ] )
   end
 
 end
