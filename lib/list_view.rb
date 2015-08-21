@@ -8,8 +8,12 @@ class ListView < ElementView
     @container_element = nil
   end
 
+  def root
+    "div"
+  end
+
   def draw on
-    @container_element = $document.create_element('div')
+    @container_element = create_element(self.root)
     @elements = @children.collect do | c |
       elem = c.draw(@container_element)
       elem.append_to(@container_element)
@@ -17,4 +21,5 @@ class ListView < ElementView
     end
     @container_element
   end
+
 end
