@@ -27,6 +27,7 @@ class MainView < ListView
 
     machine.run_before "Register::CallImplementation"
     @interpreter = Interpreter::Interpreter.new
+    @interpreter.start machine.init
     super( [ClassesView.new(@interpreter)      ,
             FileView.new                     ,
             BlocksView.new(@interpreter)     ,

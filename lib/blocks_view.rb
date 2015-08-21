@@ -15,7 +15,7 @@ class BlocksView < ElementView
         blocks.each do |b|
           dom.div do
             dom.span do # class="{{b._class_name}}">
-              b.name
+              b.class.name
             end
           end
         end
