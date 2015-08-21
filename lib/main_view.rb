@@ -4,7 +4,7 @@ require 'native'
 require "salama"
 require "interpreter/interpreter"
 require "base/list_view"
-require_relative "class_view"
+require_relative "classes_view"
 require_relative "status_view"
 require_relative "file_view"
 require_relative "blocks_view"
@@ -27,7 +27,7 @@ class MainView < ListView
 
     machine.run_before "Register::CallImplementation"
     @interpreter = Interpreter::Interpreter.new
-    super( [ClassView.new(@interpreter)      ,
+    super( [ClassesView.new(@interpreter)      ,
             FileView.new                     ,
             BlocksView.new(@interpreter)     ,
             StatusView.new(@interpreter)     ,

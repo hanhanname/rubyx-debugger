@@ -32,13 +32,19 @@ class ElementView
     element
   end
 
-  def wrap_node_with node , wrapper
-    node.replace_with wrapper
-    node.append_to wrapper
+  # wrap the @element variable with the given element
+  # so if wrapper == <h4/> the new @element will be <h4> old @element </h4>
+  # return the new @element, which is wrapper
+  def wrap_element wrapper
+    @element = wrap_node_with @element , wrapper
   end
 
-  def create_element class_or_id , text = nil
-    @element = div( class_or_id , text)
+  #wrap the given node with the wappper, so for a div wrapper and a button node
+  # the result will be <div> <button>hwatever was in there</button> <div>
+  def wrap_node_with node , wrapper
+    puts "wraps parent #{node.parent}"
+    node.replace_with(wrapper) if node.parent
+    wrapper << node
   end
 
   def add class_or_id , tex = nil
