@@ -2,15 +2,15 @@ require_relative "ref_view"
 
 class ObjectView < ListView
 
-  def initialize interpreter , object_id
+  def initialize  object_id , interpreter = nil
     @object_id = object_id
     @interpreter = interpreter
-    @interpreter.register_event(:object_changed,  self)
+    @interpreter.register_event(:object_changed,  self) if interpreter
     super( content_elements )
   end
 
   def draw
-    @element = super("ul.nav!")
+    @element = super(@interpreter ? "ul.nav!" : "ul")
     prepend_element div("li" , "-------------------------")
     prepend_element div( "li" ) << div("span" ,  class_header(@object_id) )
     return @element
