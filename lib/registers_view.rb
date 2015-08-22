@@ -30,7 +30,7 @@ class RegistersView < ListView
     reg = reg.symbol unless reg.is_a? Symbol
     index = reg.to_s[1 .. -1 ].to_i
     if( is_object? value )
-      swap =  ObjectView.new( value )
+      swap =  ObjectView.new( @interpreter, value )
     else
       swap = ValueView.new value
     end

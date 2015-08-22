@@ -1,5 +1,5 @@
 
-class ObjectView
+class ObjectView < ElementView
 
   def initialize interpreter , object_id
     @object_id = object_id
@@ -8,13 +8,14 @@ class ObjectView
   end
 
   def draw
+    # todo, remove the DOM use
     DOM do |dom|
-      dom.ul.nav! :sid => @object_id do
+      dom.ul.nav! do # :sid => @object_id
         dom.li do
           dom.span {class_header(@object_id)}
         end
         dom.li { "&nbsp;&nbsp;-------------------------"}
-        content(@value).each do |con3|
+        content(@object_id).each do |con3|
           dom.li do
             dom.a(:href => "#") { con3[0]}
           end
@@ -24,9 +25,10 @@ class ObjectView
   end
 
   def object_changed reg
-    reg = reg.symbol unless reg.is_a? Symbol
-    return unless reg == register
     puts "Object changed in #{reg}"
+    for_object = @interpreter.get_register( reg )
+    return unless for_object == @object_id
+    puts "Object changed  #{for_object}"
     calc_fields
   end
 

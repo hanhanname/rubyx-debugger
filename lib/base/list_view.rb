@@ -29,7 +29,7 @@ class ListView < ElementView
   # the old node will be replaces in the live dom
   def replace_at index , with
     old = @elements[index]
-    @chilren[index] = with
+    @children[index] = with
     rendered = with.draw
     @elements[index] = rendered
     old.replace_with rendered
