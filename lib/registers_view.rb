@@ -18,8 +18,8 @@ class RegistersView < ListView
   end
 
   def draw
-    list = super()
-    list = list.children.each do |reg|
+    super()
+    @element.children.each do |reg|
       elem = div("div.register_view")
       wrap_node_with reg , elem
     end
@@ -28,9 +28,17 @@ class RegistersView < ListView
 
   def register_changed reg , old , value
     reg = reg.symbol unless reg.is_a? Symbol
-    return unless reg == register
-    objects_id! value
-    calc_fields
+    index = reg.to_s[1 .. -1 ].to_i
+    if( is_object? value )
+      swap =  ObjectView.new( value )
+    else
+      swap = ValueView.new value
+    end
+    replace_at index , swap
+  end
+
+  def is_object?( id )
+   Virtual.machine.objects[id] != nil
   end
 
   def calc_fields

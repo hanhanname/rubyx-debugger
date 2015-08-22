@@ -4,10 +4,20 @@ class ElementView
     @element = nil
   end
 
+  #abstract function that should return the single element that is being represented
+  # the element is also stored in @element
   def draw
     raise "implement me to return an Element"
   end
 
+  # helper function to create an element with possible classes, id and text
+  # The first argument is a bit haml inspired, so "tagname.classname" is the format
+  # but if tagname is ommited it will default to div
+  # also several classnames may be given
+  # if one of the names ends in a ! (bang) it will be assigned as the id
+  # second argument is optional, but if given will be added as text (content) to the newly
+  # created Element
+  # return the new Element, which is not linked into the dom at that point (see << and add*)
   def div name_class , text = nil
     name , clazz = name_class.split(".")
     name = "div" if name.empty?
@@ -46,9 +56,19 @@ class ElementView
     wrapper << node
   end
 
-  def add class_or_id , tex = nil
-    element = div( class_or_id , tex)
-    element.append_to @element
-    element
+  # add the given element the @element
+  # return the div that was passed in  (use << to return the @element)
+  def add_element div
+    div.append_to @element
+    div
   end
+
+  # create a new element with class and possibly text
+  # add that new element to the @element
+  # return the newly created element
+  def add class_or_id , tex = nil
+    add_element div( class_or_id , tex)
+  end
+
+
 end

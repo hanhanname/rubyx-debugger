@@ -59,7 +59,4 @@ class ObjectView
     fields
   end
 
-  def is_object?( id )
-   Virtual.machine.objects[id] != nil
-  end
 end
