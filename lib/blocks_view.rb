@@ -1,26 +1,18 @@
-class BlocksView < ElementView
+#require_relative "block_view"
+require_relative "base/constant_view"
+
+class BlocksView < ListView
 
   def initialize interpreter
     @interpreter = interpreter
     @interpreter.register_event(:instruction_changed,  self)
+    super([ConstantView.new("div" , "Block name1") , ConstantView.new("div" , "Block name2")])
   end
 
   def draw
-    DOM do |dom|
-      dom.div.block_view do
-        dom.div do
-          dom.h4  { method_name }
-          dom.h4 {"Block:#{block_name}" }
-        end
-        blocks.each do |b|
-          dom.div do
-            dom.span do # class="{{b._class_name}}">
-              b.class.name
-            end
-          end
-        end
-      end
-    end
+    super()
+    wrap_element div("div.block_view") << div("h4" , "Method #{method_name}") << div("h4" , "Block:#{block_name}" )
+    return @element
   end
 
   def blocks
