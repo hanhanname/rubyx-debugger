@@ -14,7 +14,7 @@ class ListView < ElementView
   def draw root = "div"
     @element = div(root)
     @elements = @children.collect do | c |
-      add_element c.draw
+      append_element c.draw
     end
     @element
   end

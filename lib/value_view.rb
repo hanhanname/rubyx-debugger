@@ -8,7 +8,7 @@ class ValueView < ElementView
     DOM do |dom|
       dom.ul.nav! do
         dom.li do
-          dom.a( :href => "#" ) { @value }
+          dom.span( :href => "#" ) { @value }
         end
       end
     end

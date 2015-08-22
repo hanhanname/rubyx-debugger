@@ -56,10 +56,17 @@ class ElementView
     wrapper << node
   end
 
-  # add the given element the @element
+  # add the given element to the @element, at the end
   # return the div that was passed in  (use << to return the @element)
-  def add_element div
-    div.append_to @element
+  def append_element div
+    @element << div
+    div
+  end
+
+  # add the given element to the @element , at the front
+  # return the div that was passed in  (use >> to return the @element)
+  def prepend_element div
+    @element >> div
     div
   end
 
@@ -67,7 +74,7 @@ class ElementView
   # add that new element to the @element
   # return the newly created element
   def add class_or_id , tex = nil
-    add_element div( class_or_id , tex)
+    append_element div( class_or_id , tex)
   end
 
 
