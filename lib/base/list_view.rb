@@ -7,17 +7,12 @@ class ListView < ElementView
     @elements = []
   end
 
-  # can be overriden to return a string that will be passed to div to create the root
-  # element for the list. See "div" in ElementView for possible strings
-  def root
-    "div"
-  end
-
-  # create a root node acording to the "root" function (default div)
+  # create a root node acording to the tag given (default div)
+  # The tag name will be passed to the div function, so class and id may be set as well (see there)
   # draw all children and keep the elements as @elements
   # return (as per base class) the single root of the collection
-  def draw
-    @element = div(self.root)
+  def draw root = "div"
+    @element = div(root)
     @elements = @children.collect do | c |
       add_element c.draw
     end

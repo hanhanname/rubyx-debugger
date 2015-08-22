@@ -13,12 +13,8 @@ class RegistersView < ListView
     super(kids)
   end
 
-  def root
-    "div.registers_view"
-  end
-
   def draw
-    super()
+    super( "div.registers_view" )
     @element.children.each do |reg|
       elem = div("div.register_view")
       wrap_node_with reg , elem
