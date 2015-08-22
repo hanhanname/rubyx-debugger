@@ -8,7 +8,6 @@ class ObjectView < ElementView
   end
 
   def draw
-    # todo, remove the DOM use
     @element = div("ul.nav!")
     add( "li" ) << div("span" , class_header(@object_id) )
     @element << div("li" , "-------------------------")

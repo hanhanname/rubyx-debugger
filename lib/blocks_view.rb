@@ -1,50 +1,39 @@
-#require_relative "block_view"
-require_relative "base/constant_view"
+require_relative "block_view"
 
 class BlocksView < ListView
 
   def initialize interpreter
     @interpreter = interpreter
     @interpreter.register_event(:instruction_changed,  self)
-    super([ConstantView.new("div" , "Block name1") , ConstantView.new("div" , "Block name2")])
+    super([BlockView.new(@interpreter.block)])
   end
 
   def draw
     super()
-    wrap_element div("div.block_view") << div("h4" , "Method #{method_name}") << div("h4" , "Block:#{block_name}" )
+    wrap_element div("div.block_view") << div("h4" , "Method #{method_name}") << div("h4" , "Block" )
     return @element
   end
 
-  def blocks
-    return [] unless @interpreter.instruction
-    codes = @interpreter.block.codes.dup
-    slice = codes.index(@interpreter.instruction) #- 1
-    codes.shift( slice ) if slice >= 0
-    codes.pop while(codes.length > 4)
-    codes
+  def instruction_changed
+    return if @interpreter.block.name == active_block_name
+    puts "blocks changed to #{@interpreter.block.name}"
+    @elements.last.at_css(".bright").remove_class("bright")
+    append( BlockView.new(@interpreter.block) )
+    remove_first if( @elements.length > 5)
   end
 
-  def instruction_changed
-    puts "Should have done something here to redraw (blocks)"
+  def active_block_name
+    @children.last.block.name
   end
 
   def block_name
     @interpreter.block ? @interpreter.block.name : ""
   end
+
   def method_name
     bl = @interpreter.block
     return "" unless bl
     return bl.method if bl.method.is_a? String
     "#{bl.method.for_class.name}.#{bl.method.name}"
   end
-end
-class BlocksModel #< Volt::ArrayModel
-
-  def instruction_changed old , ins
-    self.last._class_name = "inactive" if( self.length > 0)
-    self << { :name => ins.to_s , :class_name => "bright" }
-    #puts "block #{self.length}"
-    self.delete_at(0) if( self.length > 5)
-  end
-
 end

@@ -14,7 +14,7 @@ class ListView < ElementView
   end
 
   # create a root node acording to the "root" function (default div)
-  # draw all chilren and keep the elements as @elements
+  # draw all children and keep the elements as @elements
   # return (as per base class) the single root of the collection
   def draw
     @element = div(self.root)
@@ -33,5 +33,12 @@ class ListView < ElementView
     rendered = with.draw
     @elements[index] = rendered
     old.replace_with rendered
+  end
+
+  def append view
+    @children << view
+    rendered = view.draw
+    @elements << rendered
+    @element << rendered
   end
 end
