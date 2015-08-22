@@ -9,19 +9,13 @@ class ObjectView < ElementView
 
   def draw
     # todo, remove the DOM use
-    DOM do |dom|
-      dom.ul.nav! do # :sid => @object_id
-        dom.li do
-          dom.span {class_header(@object_id)}
-        end
-        dom.li { "&nbsp;&nbsp;-------------------------"}
-        content(@object_id).each do |con3|
-          dom.li do
-            dom.a(:href => "#") { con3[0]}
-          end
-        end
-      end
+    @element = div("ul.nav!")
+    add( "li" ) << div("span" , class_header(@object_id) )
+    @element << div("li" , "-------------------------")
+    content(@object_id).each do |con3|
+      add("li") << div("a" ,  con3[0])
     end
+    return @element
   end
 
   def object_changed reg
