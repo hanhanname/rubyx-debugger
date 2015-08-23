@@ -1,4 +1,3 @@
-require_relative "block_view"
 
 class BlocksView < ListView
 
@@ -40,4 +39,17 @@ class BlocksView < ListView
     return bl.method if bl.method.is_a? String
     "#{bl.method.for_class.name}.#{bl.method.name}"
   end
+end
+
+class BlockView < ElementView
+
+  def initialize block
+    @block = block
+  end
+  attr_reader :block
+
+  def draw
+    @element = div("div") << div("span.bright" , @block.name )
+  end
+
 end
