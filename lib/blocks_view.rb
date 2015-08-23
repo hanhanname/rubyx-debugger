@@ -6,11 +6,12 @@ class BlocksView < ListView
     @interpreter = interpreter
     @interpreter.register_event(:instruction_changed,  self)
     super([BlockView.new(@interpreter.block)])
+    @method_name = method_name
   end
 
   def draw
     super()
-    wrap_element div("div.block_view") << div("h4" , "Method #{method_name}") << div("h4" , "Block" )
+    wrap_element div("div.block_view") << div("h4.method" , @method_name) << div("h4" , "Block" )
     return @element
   end
 
@@ -19,6 +20,11 @@ class BlocksView < ListView
     @elements.last.at_css(".bright").remove_class("bright")
     append( BlockView.new(@interpreter.block) )
     remove_first if( @elements.length > 5)
+    new_name = method_name
+    return if new_name == @method_name
+    @method_name = new_name
+    puts "changed new_name #{@method_name}"
+    @element.at_css(".method").text = method_name
   end
 
   def active_block_name
