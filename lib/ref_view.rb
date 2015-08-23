@@ -1,8 +1,9 @@
 class RefView < ListView
 
-  def initialize name  , value
+  def initialize name  , value , z = nil
     @name = name
     @value = value
+    @z = z
     super []
   end
 
@@ -16,6 +17,7 @@ class RefView < ListView
   def draw
     @element =  div("li") << div("a" ,  "#{@name} : #{marker(@value)}" )
     add_hover
+    @element.style["z-index"] = @z if @z
     @element
   end
 
@@ -32,7 +34,7 @@ class RefView < ListView
     append ObjectView.new(@value)
     @element.off("hover")
   end
-  
+
   def marker id
     var = Virtual.machine.objects[id]
     if var.is_a? String

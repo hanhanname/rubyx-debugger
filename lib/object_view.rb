@@ -2,8 +2,9 @@ require_relative "ref_view"
 
 class ObjectView < ListView
 
-  def initialize  object_id , interpreter = nil
+  def initialize  object_id , interpreter = nil , z = nil
     @object_id = object_id
+    @z = z
     @interpreter = interpreter
     @interpreter.register_event(:object_changed,  self) if interpreter
     super( content_elements )
@@ -36,7 +37,7 @@ class ObjectView < ListView
     if object and ! object.is_a?(String)
       object.get_instance_variables.each do |variable|
         f = object.get_instance_variable(variable)
-        fields << RefView.new( variable , f.object_id )
+        fields << RefView.new( variable , f.object_id , @z )
       end
     end
     fields

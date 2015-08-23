@@ -15,7 +15,7 @@ class RegistersView < ListView
 
   def draw
     super( "div.registers_view" )
-    @element.children.each do |reg|
+    @element.children.each_with_index do |reg, index|
       elem = div("div.register_view")
       wrap_node_with reg , elem
     end
@@ -26,31 +26,16 @@ class RegistersView < ListView
     reg = reg.symbol unless reg.is_a? Symbol
     index = reg.to_s[1 .. -1 ].to_i
     if( is_object? value )
-      swap =  ObjectView.new( value , @interpreter )
+      swap =  ObjectView.new( value , @interpreter , 16 - index )
     else
       swap = ValueView.new value
     end
     replace_at index , swap
+#    @elements[index].style["z-index"] = -index
   end
 
   def is_object?( id )
-   Virtual.machine.objects[id] != nil
-  end
-
-  def calc_fields
-    #puts "My id #{objects_id} , #{objects_id.class}"
-    object = Virtual.machine.objects[value]
-    self.fields.clear
-    if object and ! object.is_a?(String)
-      clazz = object.class.name.split("::").last
-      #puts "found #{clazz}"
-      self.fields << "#{clazz}:#{object.internal_object_length}"
-      self.fields << object.get_layout
-      object.get_instance_variables.each do |variable|
-        f = object.get_instance_variable(variable)
-        self.fields << f
-      end
-    end
+    Virtual.machine.objects[id] != nil
   end
 
 end
