@@ -1,38 +1,30 @@
-class InstructionView
+require "base/constant_view"
+require "base/list_view"
 
-  include React::Component
-  required_param :interpreter
-  required_param :instruction
+class InstructionView < ListView
 
-  define_state :active => ""
-
-  before_mount do
-    check_active interpreter.instruction
+  def initialize interpreter
+    @interpreter = interpreter
+    super([ConstantView.new( "span.bright" , "starting" )])
+    @interpreter.register_event(:instruction_changed,  self)
   end
 
-  def check_active i
-    active! instruction == i ? "bright" : ""
-
+  def instruction_changed
+    @element.at_css(".bright").remove_class("bright")
+    instruction = append( ConstantView.new( "span.bright" , instruction_text ) )
+    wrap_node_with instruction , div
+    remove_first if( @elements.length > 5)
   end
-  def instruction_changed old , ins
-    check_active ins
+
+  def draw
+    super()
+    wrap_node_with @elements.first , div
+    wrap_element div(".source_view") << div("h4" ,"Virtual Machine Instruction")
+    @element
   end
 
-  def render
-    div :class => active do
-      instruction.to_s if instruction
-    end
+  def instruction_text
+    return "" unless @interpreter.instruction
+    @interpreter.instruction.to_s
   end
 end
-
-
-<div class="source-view">
-  <h4> Virtual Machine Instruction </h4>
-  {{page._sources.each do |source| }}
-    <div>
-      <span class="{{source._class_name}}">
-        {{source._name}}
-      </span>
-    </div>
-  {{end}}
-</div>

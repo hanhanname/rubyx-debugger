@@ -8,6 +8,7 @@ require_relative "classes_view"
 require_relative "status_view"
 require_relative "file_view"
 require_relative "blocks_view"
+require_relative "instruction_view"
 require_relative "registers_view"
 
 class MainView < ListView
@@ -31,6 +32,7 @@ class MainView < ListView
     super( [ClassesView.new(@interpreter)      ,
             FileView.new                     ,
             BlocksView.new(@interpreter)     ,
+            InstructionView.new(@interpreter)     ,
             StatusView.new(@interpreter)     ,
             RegistersView.new(@interpreter) ] )
   end
