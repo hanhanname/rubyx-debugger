@@ -10,7 +10,7 @@ GIT
 
 GIT
   remote: git://github.com/salama/parslet.git
-  revision: d4a6444ae01d5688bbb1e8aa27647eb7db1d34a7
+  revision: b8bf8db20a242eb6bd8fec88027e3b2ae19276e8
   specs:
     parslet (1.7.0)
 
@@ -35,7 +35,7 @@ GIT
 
 GIT
   remote: git://github.com/salama/salama.git
-  revision: c039f3d6e6a89a5e66fbcb37f4fb02646fe9d5d6
+  revision: df95b8b54de103523743cbfd5c46d87af84c6b09
   specs:
     salama (0.2.0)
       salama-object-file (~> 0.2)
