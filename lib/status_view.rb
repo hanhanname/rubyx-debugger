@@ -6,9 +6,10 @@ class StatusView < ElementView
 
   def draw
     @element = div(".status_view") <<
-      div("h4" , "Interpreter" ) <<
-      div("span.clock" , clock_text) <<
+    div("h4" , "Interpreter" ) <<
       div("button.act" , "Next") <<
+      div( "br") <<
+      div("span.clock" , clock_text) <<
       div( "br") <<
       div("span.state" ,  state_text) <<
       div( "br")  <<

@@ -18,7 +18,7 @@ class ElementView
   # second argument is optional, but if given will be added as text (content) to the newly
   # created Element
   # return the new Element, which is not linked into the dom at that point (see << and add*)
-  def div name_class , text = nil
+  def div name_class = "div" , text = nil
     name , clazz = name_class.split(".")
     name = "div" if name.empty?
     element = $document.create_element(name)

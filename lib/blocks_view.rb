@@ -23,7 +23,6 @@ class BlocksView < ListView
     new_name = method_name
     return if new_name == @method_name
     @method_name = new_name
-    puts "changed new_name #{@method_name}"
     @element.at_css(".method").text = method_name
   end
 

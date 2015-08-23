@@ -33,7 +33,8 @@ class ListView < ElementView
   def append view
     @children << view
     rendered = view.draw
-    @elements << rendered
-    @element << rendered
+    @elements << rendered # add to internal array
+    @element << rendered  # add to html children
+    rendered
   end
 end
