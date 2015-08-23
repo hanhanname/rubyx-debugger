@@ -2,11 +2,7 @@ class FileView < ElementView
 
 
   def draw
-    DOM do |dom|
-      dom.div.file_view do
-        dom.h4 {"Future"}
-      end
-    end
+    @element = div(".file_view") << div("h4" ,"Future")
   end
 
 end
