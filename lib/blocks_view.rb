@@ -10,27 +10,20 @@ class BlocksView < ListView
 
   def draw
     super()
-    wrap_element div("div.block_view") << div("h4.method" , @method_name) << div("h4" , "Block" )
+    wrap_element div("div.block_view") << div("h4" , "Method + Block " ) << div("h4.method" , @method_name)
     return @element
   end
 
   def instruction_changed
-    return if @interpreter.block.name == active_block_name
+    new_name = method_name
+    unless new_name == @method_name
+      @method_name = new_name
+      @element.at_css(".method").text = method_name
+    end
+    return if @interpreter.block.object_id == @children.last.block.object_id
     @elements.last.at_css(".bright").remove_class("bright")
     append_view( BlockView.new(@interpreter.block) )
     remove_first if( @elements.length > 6)
-    new_name = method_name
-    return if new_name == @method_name
-    @method_name = new_name
-    @element.at_css(".method").text = method_name
-  end
-
-  def active_block_name
-    @children.last.block.name
-  end
-
-  def block_name
-    @interpreter.block ? @interpreter.block.name : ""
   end
 
   def method_name
@@ -49,7 +42,17 @@ class BlockView < ElementView
   attr_reader :block
 
   def draw
-    @element = div("div") << div("span.bright" , @block.name )
+    @element = div("div") << div("span.bright" , block_name )
+  end
+
+  def method_name
+    return @block.method if @block.method.is_a? String
+    @block.method.name
+  end
+
+  def block_name
+    return @block if @block.is_a? String
+    "#{method_name}.#{@block.name}"
   end
 
 end
