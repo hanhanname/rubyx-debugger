@@ -31,7 +31,7 @@ class RefView < ListView
 
   def hover
     puts "hovering #{@name}"
-    append ObjectView.new(@value)
+    append_view ObjectView.new(@value)
     @element.off("hover")
   end
 

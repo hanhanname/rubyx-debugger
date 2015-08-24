@@ -11,9 +11,9 @@ class InstructionView < ListView
 
   def instruction_changed
     @element.at_css(".bright").remove_class("bright")
-    instruction = append( ConstantView.new( "span.bright" , instruction_text ) )
+    instruction = append_view( ConstantView.new( "span.bright" , instruction_text ) )
     wrap_node_with instruction , div
-    remove_first if( @elements.length > 5)
+    remove_first if( @elements.length > 6)
   end
 
   def draw

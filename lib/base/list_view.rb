@@ -30,7 +30,23 @@ class ListView < ElementView
     old.replace_with rendered
   end
 
-  def append view
+  # remove the first child and element (from view)
+  def remove_first
+    remove_at 0
+  end
+
+  # remove both child and element at given position
+  def remove_at index
+     raise "insex out of bounds #{index} => #{@children.length}" if(index >= @children.length or index < 0)
+     @children.delete_at( index )
+     element = @elements.delete_at(index)
+     element.remove
+  end
+
+  # append a View instnace to the children array
+  # render it and append it to the html element
+  # and keep a copy in @elements
+  def append_view view
     @children << view
     rendered = view.draw
     @elements << rendered # add to internal array

@@ -17,8 +17,8 @@ class BlocksView < ListView
   def instruction_changed
     return if @interpreter.block.name == active_block_name
     @elements.last.at_css(".bright").remove_class("bright")
-    append( BlockView.new(@interpreter.block) )
-    remove_first if( @elements.length > 5)
+    append_view( BlockView.new(@interpreter.block) )
+    remove_first if( @elements.length > 6)
     new_name = method_name
     return if new_name == @method_name
     @method_name = new_name
