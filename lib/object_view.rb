@@ -35,6 +35,7 @@ class ObjectView < ListView
     object = Virtual.machine.objects[@object_id]
     fields = []
     if object and ! object.is_a?(String)
+      fields << RefView.new( "layout" , object.get_layout.object_id , @z )
       object.get_instance_variables.each do |variable|
         f = object.get_instance_variable(variable)
         fields << RefView.new( variable , f.object_id , @z )
