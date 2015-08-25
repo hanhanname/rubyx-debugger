@@ -38,7 +38,7 @@ class RefView < ListView
   def marker id
     var = Virtual.machine.objects[id]
     if var.is_a? String
-      str "Wo"
+      str = "Wo"
     else
       str = var.class.name.split("::").last[0,2]
     end
