@@ -1,30 +1,41 @@
 GIT
-  remote: https://github.com/salama/parslet.git
-  revision: beeb9b441a9ade1504f7f0e848d805e36a02c544
+  remote: git://github.com/opal/opal.git
+  revision: c604685071f8560d3357044683a99b80b210a99b
+  specs:
+    opal (0.9.0.dev)
+      hike (~> 1.2)
+      sourcemap (~> 0.1.0)
+      sprockets (~> 3.1)
+      tilt (>= 1.4)
+
+GIT
+  remote: git://github.com/salama/parslet.git
+  revision: b8bf8db20a242eb6bd8fec88027e3b2ae19276e8
   specs:
     parslet (1.7.0)
 
 GIT
-  remote: https://github.com/salama/salama-arm.git
+  remote: git://github.com/salama/salama-arm.git
   revision: 0bd5091e3f284ecf040e0086a41d2449cd5afb7a
   specs:
     salama-arm (0.0.1)
 
 GIT
-  remote: https://github.com/salama/salama-object-file.git
+  remote: git://github.com/salama/salama-object-file.git
   revision: fbae6a02764dbe97e01e4833f9ffffe09879b100
   specs:
     salama-object-file (0.2.0)
 
 GIT
-  remote: https://github.com/salama/salama-reader.git
+  remote: git://github.com/salama/salama-reader.git
   revision: 841592c667acea1e796f950851262e6938b231bc
   specs:
     salama-reader (0.2.0)
       parslet (~> 1.7.0)
 
-PATH
-  remote: ../salama
+GIT
+  remote: git://github.com/salama/salama.git
+  revision: df95b8b54de103523743cbfd5c46d87af84c6b09
   specs:
     salama (0.2.0)
       salama-object-file (~> 0.2)
@@ -33,10 +44,6 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    bcrypt (3.1.10)
-    bson (1.9.2)
-    bson_ext (1.9.2)
-      bson (~> 1.9.2)
     capybara (2.4.4)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -48,59 +55,28 @@ GEM
     chromedriver2-helper (0.0.8)
       nokogiri
     cliver (0.3.2)
-    coderay (1.1.0)
-    concurrent-ruby (0.8.0)
-      ref (~> 1.0, >= 1.0.5)
-    concurrent-ruby-ext (0.8.0)
-      concurrent-ruby (~> 0.8.0)
-    configurations (2.0.0)
-    csso-rails (0.3.4)
-      execjs (>= 1)
-    daemons (1.2.3)
     diff-lcs (1.2.5)
-    eventmachine (1.0.8)
-    execjs (2.5.2)
-    faye-websocket (0.10.0)
-      eventmachine (>= 0.12.0)
-      websocket-driver (>= 0.5.1)
     ffi (1.9.10)
     hike (1.2.3)
-    json (1.8.3)
-    listen (3.0.3)
-      rb-fsevent (>= 0.9.3)
-      rb-inotify (>= 0.9)
-    method_source (0.8.2)
     mime-types (2.6.1)
     mini_portile (0.6.2)
-    minitest (5.8.0)
-    mongo (1.9.2)
-      bson (~> 1.9.2)
     multi_json (1.11.2)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
-    opal (0.8.0)
-      hike (~> 1.2)
-      sourcemap (~> 0.1.0)
-      sprockets (~> 3.1)
-      tilt (>= 1.4)
+    opal-browser (0.2.0)
+      opal
+      paggio
     opal-rspec (0.4.3)
       opal (>= 0.7.0, < 0.9)
+    paggio (0.2.4)
     poltergeist (1.5.1)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
       multi_json (~> 1.0)
       websocket-driver (>= 0.2.0)
-    pry (0.10.1)
-      coderay (~> 1.1.0)
-      method_source (~> 0.8.1)
-      slop (~> 3.4)
-    rack (1.5.5)
+    rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
-    rb-fsevent (0.9.5)
-    rb-inotify (0.9.5)
-      ffi (>= 0.5.0)
-    ref (1.0.5)
     rspec (3.2.0)
       rspec-core (~> 3.2.0)
       rspec-expectations (~> 3.2.0)
@@ -121,37 +97,14 @@ GEM
       multi_json (~> 1.0)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
-    slop (3.6.0)
     sourcemap (0.1.1)
-    sprockets (3.2.0)
+    sprockets (3.3.2)
       rack (~> 1.0)
     susy (2.2.5)
       sass (>= 3.3.0, < 3.5)
-    thin (1.6.3)
-      daemons (~> 1.0, >= 1.0.9)
-      eventmachine (~> 1.0)
-      rack (~> 1.0)
-    thor (0.19.1)
     tilt (2.0.1)
-    uglifier (2.7.1)
-      execjs (>= 0.3.0)
-      json (>= 1.8.0)
-    volt (0.9.5.pre4)
-      bcrypt (~> 3.1.9)
-      bundler (>= 1.5)
-      concurrent-ruby (= 0.8.0)
-      configurations (~> 2.0.0.pre)
-      faye-websocket (~> 0.10.0)
-      listen (~> 3.0.1)
-      opal (~> 0.8.0)
-      pry (~> 0.10.1)
-      rack (~> 1.5.0)
-      sass (~> 3.4.15)
-      thor (~> 0.19.0)
-    volt-mongo (0.1.1)
-      mongo (~> 1.9.0)
     websocket (1.2.2)
-    websocket-driver (0.6.2)
+    websocket-driver (0.5.4)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
     xpath (2.0.0)
@@ -161,12 +114,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bson_ext (~> 1.9.0)
   capybara (~> 2.4.2)
   chromedriver2-helper (~> 0.0.8)
-  concurrent-ruby-ext (~> 0.8.0)
-  csso-rails (~> 0.3.4)
-  minitest
+  opal!
+  opal-browser
   opal-rspec (~> 0.4.2)
   parslet!
   poltergeist (~> 1.5.0)
@@ -175,12 +126,9 @@ DEPENDENCIES
   salama-arm!
   salama-object-file!
   salama-reader!
+  sass
   selenium-webdriver (~> 2.43.0)
-  susy (= 2.2.5)
-  thin (~> 1.6.0)
-  uglifier (>= 2.4.0)
-  volt (= 0.9.5.pre4)
-  volt-mongo (~> 0.1.0)
+  susy
 
 BUNDLED WITH
    1.10.5

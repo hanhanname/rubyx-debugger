@@ -1,6 +1,6 @@
 require "salama-reader"
 
-class ParseTask < Volt::Task
+class ParseTask 
   def parse(num)
     string_input    = '"Hello again".putstring()'
     parser = Parser::Salama.new

@@ -1,0 +1,71 @@
+// Place your apps css here
+@import "susy";
+
+
+$susy: (
+  columns: 24 ,
+  gutter-position: split ,
+);
+
+.debugger_view { @include container(90%); }
+
+.classes {
+  @include span(3);
+}
+
+.one_class {
+  margin: 10px;
+}
+.file_view {
+  @include span(4);
+  margin-left: span(1);
+}
+
+.source_view { @include span(6); }
+
+.block_view {
+  @include span(4);
+  margin-right: span(2);
+  height: 200px;
+}
+
+.status_view {
+  @include span(2 at 22);
+  line-height : 1.25em;
+}
+
+.registers_view {
+  @include span(20 at 3);
+}
+
+.register_view {
+  @include gallery(4);
+  margin-top: 10px;
+}
+
+.field {
+  @include span(5)
+}
+
+.value {
+  @include span(18)
+}
+
+.value_head {
+  background-color: #C5FFD9;
+}
+
+.act{
+  background-color: #00B3FF;
+  -moz-border-radius: 7px;
+	-webkit-border-radius: 7px;
+  font-size: 100%;
+}
+
+.bright {
+  padding-right: 6px;
+  padding-left: 6px;
+  background-color: #00E3FF ;
+  -moz-border-radius: 7px;
+	-webkit-border-radius: 7px;
+}
