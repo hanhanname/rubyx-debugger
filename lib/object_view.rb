@@ -40,6 +40,13 @@ class ObjectView < ListView
         f = object.get_instance_variable(variable)
         fields << RefView.new( variable , f.object_id , @z )
       end
+      if( object.is_a?(Parfait::List) )
+        index = 1
+        object.each do | o , i|
+          fields << RefView.new( index.to_s , o.object_id , @z )
+          index += 1
+        end
+      end
     end
     fields
   end

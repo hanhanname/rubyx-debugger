@@ -22,11 +22,20 @@ class RefView < ListView
   end
 
   def add_hover
+    return if is_string?
     @element.on("hover"){ hover } if is_object?(@value)
   end
 
-  def is_object?( id )
-   Virtual.machine.objects[id] != nil
+  def is_object?(  )
+   Virtual.machine.objects[@value] != nil
+  end
+
+  def is_string?()
+    Virtual.machine.objects[@value].is_a? String
+  end
+
+  def is_nil?()
+    Virtual.machine.objects[@value].nil?
   end
 
   def hover
@@ -36,13 +45,15 @@ class RefView < ListView
   end
 
   def marker id
-    var = Virtual.machine.objects[id]
-    if var.is_a? String
-      str = "Wo"
+    if is_string?
+      str = @value
+    elsif is_nil?
+      str = "nil"
     else
+      var = Virtual.machine.objects[id]
       str = var.class.name.split("::").last[0,2]
+      str + " : #{id.to_s}"
     end
-    str + " : #{id.to_s}"
   end
 
 end
