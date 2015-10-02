@@ -8,6 +8,7 @@ require "opal"
 require 'opal-browser'
 
 Opal.use_gem("salama")
+Opal.use_gem("ast")
 Opal.use_gem("salama-arm")
 
 class DebugServer < Opal::Server
@@ -23,7 +24,6 @@ run DebugServer.new { |s|
   s.main = 'debugger'
   s.append_path 'lib'
   s.append_path 'assets'
-#  s.source_map = true
   s.debug = !ENV["DEBUG"].nil?
 
   s.index_path = "index.html.erb"

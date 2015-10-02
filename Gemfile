@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem "opal" , :github => "opal/opal"
 gem 'opal-browser'
-
+gem "ast" , :github => "dancinglightning/ast" , :branch => :new_inspect
 #gem "salama" , "0.2" , :path => "../salama"
 
 gem "parslet" , github: "salama/parslet"

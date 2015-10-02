@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/dancinglightning/ast.git
+  revision: a9bc29377a94d2194e92596aceb9be7c7db4c8f8
+  branch: new_inspect
+  specs:
+    ast (2.1.0)
+
+GIT
   remote: git://github.com/opal/opal.git
   revision: c604685071f8560d3357044683a99b80b210a99b
   specs:
@@ -10,9 +17,9 @@ GIT
 
 GIT
   remote: git://github.com/salama/parslet.git
-  revision: b8bf8db20a242eb6bd8fec88027e3b2ae19276e8
+  revision: 1381e3320efd0133b1d2935ef80079717ce9f245
   specs:
-    parslet (1.7.0)
+    parslet (1.7.1)
 
 GIT
   remote: git://github.com/salama/salama-arm.git
@@ -28,14 +35,15 @@ GIT
 
 GIT
   remote: git://github.com/salama/salama-reader.git
-  revision: 841592c667acea1e796f950851262e6938b231bc
+  revision: 34691f36d13f68d2c39cea266f26ea201bc78bb6
   specs:
     salama-reader (0.2.0)
+      ast (~> 2.1.0)
       parslet (~> 1.7.0)
 
 GIT
   remote: git://github.com/salama/salama.git
-  revision: df95b8b54de103523743cbfd5c46d87af84c6b09
+  revision: 501da4d922c9d13a8c2c9bd19c3e5ebc65833b39
   specs:
     salama (0.2.0)
       salama-object-file (~> 0.2)
@@ -115,6 +123,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  ast!
   capybara (~> 2.4.2)
   chromedriver2-helper (~> 0.0.8)
   minitest
@@ -133,4 +142,4 @@ DEPENDENCIES
   susy
 
 BUNDLED WITH
-   1.10.5
+   1.10.6
