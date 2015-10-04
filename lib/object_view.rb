@@ -2,6 +2,8 @@ require_relative "ref_view"
 
 class ObjectView < ListView
 
+  # z is the z-index
+
   def initialize  object_id , interpreter = nil , z = nil
     @object_id = object_id
     @z = z
@@ -18,11 +20,18 @@ class ObjectView < ListView
   end
 
   def object_changed reg , at
-    puts "Object changed in #{reg}"
+    at = at - 1 #take the layout off
+    #puts "Object changed in #{reg}"
     for_object = @interpreter.get_register( reg )
     return unless for_object == @object_id
-    puts "Object changed  #{for_object} , at #{at}"
-
+    #puts "Object changed  #{for_object} , at #{at}"
+    object = Virtual.machine.objects[@object_id]
+    raise "error #{@object_id} , #{at}"  unless object and ! object.is_a?(String)
+    variable = object.get_instance_variables.get(at)
+    #puts "got var name #{variable} for #{at}"
+    f = object.get_instance_variable(variable)
+    element = RefView.new( variable , f.object_id , @z )
+    replace_at at , element
   end
 
   def class_header(id)

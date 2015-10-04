@@ -21,7 +21,7 @@ class ListView < ElementView
 
   # replace the child at index with the given one (second arg)
   # The child must be an ElementView , which will be rendered and
-  # the old node will be replaces in the live dom
+  # the old node will be replaced in the live dom
   def replace_at index , with
     old = @elements[index]
     @children[index] = with
