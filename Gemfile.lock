@@ -1,11 +1,4 @@
 GIT
-  remote: git://github.com/dancinglightning/ast.git
-  revision: a9bc29377a94d2194e92596aceb9be7c7db4c8f8
-  branch: new_inspect
-  specs:
-    ast (2.1.0)
-
-GIT
   remote: git://github.com/opal/opal.git
   revision: c604685071f8560d3357044683a99b80b210a99b
   specs:
@@ -43,11 +36,16 @@ GIT
 
 GIT
   remote: git://github.com/salama/salama.git
-  revision: 501da4d922c9d13a8c2c9bd19c3e5ebc65833b39
+  revision: 83ef902b5595784b691b09ad91afa87490ba5194
   specs:
     salama (0.2.0)
       salama-object-file (~> 0.2)
       salama-reader (~> 0.2)
+
+PATH
+  remote: ../ast
+  specs:
+    ast (2.1.0)
 
 GEM
   remote: https://rubygems.org/
