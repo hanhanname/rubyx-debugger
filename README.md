@@ -9,28 +9,35 @@ After some tryouts it ended up being an Opal application. That is ruby as javasc
 - next a view of the Virtual Instructions
 - last section, current block with current Register Instruction highlighted
 - step (next) button for single stepping
-- status: starting , running , exited
-- bottom row are the registers. If the register hold an object the variables are shown.
-    (also should have hover info) , the first letter indicates the class, the number is the address
+- state: starting , running , exited
+- bottom row are the registers. If the register holds an object the variables are shown.
 
-So lots to do, but a good start.
+## Register View
 
+The Register view is now greatly improved, especially in it's dynamic features:
 
-
-I don't want to use gdb anymore, and it would be easier without using the qemu setup, so:
-
-- single step debugging of the register machine level (as close to arm as need be)
-- visual transitions for steps
-- visualisation of data in registers (some kind of link to the object)
-- show the current instruction and a few around
-- show vm object (message etc)
-- show effect of register transitions on vm objects
-- visualize vm object content (again some links)
+- when the contents update the register obviously updates
+- when the object that the register holds updates, the new value is shown immediately
+- hovering over a variable will **expand that variable** .
+- the hovering works recursively, so it is possible to drill pdown into objects for sevaral levels
 
 
-# Space
+### Debugging the debugger
 
-- Visualise the object space in some way
-- Visualise single object, bit like atoms
-- values immediate
-- objects as link
+Opal is pre 1.0 and is a wip. While current source map support is quite good, one only gets
+real lines when switching debug on. Debug make it load every single file seperately, slooows it
+down in other words. Set DEBUG environement to swithc it on.
+
+I set the sprockets cache to mem-cache and that increase load time from 12s to 1 , so it's quite
+usable and restarting a debug is fine.
+
+## Todos
+
+Currently only one source is supported. I change the code.rb file to debug a new problem.
+
+Parsing (parslet) does not work in opal. So s-expressions are used. I use the parser or interpreter
+to spew those out. Having a dropdown would be nice, and not even so difficult, but it happens rarely.
+
+Breakpoints would be nice at some point. Both in step count and variable value.
+
+Seeing the source code should be possible, just have to keep it around.

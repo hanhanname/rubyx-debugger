@@ -1,5 +1,14 @@
 require_relative "element_view"
 
+# Listviews hold an array of elements and are responsible for drawing (and re-drawing them)
+#
+# A ListView hold the elements, but also the drawn html divs. You can change the element
+# structure by adding/removing/replacing and the ListView will take care of redrawing the html
+#
+# A ListView is itself an ElementView so one can build recursive structures.
+#
+# Also one can easily change the root html element, or by deriving wrap or edit the resulting html
+#
 class ListView < ElementView
 
   def initialize children

@@ -1,3 +1,12 @@
+# The basic idea is somewhat that of a shadow dom.
+#
+# ElementView wraps a single div with whatever content you want (derive to implement the view)
+#
+# It must have an element, which is drawn. Draw returns the div or whatever. An ElementView
+#  does not draw itself, but rather is drawn.
+#
+# Listviews provide structure
+#
 class ElementView
 
   def initialize

@@ -9,7 +9,9 @@ require "salama"
 require "salama-reader"
 require "ast"
 require "interpreter/interpreter"
+# the base, our own litle framework, allows for child and parent views and handles updates
 require "base/list_view"
+# each seperate view is in it's own class.
 require_relative "classes_view"
 require_relative "status_view"
 require_relative "file_view"
