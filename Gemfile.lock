@@ -29,21 +29,21 @@ GIT
 
 GIT
   remote: git://github.com/salama/salama-object-file.git
-  revision: f2aad98ff93a816aca7b47bea0751974a72b1e72
+  revision: aab01b23108f10063433b1ef9f703ff2927d0b80
   specs:
     salama-object-file (0.3.0)
 
 GIT
   remote: git://github.com/salama/salama-reader.git
-  revision: 58b3553251bd23d2b666b25e23c8bc13ad87acdb
+  revision: ab0a94bd51c996637453331adeb28bf1731f9b65
   specs:
-    salama-reader (0.3.0)
+    salama-reader (0.4.0)
       ast (~> 2.1.0)
       parslet (~> 1.7.0)
 
 GIT
   remote: git://github.com/salama/salama.git
-  revision: 02e9975ad61f60230369d40f7ac9821cb6a69550
+  revision: 13eb01739455b21860ec0dba0068a98a5f4ca617
   specs:
     salama (0.3.0)
       salama-object-file (~> 0.3)

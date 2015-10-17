@@ -32,7 +32,7 @@ class MainView < ListView
     # so the code above is functionally equivalent to the one below, minus the parse
     # When the ast expression is given all works, so pretty sure it is the parse that fails
 
-    Bosl::Compiler.compile( CODE , machine.space.get_main )
+    Phisol::Compiler.compile( CODE  )
 
     machine.run_before "Register::CallImplementation"
     @interpreter = Interpreter::Interpreter.new
