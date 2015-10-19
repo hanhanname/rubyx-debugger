@@ -12,13 +12,13 @@ require "interpreter/interpreter"
 # the base, our own litle framework, allows for child and parent views and handles updates
 require "base/list_view"
 # each seperate view is in it's own class.
-require_relative "classes_view"
-require_relative "status_view"
-require_relative "file_view"
-require_relative "blocks_view"
-require_relative "instruction_view"
-require_relative "registers_view"
-require_relative "code"
+require "views/classes_view"
+require "views/status_view"
+require "views/file_view"
+require "views/blocks_view"
+require "views/instruction_view"
+require "views/registers_view"
+require "code"
 
 class MainView < ListView
 
@@ -34,7 +34,7 @@ class MainView < ListView
 
     Phisol::Compiler.compile( CODE  )
 
-    machine.run_before "Register::CallImplementation"
+    machine.collect
     @interpreter = Interpreter::Interpreter.new
     @interpreter.start machine.init
     super( [ClassesView.new(@interpreter)      ,
