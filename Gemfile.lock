@@ -1,11 +1,4 @@
 GIT
-  remote: git://github.com/dancinglightning/ast.git
-  revision: 7d2f15d916525e644bbdbfa82c3765e1ca2f03e8
-  branch: new_inspect
-  specs:
-    ast (2.1.0)
-
-GIT
   remote: git://github.com/opal/opal.git
   revision: acda5649755287b632e8dff7eddcb6d4d71ac0df
   specs:
@@ -35,15 +28,20 @@ GIT
 
 GIT
   remote: git://github.com/salama/salama-reader.git
-  revision: ab0a94bd51c996637453331adeb28bf1731f9b65
+  revision: 6710567af979b0b367245c16a0c6af260675bc71
   specs:
     salama-reader (0.4.0)
       ast (~> 2.1.0)
       parslet (~> 1.7.0)
 
 GIT
-  remote: git://github.com/salama/salama.git
-  revision: 13eb01739455b21860ec0dba0068a98a5f4ca617
+  remote: git://github.com/whitequark/ast.git
+  revision: 3814fb102af82a30bf334005ebe17332744f9dad
+  specs:
+    ast (2.1.0)
+
+PATH
+  remote: ../salama
   specs:
     salama (0.3.0)
       salama-object-file (~> 0.3)
@@ -133,7 +131,7 @@ DEPENDENCIES
   parslet!
   poltergeist (~> 1.5.0)
   rspec (~> 3.2.0)
-  salama!
+  salama (= 0.3)!
   salama-arm!
   salama-object-file!
   salama-reader!

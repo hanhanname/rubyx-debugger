@@ -2,11 +2,11 @@ source 'https://rubygems.org'
 
 gem "opal" , :github => "opal/opal"
 gem 'opal-browser'
-gem "ast" , :github => "dancinglightning/ast" , :branch => :new_inspect
+gem "ast" , :github => "whitequark/ast"
 #gem "ast" , :path => "../ast"
 
-#gem "salama" , "0.3" , :path => "../salama"
-gem "salama" , github: "salama/salama"
+gem "salama" , "0.3" , :path => "../salama"
+#gem "salama" , github: "salama/salama"
 
 gem "parslet" , github: "salama/parslet"
 gem "salama-reader" , github: "salama/salama-reader"
