@@ -15,7 +15,7 @@ class ClassesView < ListView
   def draw
     super()
     wrap_element div("ul.nav!")
-    wrap_element( div(".classes") << div("h4" , "Classes") )
+    wrap_element( div("h4" , "Classes") )
     return @element
   end
 

@@ -4,7 +4,10 @@ class BlocksView < ListView
   def initialize interpreter
     @interpreter = interpreter
     @interpreter.register_event(:instruction_changed,  self)
-    super([BlockView.new(@interpreter.block)])
+    @interpreter.register_event(:state_changed,  self)
+    show = []
+    show << BlockView.new(@interpreter.block) if @interpreter.block
+    super(show)
     @method_name = method_name
   end
 
@@ -20,10 +23,17 @@ class BlocksView < ListView
       @method_name = new_name
       @element.at_css(".method").text = method_name
     end
-    return if @interpreter.block.object_id == @children.last.block.object_id
-    @elements.last.at_css(".bright").remove_class("bright")
+    if @children.last
+      return if @interpreter.block.object_id == @children.last.block.object_id
+      @elements.last.at_css(".bright").remove_class("bright")
+    end
     append_view( BlockView.new(@interpreter.block) )
     remove_first if( @elements.length > 6)
+  end
+
+  def state_changed old , new_s
+    return unless new_s == :running
+    clear_view
   end
 
   def method_name
