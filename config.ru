@@ -10,14 +10,27 @@ require 'opal-browser'
 Opal.use_gem("salama")
 Opal.use_gem("ast")
 Opal.use_gem("salama-arm")
+Virtual.machine.boot
 
 class DebugServer < Opal::Server
   def call(env)
-    if( env["REQUEST_PATH"] == "/tasks.json")
-      [200, { 'Content-Type' => 'text/json' }, [ParseTask.new.parse(1).to_json]]
+    path = env["REQUEST_PATH"]
+    return super(env) unless path.include?("json")
+    route = path[1 .. path.index(".") - 1]
+    if( route == "codes")
+      [200, { 'Content-Type' => 'text/json' },  codes ]
     else
-      super(env)
+      [200, { 'Content-Type' => 'text/json' },  code(route) ]
     end
+  end
+  def codes
+    [Dir["codes/*.psol"].collect{|f| f.sub("codes/","").sub(".psol","")}.join("----")]
+  end
+  def code at
+    phisol = File.new("codes/#{at}.psol").read
+    syntax  = Parser::Salama.new.parse_with_debug(phisol)
+    parts = Parser::Transform.new.apply(syntax)
+    [parts.inspect]
   end
 end
 run DebugServer.new { |s|
