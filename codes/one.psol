@@ -1,5 +1,0 @@
-class Object
-  int main()
-    return 1
-  end
-end

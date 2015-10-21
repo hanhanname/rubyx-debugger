@@ -1,0 +1,10 @@
+class Object
+  int main()
+    int n = 10
+    if_zero( n - 12)
+      "then".putstring()
+    else
+      "else".putstring()
+    end
+  end
+end
