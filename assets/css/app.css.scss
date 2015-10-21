@@ -16,16 +16,17 @@ $susy: (
 .one_class {
   margin: 10px;
 }
+
 .file_view {
   @include span(4);
   margin-left: span(1);
 }
 
-.source_view { @include span(6); }
+.source_view { @include span(8); }
 
 .block_view {
-  @include span(4);
-  margin-right: span(2);
+  @include span(3);
+  margin-right: span(1);
   height: 200px;
 }
 
