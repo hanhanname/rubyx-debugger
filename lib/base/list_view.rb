@@ -52,6 +52,11 @@ class ListView < ElementView
      element.remove
   end
 
+  # remove all elements and views, basically resetting the list to empty
+  def clear_view
+    remove_first while( ! @children.empty? )
+  end
+
   # append a View instnace to the children array
   # render it and append it to the html element
   # and keep a copy in @elements
