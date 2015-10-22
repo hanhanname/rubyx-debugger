@@ -25,6 +25,7 @@ class StatusView < ElementView
     @interpreter.tick
     @element.at_css(".clock").text = clock_text
     @element.at_css(".link").text = link_text
+    @element.at_css(".state").text = state_text
     @element.at_css(".stdout").text = @interpreter.stdout
   end
 
