@@ -22,7 +22,11 @@ class StatusView < ElementView
   end
 
   def update
-    @interpreter.tick
+    begin
+      @interpreter.tick
+    rescue => e
+      puts e
+    end
     @element.at_css(".clock").text = clock_text
     @element.at_css(".link").text = link_text
     @element.at_css(".state").text = state_text

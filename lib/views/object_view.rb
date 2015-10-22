@@ -35,7 +35,7 @@ class ObjectView < ListView
       variable = at.to_s
       f = object.internal_object_get(at)
     end
-    puts "got var name #{variable}#{variable.class} for #{at}, #{f}"
+    #puts "got var name #{variable}#{variable.class} for #{at}, #{f}"
     view = RefView.new( variable , f.object_id , @z )
     if( @children[at] )
       replace_at(at , view)
