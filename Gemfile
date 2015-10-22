@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 gem "opal" , :github => "opal/opal"
 gem 'opal-browser'
 gem "ast" , :github => "whitequark/ast"
-#gem "ast" , :path => "../ast"
 
 #gem "salama" , "0.3" , :path => "../salama"
 gem "salama" , github: "salama/salama"
