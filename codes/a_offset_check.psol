@@ -1,0 +1,8 @@
+class Object
+  int puts(Word str)
+    return str
+  end
+  int main()
+    puts("Hello")
+  end
+end
