@@ -28,10 +28,20 @@ class ObjectView < ListView
     object = Virtual.machine.objects[@object_id]
     raise "error #{@object_id} , #{at}"  unless object and ! object.is_a?(String)
     variable = object.get_instance_variables.get(at)
-    #puts "got var name #{variable} for #{at}"
-    f = object.get_instance_variable(variable)
-    element = RefView.new( variable , f.object_id , @z )
-    replace_at at , element
+    if(variable)
+      f = object.get_instance_variable(variable)
+    else
+      at += 1 # add layout back
+      variable = at.to_s
+      f = object.internal_object_get(at)
+    end
+    puts "got var name #{variable}#{variable.class} for #{at}, #{f}"
+    view = RefView.new( variable , f.object_id , @z )
+    if( @children[at] )
+      replace_at(at , view)
+    else
+      append_view(view)
+    end
   end
 
   def class_header(id)
