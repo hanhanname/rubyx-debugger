@@ -47,12 +47,12 @@ class RefView < ListView
   def marker id
     if is_string?
       str = @value
-    elsif is_nil?
-      str = "nil"
-    else
+    elsif is_object?
       var = Register.machine.objects[id]
       str = var.class.name.split("::").last[0,2]
       str + " : #{id.to_s}"
+    else
+      str = @value.to_s
     end
   end
 

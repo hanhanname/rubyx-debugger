@@ -20,8 +20,7 @@ class ObjectView < ListView
   end
 
   def object_changed reg , at
-    at = at - 1 #take the layout off
-    #puts "Object changed in #{reg}"
+    puts "Object changed in #{reg} , at #{at}"
     for_object = @interpreter.get_register( reg )
     return unless for_object == @object_id
     #puts "Object changed  #{for_object} , at #{at}"
@@ -31,14 +30,13 @@ class ObjectView < ListView
     if(variable)
       f = object.get_instance_variable(variable)
     else
-      at += 1 # add layout back
-      variable = at.to_s
+      variable = (at - object.class.get_length_index).to_s
       f = object.internal_object_get(at)
     end
     #puts "got var name #{variable}#{variable.class} for #{at}, #{f}"
-    view = RefView.new( variable , f.object_id , @z )
-    if( @children[at] )
-      replace_at(at , view)
+    view = RefView.new( variable , oid(f) , @z )
+    if( @children[at-1] )
+      replace_at(at-1 , view)
     else
       append_view(view)
     end
@@ -54,15 +52,15 @@ class ObjectView < ListView
     object = Register.machine.objects[@object_id]
     fields = []
     if object and ! object.is_a?(String)
-      fields << RefView.new( "layout" , object.get_layout.object_id , @z )
       object.get_instance_variables.each do |variable|
         f = object.get_instance_variable(variable)
-        fields << RefView.new( variable , f.object_id , @z )
+        fields << RefView.new( variable , oid(f) , @z )
       end
-      if( object.is_a?(Parfait::List) )
+      if( object.is_a?(Parfait::Indexed) )
         index = 1
-        object.each do | o , i|
-          fields << RefView.new( index.to_s , o.object_id , @z )
+        object.each do | o|
+          puts "gett #{o}"
+          fields << RefView.new( index.to_s , oid(o) , @z )
           index += 1
         end
       end
@@ -70,4 +68,8 @@ class ObjectView < ListView
     fields
   end
 
+  def oid o
+    return o if o.is_a? Fixnum
+    return o.object_id
+  end
 end

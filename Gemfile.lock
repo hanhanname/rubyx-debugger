@@ -36,7 +36,7 @@ GIT
 
 GIT
   remote: git://github.com/salama/salama.git
-  revision: fdc7f8b39ce560506cd039805ccdb499cc4b31fa
+  revision: bb908dcf76b4497078afb5aa57a4d5643abfc4e6
   specs:
     salama (0.3.0)
       salama-object-file (~> 0.3)
