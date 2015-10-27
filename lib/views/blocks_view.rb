@@ -6,28 +6,23 @@ class BlocksView < ListView
     @interpreter.register_event(:instruction_changed,  self)
     @interpreter.register_event(:state_changed,  self)
     show = []
-    show << BlockView.new(@interpreter.block) if @interpreter.block
+    show << LabelView.new(@interpreter.instruction) if @interpreter.instruction.is_a?(Register::Label)
     super(show)
-    @method_name = method_name
   end
 
   def draw
     super()
-    wrap_element div("div.block_view") << div("h4" , "Method + Block " ) << div("h4.method" , @method_name)
+    wrap_element div("div.label_view") << div("h4" , "Method + Block " ) << div("h4.method" , @method_name)
     return @element
   end
 
   def instruction_changed
-    new_name = method_name
-    unless new_name == @method_name
-      @method_name = new_name
-      @element.at_css(".method").text = method_name
-    end
+    return unless @interpreter.instruction.is_a?(Register::Label)
     if @children.last
-      return if @interpreter.block.object_id == @children.last.block.object_id
+      return if @interpreter.instruction.object_id == @children.last.label.object_id
       @elements.last.at_css(".bright").remove_class("bright")
     end
-    append_view( BlockView.new(@interpreter.block) )
+    append_view( LabelView.new(@interpreter.instruction) )
     remove_first if( @elements.length > 6)
   end
 
@@ -36,33 +31,22 @@ class BlocksView < ListView
     clear_view
   end
 
-  def method_name
-    bl = @interpreter.block
-    return "" unless bl
-    return bl.method if bl.method.is_a? String
-    "#{bl.method.for_class.name}.#{bl.method.name}"
-  end
 end
 
-class BlockView < ElementView
+class LabelView < ElementView
 
-  def initialize block
-    @block = block
+  def initialize label
+    @label = label
   end
-  attr_reader :block
+  attr_reader :label
 
   def draw
-    @element = div("div") << div("span.bright" , block_name )
+    @element = div("div") << div("span.bright" , label_name )
   end
 
-  def method_name
-    return @block.method if @block.method.is_a? String
-    @block.method.name
-  end
-
-  def block_name
-    return @block if @block.is_a? String
-    "#{method_name}.#{@block.name}"
+  def label_name
+    return @label if @label.is_a? String
+    @label.name
   end
 
 end
