@@ -9,9 +9,11 @@ class SwitchView < ListView
     super(".classes")
   end
 end
+# opal eval seems to get the scope wrong and evals in object (not where its called)
+include AST::Sexp
 
 class SelectView < ElementView
-  include AST::Sexp
+
   def initialize interpreter
     @interpreter = interpreter
     @codes = nil
@@ -45,20 +47,24 @@ class SelectView < ElementView
     @element.at_css(".code_list") <<  list
   end
 
+  def decode code
+    begin
+      return Kernel.eval(code)
+    rescue => e
+      @element.at_css(".selected").text = "error, #{e}"
+      puts e
+    end
+    s(:statements, s(:class, :Foo, s(:derives, nil), s(:statements, s(:class_field, :Integer, :x))))
+  end
+
   def select code
     @interpreter.set_state :stopped
     @element.at_css(".selected").text = code
     promise = Browser::HTTP.get "/#{code}.json"
     promise.then do |response|
-      code = nil
-      begin
-        code = Kernel.eval response.text
-      rescue => e
-        @element.at_css(".selected").text = "error, see console"
-        puts e
-      end
-      machine = Virtual.machine.boot
-      Phisol::Compiler.compile( code  )
+      code = decode( response.text)
+      machine = Register.machine.boot
+      Soml::Compiler.compile( code  )
       machine.collect
       @interpreter.start machine.init
     end
