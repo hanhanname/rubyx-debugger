@@ -2,15 +2,13 @@ require 'bundler'
 Bundler.require
 require 'tilt/erb'
 
-require_relative "lib/parse_task"
-
 require "opal"
 require 'opal-browser'
 
 Opal.use_gem("salama")
 Opal.use_gem("ast")
 Opal.use_gem("salama-arm")
-Virtual.machine.boot
+Register.machine.boot
 
 class DebugServer < Opal::Server
   def call(env)

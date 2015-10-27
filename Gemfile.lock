@@ -16,7 +16,7 @@ GIT
 
 GIT
   remote: git://github.com/salama/salama-arm.git
-  revision: 4fd8d6fa93f5abcee5d960da9e2b2ec968ba3ea0
+  revision: 9b011ee365ea0312568ba858662023747154c59f
   specs:
     salama-arm (0.3.0)
 
@@ -36,7 +36,7 @@ GIT
 
 GIT
   remote: git://github.com/salama/salama.git
-  revision: c68577c3f4b77be495a9d4e161171356a611730f
+  revision: fdc7f8b39ce560506cd039805ccdb499cc4b31fa
   specs:
     salama (0.3.0)
       salama-object-file (~> 0.3)

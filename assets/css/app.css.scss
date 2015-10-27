@@ -24,7 +24,7 @@ $susy: (
 
 .source_view { @include span(8); }
 
-.block_view {
+.label_view {
   @include span(3);
   margin-right: span(1);
   height: 200px;
