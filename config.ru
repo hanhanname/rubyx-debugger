@@ -22,11 +22,11 @@ class DebugServer < Opal::Server
     end
   end
   def codes
-    [Dir["codes/*.psol"].collect{|f| f.sub("codes/","").sub(".psol","")}.join("----")]
+    [Dir["codes/*.saml"].collect{|f| f.sub("codes/","").sub(".saml","")}.join("----")]
   end
   def code at
-    phisol = File.new("codes/#{at}.psol").read
-    syntax  = Parser::Salama.new.parse_with_debug(phisol)
+    saml = File.new("codes/#{at}.saml").read
+    syntax  = Parser::Salama.new.parse_with_debug(saml)
     parts = Parser::Transform.new.apply(syntax)
     [parts.inspect]
   end
