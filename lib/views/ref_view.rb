@@ -27,15 +27,15 @@ class RefView < ListView
   end
 
   def is_object?(  )
-   Virtual.machine.objects[@value] != nil
+   Register.machine.objects[@value] != nil
   end
 
   def is_string?()
-    Virtual.machine.objects[@value].is_a? String
+    Register.machine.objects[@value].is_a? String
   end
 
   def is_nil?()
-    Virtual.machine.objects[@value].nil?
+    Register.machine.objects[@value].nil?
   end
 
   def hover
@@ -50,7 +50,7 @@ class RefView < ListView
     elsif is_nil?
       str = "nil"
     else
-      var = Virtual.machine.objects[id]
+      var = Register.machine.objects[id]
       str = var.class.name.split("::").last[0,2]
       str + " : #{id.to_s}"
     end

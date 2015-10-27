@@ -25,7 +25,7 @@ class ObjectView < ListView
     for_object = @interpreter.get_register( reg )
     return unless for_object == @object_id
     #puts "Object changed  #{for_object} , at #{at}"
-    object = Virtual.machine.objects[@object_id]
+    object = Register.machine.objects[@object_id]
     raise "error #{@object_id} , #{at}"  unless object and ! object.is_a?(String)
     variable = object.get_instance_variables.get(at)
     if(variable)
@@ -45,13 +45,13 @@ class ObjectView < ListView
   end
 
   def class_header(id)
-    object = Virtual.machine.objects[id]
+    object = Register.machine.objects[id]
     clazz = object.class.name.split("::").last
     [clazz, id].join " : "
   end
 
   def content_elements
-    object = Virtual.machine.objects[@object_id]
+    object = Register.machine.objects[@object_id]
     fields = []
     if object and ! object.is_a?(String)
       fields << RefView.new( "layout" , object.get_layout.object_id , @z )

@@ -6,7 +6,7 @@ After some tryouts it ended up being an Opal application. That is ruby as javasc
 
 - On the left are the classes of the system. Next idea is to have hover info about them.
 - Next a source code view (not implemented)
-- next a view of the Virtual Instructions
+- next a view of the Register Instructions
 - last section, current block with current Register Instruction highlighted
 - step (next) button for single stepping
 - state: starting , running , exited

@@ -24,7 +24,7 @@ class InstructionView < ListView
   def draw
     super()
     wrap_node_with @elements.first , div
-    wrap_element div(".source_view") << div("h4" ,"Virtual Machine Instruction")
+    wrap_element div(".source_view") << div("h4" ,"Register Machine Instruction")
     @element
   end
 

@@ -19,15 +19,15 @@ require "views/file_view"
 require "views/blocks_view"
 require "views/instruction_view"
 require "views/registers_view"
-require "code"
 
 class MainView < ListView
+  include AST::Sexp
 
   def initialize
-    machine = Virtual.machine.boot
+    machine = Register.machine.boot
     code = s(:statements, s(:class, :Foo, s(:derives, nil),
                 s(:statements, s(:class_field, :Integer, :x))))
-    Phisol::Compiler.compile( code  )
+    Soml::Compiler.compile( code  )
     machine.collect
     @interpreter = Interpreter::Interpreter.new
     super( [SwitchView.new(@interpreter)      ,

@@ -34,7 +34,7 @@ class RegistersView < ListView
   end
 
   def is_object?( id )
-    Virtual.machine.objects[id] != nil
+    Register.machine.objects[id] != nil
   end
 
 end

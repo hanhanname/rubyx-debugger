@@ -4,7 +4,7 @@ class ClassesView < ListView
   def initialize interpreter
     @interpreter = interpreter
     classes = []
-    Virtual.machine.space.classes.each do |name , claz|
+    Register.machine.space.classes.each do |name , claz|
       next if [:Kernel,:Module,:MetaClass,:BinaryCode].index name
       classes << claz
     end
@@ -28,7 +28,7 @@ class ClassView < ElementView
 
   def draw
     @element = div("li") << div( "a" , @clazz.name ) << (ul = div("ul"))
-    @clazz.object_layout.object_instance_names.each do |name|
+    @clazz.object_layout.instance_names.each do |name|
       ul << (div("li") << div("a", name ))
     end
     @element.style["z-index"] = 20
