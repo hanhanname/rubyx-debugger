@@ -7,7 +7,7 @@ gem "ast" , :github => "whitequark/ast"
 #gem "salama" , "0.3" , :path => "../salama"
 gem "salama" , github: "salama/salama"
 
-gem "parslet" , github: "salama/parslet"
+gem "parslet"
 gem "salama-reader" , github: "salama/salama-reader"
 gem "salama-arm" , github: "salama/salama-arm"
 gem "salama-object-file" , github: "salama/salama-object-file"
