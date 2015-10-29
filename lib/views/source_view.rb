@@ -8,13 +8,16 @@ class SourceView < ElementView
   def draw
     @text = div
     @ticker = div
-    @element = div(".source_view") << div("h4" ,"Future") << @ticker << @text
+    @element = div(".source_view") << div("h4.source" , "Class.Method") << @ticker << @text
     @element
   end
 
   def instruction_changed
     i = @interpreter.instruction
     return "" unless i
+    if( i.is_a?(Register::Label) and i.name.include?("."))
+      @element.at_css(".source").text = i.name
+    end
     case i.source
     when AST::Node
       update_code
