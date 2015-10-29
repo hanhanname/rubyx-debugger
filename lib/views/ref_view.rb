@@ -15,12 +15,16 @@ class RefView < ListView
   end
 
   def draw
-    @element =  div("li") << div("a" ,  "#{@name} : #{marker(@value)}" )
+    @element =  div("li") << div("a" ,  ref_text )
     add_hover
     @element.style["z-index"] = @z if @z
     @element
   end
 
+  def ref_text
+    "#{@name} : #{marker(@value)}"
+  end
+  
   def add_hover
     return if is_string?
     @element.on("hover"){ hover } if is_object?(@value)

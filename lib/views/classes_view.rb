@@ -1,15 +1,28 @@
+require_relative "ref_view"
 
 class ClassesView < ListView
 
   def initialize interpreter
     @interpreter = interpreter
+    @interpreter.register_event(:state_changed,  self)
+    super( class_views )
+  end
+
+  def class_views
     classes = []
     Register.machine.space.classes.each do |name , claz|
       next if [:Kernel,:Module,:MetaClass,:BinaryCode].index name
       classes << claz
     end
     classes.sort! {|a,b| a.name <=> b.name }
-    super( classes.collect{|c| ClassView.new(c)})
+    classes.collect{|c| ClassView.new(c)}
+  end
+
+  def state_changed old , new_s
+    return unless new_s == :running
+    class_views.each_with_index do |v, i|
+      replace_at i , v
+    end
   end
 
   def draw
@@ -21,17 +34,12 @@ class ClassesView < ListView
 
 end
 
-class ClassView < ElementView
+class ClassView < RefView
   def initialize clazz
-    @clazz = clazz
+    super(clazz.name , clazz.object_id , 20 )
   end
 
-  def draw
-    @element = div("li") << div( "a" , @clazz.name ) << (ul = div("ul"))
-    @clazz.object_layout.instance_names.each do |name|
-      ul << (div("li") << div("a", name ))
-    end
-    @element.style["z-index"] = 20
-    @element
+  def ref_text
+    @name
   end
 end
