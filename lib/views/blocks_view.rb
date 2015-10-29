@@ -12,7 +12,7 @@ class BlocksView < ListView
 
   def draw
     super()
-    wrap_element div("div.label_view") << div("h4" , "Method + Block " ) << div("h4.method" , @method_name)
+    wrap_element div("div.labels_view") << div("h4" , "Method + Block " ) << div("h4.method" , @method_name)
     return @element
   end
 

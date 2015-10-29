@@ -64,7 +64,7 @@ class SelectView < ElementView
     promise.then do |response|
       code = decode( response.text)
       machine = Register.machine.boot
-      Soml::Compiler.compile( code  )
+      Soml.compile( code  )
       machine.collect
       @interpreter.start machine.init
     end

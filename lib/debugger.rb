@@ -15,7 +15,7 @@ require "base/list_view"
 # each seperate view is in it's own class.
 require "views/switch_view"
 require "views/status_view"
-require "views/file_view"
+require "views/source_view"
 require "views/blocks_view"
 require "views/instruction_view"
 require "views/registers_view"
@@ -27,11 +27,11 @@ class MainView < ListView
     machine = Register.machine.boot
     code = s(:statements, s(:class, :Foo, s(:derives, nil),
                 s(:statements, s(:class_field, :Integer, :x))))
-    Soml::Compiler.compile( code  )
+    Soml.compile( code  )
     machine.collect
     @interpreter = Interpreter::Interpreter.new
     super( [SwitchView.new(@interpreter)      ,
-            FileView.new                     ,
+            SourceView.new(@interpreter)  ,
             BlocksView.new(@interpreter)     ,
             InstructionView.new(@interpreter)     ,
             StatusView.new(@interpreter)     ,

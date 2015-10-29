@@ -17,14 +17,14 @@ $susy: (
   margin: 10px;
 }
 
-.file_view {
+.source_view {
   @include span(4);
   margin-left: span(1);
 }
 
-.source_view { @include span(8); }
+.instruction_view { @include span(6); }
 
-.label_view {
+.labels_view {
   @include span(3);
   margin-right: span(1);
   height: 200px;
