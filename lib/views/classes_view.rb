@@ -11,7 +11,6 @@ class ClassesView < ListView
   def class_views
     classes = []
     Register.machine.space.classes.each do |name , claz|
-      next if [:Kernel,:Module,:MetaClass,:BinaryCode].index name
       classes << claz
     end
     classes.sort! {|a,b| a.name <=> b.name }

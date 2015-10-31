@@ -24,7 +24,7 @@ class MainView < ListView
 
   def initialize
     machine = Register.machine.boot
-    code = s(:statements, s(:class, :Foo, s(:derives, nil),
+    code = s(:statements, s(:class, :Object, s(:derives, nil),
                 s(:statements, s(:class_field, :Integer, :x))))
     Soml.compile( code  )
     machine.collect

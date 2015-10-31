@@ -42,7 +42,7 @@ class StatusView < ElementView
         self.update
         self.run
       end
-      proc.after( 0.05 )
+      proc.after( 0.001 )
     rescue => e
       puts e
     end
