@@ -31,7 +31,7 @@ $susy: (
 }
 
 .status_view {
-  @include span(2 at 22);
+  @include span(4 at 20);
   line-height : 1.25em;
 }
 
@@ -56,20 +56,41 @@ $susy: (
   background-color: #C5FFD9;
 }
 
+.statement {
+  margin-left: 10px;
+}
 .act{
   background-color: #00B3FF;
   -moz-border-radius: 7px;
 	-webkit-border-radius: 7px;
   font-size: 100%;
 }
-.run{
-  background-color: #00FF37;
+.crawl{
+  background-color: #009900;
   -moz-border-radius: 7px;
 	-webkit-border-radius: 7px;
-  font-size: 100%;
+}
+.run{
+  background-color: #00CC33;
+  -moz-border-radius: 7px;
+	-webkit-border-radius: 7px;
+}
+.wizz{
+  background-color: #00FF66;
+  -moz-border-radius: 7px;
+	-webkit-border-radius: 7px;
 }
 
 .bright {
+  padding-right: 6px;
+  padding-left: 6px;
+  background-color: #00E3FF ;
+  -moz-border-radius: 7px;
+	-webkit-border-radius: 7px;
+}
+
+.fade_in {
+  transition: background-color 100ms linear;
   padding-right: 6px;
   padding-left: 6px;
   background-color: #00E3FF ;

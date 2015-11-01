@@ -11,7 +11,9 @@ class StatusView < ElementView
     @element = div(".status_view") <<
     div("h4" , "Interpreter" ) <<
       div("button.act" , "Next") <<
+      div("button.crawl" , "Crawl") <<
       div("button.run" , "Run") <<
+      div("button.wizz" , "Wizz") <<
       div( "br") <<
       div("span.clock" , clock_text) <<
       div( "br") <<
@@ -22,14 +24,18 @@ class StatusView < ElementView
       div("span.stdout")
     # set up event handler
     @element.at_css(".act").on("click") { self.update }
-    @element.at_css(".run").on("mousedown") { self.start }
+    @element.at_css(".crawl").on("mousedown") { self.start( 0.5 ) }
+    @element.at_css(".run").on("mousedown") { self.start( 0.1 ) }
+    @element.at_css(".wizz").on("mousedown") { self.start( 0.05 ) }
+    @element.at_css(".crawl").on("mouseup") { self.stop }
     @element.at_css(".run").on("mouseup") { self.stop }
+    @element.at_css(".wizz").on("mouseup") { self.stop }
     return @element
   end
 
 
-  def start
-    @running = true
+  def start(speed)
+    @running = speed
     run
   end
   def stop
@@ -42,7 +48,7 @@ class StatusView < ElementView
         self.update
         self.run
       end
-      proc.after( 0.001 )
+      proc.after( @running )
     rescue => e
       puts e
     end
