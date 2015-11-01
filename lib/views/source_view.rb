@@ -16,7 +16,7 @@ class SourceView < ElementView
     i = @interpreter.instruction
     return "" unless i
     if( i.is_a?(Register::Label) and i.name.include?("."))
-      @element.at_css(".source").text = i.name
+      update_method
     end
     case i.source
     when AST::Node
@@ -28,6 +28,17 @@ class SourceView < ElementView
       raise i.source.class.name
     end
   end
+  def update_method
+    @element.at_css(".source").text = @interpreter.instruction.name
+    cl_name , method_name = *@interpreter.instruction.name.split(".")
+    clazz = Register.machine.space.get_class_by_name cl_name
+    method = clazz.get_instance_method( method_name)
+    puts "found method #{method.source.class}"
+    html =     ToCode.new.process( method.source )
+    puts html
+    @text.inner_html = html
+  end
+
   def update_code
     @text.inner_html = ToCode.new.process( @interpreter.instruction.source)
   end
@@ -38,6 +49,23 @@ class ToCode <   AST::Processor
     puts "Missing: " + s.type
     s.to_sexp
   end
+  def on_function  statement
+    return_type , name , parameters, kids , receiver = *statement
+    str = return_type + " " +  name.to_a.first + "("
+    str += process(parameters) + ")<br>"
+    str += process(kids) + "end<br>"
+    str
+  end
+  def on_parameters statement
+    process_all(statement.children).join(",")
+  end
+  def on_parameter p
+    type , name = *p
+    type + " " + name
+  end
+#  str += parameters.children.collect { |p| process(p)}.join(",") + ")<br>"
+#  str += kids.collect { |p| process(p)}.join("<br>")
+
   def on_string s
     "'" + s.first + "'"
   end
@@ -48,7 +76,7 @@ class ToCode <   AST::Processor
     str
   end
   def on_return statement
-  "return "  + process(statement.first ) + "<br>"
+  "return "  + process(statement.first )
   end
   def on_false_statements s
     on_statements s
@@ -69,7 +97,7 @@ class ToCode <   AST::Processor
     condition = condition.first
     ret = "if_#{branch_type}(" + process(condition) + ")<br>" + process(if_true)
     ret += "else" + "<br>" +  process(if_false)  if if_false
-    ret += "end" + "<br>"
+    ret += "end"
   end
   def on_assignment statement
     name , value = *statement
