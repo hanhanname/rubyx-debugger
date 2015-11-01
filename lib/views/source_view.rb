@@ -6,7 +6,7 @@ class SourceView < ElementView
   end
 
   def draw
-    @text = div
+    @text = div(".text")
     @ticker = div
     @element = div(".source_view") << div("h4.source" , "Class.Method") << @ticker << @text
     @element
@@ -20,8 +20,16 @@ class SourceView < ElementView
     end
     case i.source
     when AST::Node
-      update_code
-      @ticker.text = ""
+      id = i.source.object_id
+      text = i.source.type + ":#{id}"
+      if e = @text.at_css("#i#{id}")
+        if (old = @text.at_css(".fade_in"))
+          old.remove_class("fade_in")
+        end
+        text += " found"
+        e.add_class "fade_in"
+      end
+      @ticker.text = text
     when String
       @ticker.text = i.source
     else
@@ -33,27 +41,28 @@ class SourceView < ElementView
     cl_name , method_name = *@interpreter.instruction.name.split(".")
     clazz = Register.machine.space.get_class_by_name cl_name
     method = clazz.get_instance_method( method_name)
-    puts "found method #{method.source.class}"
-    html =     ToCode.new.process( method.source )
-    puts html
-    @text.inner_html = html
+    @text.inner_html = ToCode.new.process( method.source )
   end
 
   def update_code
     @text.inner_html = ToCode.new.process( @interpreter.instruction.source)
   end
 end
-class ToCode <   AST::Processor
+class ToCode < AST::Processor
 
+  alias  :old_process :process
+  def process s
+    return "" unless s
+    old_process(s)
+  end
   def handler_missing s
     puts "Missing: " + s.type
-    s.to_sexp
   end
   def div statement , html
-    "<div class='statement #{statement.object_id}'>" + html + "</div>"
+    "<div class='statement' id='i#{statement.object_id}'>" + html + "</div>"
   end
   def span statement , html
-    "<span class='#{statement.object_id}'>" + html + "</span>"
+    "<span class='expression' id='i#{statement.object_id}'>" + html + "</span>"
   end
   def on_function  statement
     return_type , name , parameters, kids , receiver = *statement
@@ -78,7 +87,7 @@ class ToCode <   AST::Processor
     type , name , value = *statement
     str = span(type, type) + " " + span(name,name)
     str += " = #{process(value)}" if value
-    div(s,str)
+    div(statement,str)
   end
   def on_return statement
     str = "return "  + process(statement.first )
@@ -107,7 +116,7 @@ class ToCode <   AST::Processor
   end
   def on_assignment statement
     name , value = *statement
-    name = name.to_a.first
+    name = process(name)
     v = process(value)
     str = name + " = " + v
     div(statement,str)
@@ -115,7 +124,7 @@ class ToCode <   AST::Processor
   def on_call c
     name , arguments , receiver = *c
     ret = process(name)
-    ret += process(receiver.first) + "." + ret if receiver
+    ret = process(receiver.first) + "." + ret if receiver
     ret += "("
     ret += process(arguments).join(",")
     ret += ")"
