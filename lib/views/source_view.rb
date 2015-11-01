@@ -49,34 +49,40 @@ class ToCode <   AST::Processor
     puts "Missing: " + s.type
     s.to_sexp
   end
+  def div statement , html
+    "<div class='statement #{statement.object_id}'>" + html + "</div>"
+  end
+  def span statement , html
+    "<span class='#{statement.object_id}'>" + html + "</span>"
+  end
   def on_function  statement
     return_type , name , parameters, kids , receiver = *statement
-    str = return_type + " " +  name.to_a.first + "("
+    str = return_type + " "
+    str += receiver + "." if receiver
+    str += name.to_a.first + "("
     str += process(parameters) + ")<br>"
     str += process(kids) + "end<br>"
-    str
+    div(statement,str)
   end
   def on_parameters statement
     process_all(statement.children).join(",")
   end
   def on_parameter p
     type , name = *p
-    type + " " + name
+    span(type,type) + " " + span(name,name)
   end
-#  str += parameters.children.collect { |p| process(p)}.join(",") + ")<br>"
-#  str += kids.collect { |p| process(p)}.join("<br>")
-
   def on_string s
-    "'" + s.first + "'"
+    span(s, "'" + s.first + "'")
   end
   def on_field_def statement
     type , name , value = *statement
-    str = type + " " + name
+    str = span(type, type) + " " + span(name,name)
     str += " = #{process(value)}" if value
-    str
+    div(s,str)
   end
   def on_return statement
-  "return "  + process(statement.first )
+    str = "return "  + process(statement.first )
+    div(statement,str)
   end
   def on_false_statements s
     on_statements s
@@ -88,9 +94,8 @@ class ToCode <   AST::Processor
     str = ""
     s.children.each do |c|
       str += process(c).to_s
-      str +=  "<br>"
     end
-    str
+    div(s,str)
   end
   def on_if_statement statement
     branch_type , condition , if_true , if_false = *statement
@@ -98,34 +103,37 @@ class ToCode <   AST::Processor
     ret = "if_#{branch_type}(" + process(condition) + ")<br>" + process(if_true)
     ret += "else" + "<br>" +  process(if_false)  if if_false
     ret += "end"
+    div(statement,ret)
   end
   def on_assignment statement
     name , value = *statement
     name = name.to_a.first
     v = process(value)
-    name + " = " + v
+    str = name + " = " + v
+    div(statement,str)
   end
   def on_call c
     name , arguments , receiver = *c
     ret = process(name)
-    ret = process(receiver.first) + "." + ret if receiver
+    ret += process(receiver.first) + "." + ret if receiver
     ret += "("
-    ret  += process(arguments).join(",")
+    ret += process(arguments).join(",")
     ret += ")"
+    span(c,ret)
   end
   def on_operator_value statement
     operator , left_e , right_e = *statement
     left_reg = process(left_e)
     right_reg = process(right_e)
-    left_reg + " " + operator + " " + right_reg
+    span(statement , left_reg + " " + operator + " " + right_reg )
   end
   def on_arguments args
     args.children.collect{|c| process(c)}
   end
   def on_name name
-    name.first
+    span(name,name.first)
   end
   def on_int i
-    i.first.to_s
+    span(i , i.first.to_s)
   end
 end
