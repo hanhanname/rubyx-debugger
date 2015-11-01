@@ -30,7 +30,7 @@ GIT
 
 GIT
   remote: git://github.com/whitequark/ast.git
-  revision: 3814fb102af82a30bf334005ebe17332744f9dad
+  revision: 63db4686b33228e8f703cb7328e5e5c62aa3cd92
   specs:
     ast (2.1.0)
 
