@@ -93,7 +93,7 @@ The Register view is now greatly improved, especially in it's dynamic features:
 
 The last feature of inspecting objects is show in the screenshot. This makes it possible
 to very quickly verify the programs behaviour. As it is a pure object system , all data is in
-objects, and all objects can be inspected. 
+objects, and all objects can be inspected.
 
 ### Debugging the debugger
 
@@ -107,3 +107,11 @@ usable and restarting a debug is fine.
 ## Todos
 
 Breakpoints would be nice at some point. Both in step count and variable value.
+
+## Trying it out
+
+Clone
+
+Bundle
+
+bundle exec rackup
