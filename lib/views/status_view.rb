@@ -18,6 +18,8 @@ class StatusView < ElementView
       div("span.clock" , clock_text) <<
       div( "br") <<
       div("span.state" ,  state_text) <<
+      div( "br") <<
+      div("span.flags" ,  flags_text) <<
       div( "br" , "Stdout") <<
       div("span.stdout")
     # set up event handler
@@ -59,11 +61,20 @@ class StatusView < ElementView
     end
     @element.at_css(".clock").text = clock_text
     @element.at_css(".state").text = state_text
+    @element.at_css(".flags").text = flags_text
     @element.at_css(".stdout").text = @interpreter.stdout
   end
 
   def state_text
     "State #{@interpreter.state}"
+  end
+
+  def flags_text
+    flags = []
+    @interpreter.flags.each do |name,value|
+      flags << name if value
+    end
+    "Flags #{flags.join(':')}"
   end
 
   def clock_text
