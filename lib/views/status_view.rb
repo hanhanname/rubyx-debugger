@@ -18,8 +18,6 @@ class StatusView < ElementView
       div("span.clock" , clock_text) <<
       div( "br") <<
       div("span.state" ,  state_text) <<
-      div( "br")  <<
-      div( "span.link" , link_text) <<
       div( "br" , "Stdout") <<
       div("span.stdout")
     # set up event handler
@@ -60,13 +58,8 @@ class StatusView < ElementView
       puts e
     end
     @element.at_css(".clock").text = clock_text
-    @element.at_css(".link").text = link_text
     @element.at_css(".state").text = state_text
     @element.at_css(".stdout").text = @interpreter.stdout
-  end
-
-  def link_text
-    "Link #{@interpreter.link}"
   end
 
   def state_text
