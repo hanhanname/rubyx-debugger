@@ -57,6 +57,14 @@ class HtmlConverter < AST::Processor
     end
     div(s,str)
   end
+  def on_while_statement statement
+    branch_type , condition , statements = *statement
+    condition = condition.first
+    ret = "while_#{branch_type}(" + process(condition) + ")<br>"
+    ret += process(statements)
+    ret += "end"
+    div(statement,ret)
+  end
   def on_if_statement statement
     branch_type , condition , if_true , if_false = *statement
     condition = condition.first
