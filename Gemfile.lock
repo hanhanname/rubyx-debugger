@@ -22,24 +22,25 @@ GIT
 
 GIT
   remote: git://github.com/salama/salama-reader.git
-  revision: 6710567af979b0b367245c16a0c6af260675bc71
+  revision: 6ae4b624b07bb86ceb24acb27ad0ac83be2ecc1e
   specs:
     salama-reader (0.4.0)
       ast (~> 2.1.0)
-      parslet (~> 1.7.0)
+      parslet (~> 1.7.1)
+
+GIT
+  remote: git://github.com/salama/salama.git
+  revision: 9519196a988a11584ad40d9fc6fc644c753a7d34
+  specs:
+    salama (0.3.0)
+      salama-object-file (~> 0.3)
+      salama-reader (~> 0.3)
 
 GIT
   remote: git://github.com/whitequark/ast.git
   revision: 63db4686b33228e8f703cb7328e5e5c62aa3cd92
   specs:
     ast (2.1.0)
-
-PATH
-  remote: ../salama
-  specs:
-    salama (0.3.0)
-      salama-object-file (~> 0.3)
-      salama-reader (~> 0.3)
 
 GEM
   remote: https://rubygems.org/
@@ -128,7 +129,7 @@ DEPENDENCIES
   parslet
   poltergeist (~> 1.5.0)
   rspec (~> 3.2.0)
-  salama (= 0.3)!
+  salama!
   salama-arm!
   salama-object-file!
   salama-reader!

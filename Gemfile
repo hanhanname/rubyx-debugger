@@ -5,8 +5,8 @@ gem 'opal-browser'
 #gem "ast" , :path => "../ast"
 gem "ast" , :github => "whitequark/ast"
 
-gem "salama" , "0.3" , :path => "../salama"
-#gem "salama" , github: "salama/salama"
+#gem "salama" , "0.3" , :path => "../salama"
+gem "salama" , github: "salama/salama"
 
 gem "parslet"
 gem "salama-reader" , github: "salama/salama-reader"
