@@ -36,24 +36,23 @@ class SourceView < ElementView
 
   def update_method
     i = @interpreter.instruction
-    case i
-    when Register::Label
-      if i.name.include?(".")
-        cl_name , method_name = *i.name.split(".")
-        clazz = Register.machine.space.get_class_by_name cl_name
-        method = clazz.get_instance_method( method_name)
-      else
-        return
-      end
-      @element.at_css(".source").text = i.name
-    when Register::FunctionReturn
-      object = @interpreter.object_for( i.register )
+    if i.is_a?(Register::FunctionReturn)
+      object = @interpreter.get_register( i.register )
+      #puts "Object #{object}"
       link = object.internal_object_get( i.index )
-      method = link.method
-      @element.at_css(".source").text = method.name
+      #puts "Link #{link}"
+      raise "No link method" unless link
+      i = link
+    end
+    return unless (i.is_a? Register::Label)
+    if i.is_method
+      cl_name , method_name = *i.name.split(".")
+      clazz = Register.machine.space.get_class_by_name cl_name
+      method = clazz.get_instance_method( method_name)
     else
       return
     end
+    @element.at_css(".source").text = i.name
     @text.inner_html = HtmlConverter.new.process( method.source )
   end
 

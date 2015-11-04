@@ -35,7 +35,7 @@ end
 
 class ClassView < RefView
   def initialize clazz
-    super(clazz.name , clazz.object_id , 20 )
+    super(clazz.name , clazz , 20 )
   end
 
   def ref_text

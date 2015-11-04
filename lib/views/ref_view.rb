@@ -22,7 +22,7 @@ class RefView < ListView
   end
 
   def ref_text
-    "#{@name} : #{marker(@value)}"
+    "#{@name} : #{marker()}"
   end
 
   def add_hover
@@ -31,21 +31,21 @@ class RefView < ListView
   end
 
   def is_object?(  )
-   has = Register.machine.objects[@value]
-   return false unless has
-   ! is_label?
+    return false if @value.is_a?(Fixnum)
+    return false unless @value
+    ! is_label?
   end
 
   def is_string?()
-    Register.machine.objects[@value].is_a? String
+    @value.is_a? String
   end
 
   def is_label?
-    Register.machine.objects[@value].is_a?(Register::Label)
+    @value.is_a?(Register::Label)
   end
 
   def is_nil?()
-    Register.machine.objects[@value].nil?
+    @value.nil?
   end
 
   def hover
@@ -54,13 +54,13 @@ class RefView < ListView
     @element.off("hover")
   end
 
-  def marker id
+  def marker
     if is_string?
       str = @value
     elsif is_object?
-      var = Register.machine.objects[id]
+      var = @value
       str = var.class.name.split("::").last[0,2]
-      str + " : #{id.to_s}"
+      str + " : #{@value.object_id}"
     elsif is_label?
       str = "Label"
     else

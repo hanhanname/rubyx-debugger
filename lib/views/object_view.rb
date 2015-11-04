@@ -4,8 +4,8 @@ class ObjectView < ListView
 
   # z is the z-index
 
-  def initialize  object_id , interpreter = nil , z = nil
-    @object_id = object_id
+  def initialize  object , interpreter = nil , z = nil
+    @object = object
     @z = z
     @interpreter = interpreter
     @interpreter.register_event(:object_changed,  self) if interpreter
@@ -14,26 +14,24 @@ class ObjectView < ListView
 
   def draw
     @element = super(@interpreter ? "ul.nav!" : "ul")
-    prepend_element div( "li" ) << div("span" ,  class_header(@object_id) )
+    prepend_element div( "li" ) << div("span" ,  class_header )
     return @element
   end
 
   def object_changed reg , at
     #puts "Object changed in #{reg} , at #{at}"
     for_object = @interpreter.get_register( reg )
-    return unless for_object == @object_id
+    return unless for_object == @object
     #puts "Object changed  #{for_object} , at #{at}"
-    object = Register.machine.objects[@object_id]
-    raise "error #{@object_id} , #{at}"  unless object and ! object.is_a?(String)
-    variable = object.get_instance_variables.get(at)
+    variable = @object.get_instance_variables.get(at)
     if(variable)
-      f = object.get_instance_variable(variable)
+      f = @object.get_instance_variable(variable)
     else
-      variable = (at - object.class.get_length_index).to_s
-      f = object.internal_object_get(at)
+      variable = (at - @object.class.get_length_index).to_s
+      f = @object.internal_object_get(at)
     end
     #puts "got var name #{variable}#{variable.class} for #{at}, #{f}"
-    view = RefView.new( variable , oid(f) , @z )
+    view = RefView.new( variable , f , @z )
     if( @children[at] )
       replace_at(at , view)
     else
@@ -41,24 +39,23 @@ class ObjectView < ListView
     end
   end
 
-  def class_header(id)
-    object = Register.machine.objects[id]
-    clazz = object.class.name.split("::").last
-    [clazz, id].join " : "
+  def class_header
+    clazz = @object.class.name.split("::").last
+    [clazz, @object.object_id].join " : "
   end
 
   def content_elements
-    object = Register.machine.objects[@object_id]
     fields = [ConstantView.new("li" , "-------------------------")]
+    object = @object
     if object and ! object.is_a?(String)
       object.get_instance_variables.each do |variable|
         f = object.get_instance_variable(variable)
-        fields << RefView.new( variable , oid(f) , @z )
+        fields << RefView.new( variable , f , @z )
       end
       if( object.is_a?(Parfait::Indexed) )
         index = 1
         object.each do | o|
-          fields << RefView.new( index.to_s , oid(o) , @z )
+          fields << RefView.new( index.to_s , o , @z )
           index += 1
         end
       end
@@ -66,8 +63,4 @@ class ObjectView < ListView
     fields
   end
 
-  def oid o
-    return o if o.is_a? Fixnum
-    return o.object_id
-  end
 end
