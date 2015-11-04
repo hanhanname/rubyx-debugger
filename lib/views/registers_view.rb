@@ -24,8 +24,13 @@ class RegistersView < ListView
   def register_changed reg , old , value
     reg = reg.symbol unless reg.is_a? Symbol
     index = reg.to_s[1 .. -1 ].to_i
-    if( is_object? value )
-      swap =  ObjectView.new( value , @interpreter , 16 - index )
+    has = Register.machine.objects[value]
+    if( has )
+      if has.is_a?(Register::Label)
+        swap = ValueView.new "Label: #{has.name}"
+      else
+        swap =  ObjectView.new( value , @interpreter , 16 - index )
+      end
     else
       swap = ValueView.new value
     end
@@ -34,7 +39,9 @@ class RegistersView < ListView
   end
 
   def is_object?( id )
-    Register.machine.objects[id] != nil
+    has = Register.machine.objects[id]
+    return false unless has
+    has.is_a?(Register::Label) ? false : true
   end
 
 end
