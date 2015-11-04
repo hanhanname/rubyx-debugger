@@ -1,0 +1,6 @@
+class Object
+  int main()
+    "Hello World".putstring()
+    return 1
+  end
+end

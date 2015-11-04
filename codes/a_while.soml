@@ -3,10 +3,10 @@ class Object
   int main()
     int i = 5
     while_plus(i)
-      "out".putstring()
+      "out ".putstring()
       i = i - 1
     end
     return i
   end
-  
+
 end
