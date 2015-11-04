@@ -2,7 +2,7 @@
 require "opal"
 require "opal-parser"
 
-
+require "logger"
 require 'browser'
 require 'browser/http'
 require 'native'
