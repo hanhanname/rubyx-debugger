@@ -3,6 +3,7 @@ class HtmlConverter < AST::Processor
   alias  :old_process :process
   def process s
     return "" unless s
+    #puts s.type
     old_process(s)
   end
   def handler_missing s
@@ -35,7 +36,7 @@ class HtmlConverter < AST::Processor
   end
   def on_field_def statement
     type , name , value = *statement
-    str = span(type, type) + " " + span(name,name)
+    str = span(type, type) + " " + process(name)
     str += " = #{process(value)}" if value
     div(statement,str)
   end
