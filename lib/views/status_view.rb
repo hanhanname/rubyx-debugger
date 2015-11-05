@@ -43,22 +43,14 @@ class StatusView < ElementView
   end
   def run
     return unless @running
-    begin
-      proc = Proc.new do
-        self.update
-        self.run
-      end
-      proc.after( @running )
-    rescue => e
-      puts e
+    proc = Proc.new do
+      self.update
+      self.run
     end
+    proc.after( @running )
   end
   def update
-    begin
-      @interpreter.tick
-    rescue => e
-      puts e
-    end
+    @interpreter.tick
     @element.at_css(".clock").text = clock_text
     @element.at_css(".state").text = state_text
     @element.at_css(".flags").text = flags_text
