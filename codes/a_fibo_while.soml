@@ -1,0 +1,18 @@
+class Object
+  int fibonaccit(int n)
+      int a = 0
+      int b = 1
+      while_plus( n )
+        int tmp = a
+        a = b
+        b = tmp + b
+        n = n - 1
+      end
+      b.putint()
+      return b
+  end
+
+  int main()
+    return fibonaccit( 10 )
+  end
+end
