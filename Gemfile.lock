@@ -1,8 +1,8 @@
 GIT
   remote: git://github.com/opal/opal.git
-  revision: acda5649755287b632e8dff7eddcb6d4d71ac0df
+  revision: 959da7babe9dfb0ac47934451a5930e4412e3dce
   specs:
-    opal (0.9.0.dev)
+    opal (0.9.0.beta1)
       hike (~> 1.2)
       sourcemap (~> 0.1.0)
       sprockets (~> 3.1)
@@ -30,7 +30,7 @@ GIT
 
 GIT
   remote: git://github.com/salama/salama.git
-  revision: 428faad25f974d753b9b1f538effc7f73b859648
+  revision: 1309ea37de7ec14d44e112f94e0ea24db86351bc
   specs:
     salama (0.3.0)
       salama-object-file (~> 0.3)
