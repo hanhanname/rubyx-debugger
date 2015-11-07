@@ -28,7 +28,7 @@ class ObjectView < ListView
       f = @object.get_instance_variable(variable)
     else
       variable = (at - @object.class.get_length_index).to_s
-      f = @object.internal_object_get(at)
+      f = @object.get_internal(at)
     end
     #puts "got var name #{variable}#{variable.class} for #{at}, #{f}"
     view = RefView.new( variable , f , @z )

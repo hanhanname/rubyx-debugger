@@ -39,7 +39,7 @@ class SourceView < ElementView
     if i.is_a?(Register::FunctionReturn)
       object = @interpreter.get_register( i.register )
       #puts "Object #{object}"
-      link = object.internal_object_get( i.index )
+      link = object.get_internal( i.index )
       #puts "Link #{link}"
       raise "No link method" unless link
       i = link
