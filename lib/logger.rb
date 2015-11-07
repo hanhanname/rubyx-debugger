@@ -1,5 +1,6 @@
 # Copied logger from logger gem.
-# gemoved monitor for opal
+# removed monitor for opal
+# rmoevd shifting and file options
 
 # == Description
 #
@@ -268,33 +269,27 @@ class Logger
   #
   # === Synopsis
   #
-  #   Logger.new(name, shift_age = 7, shift_size = 1048576)
-  #   Logger.new(name, shift_age = 'weekly')
+  #   Logger.new(name)
+  #   Logger.new(name)
   #
   # === Args
   #
   # +logdev+::
   #   The log device.  This is a filename (String) or IO object (typically
   #   +STDOUT+, +STDERR+, or an open file).
-  # +shift_age+::
-  #   Number of old log files to keep, *or* frequency of rotation (+daily+,
-  #   +weekly+ or +monthly+).
-  # +shift_size+::
-  #   Maximum logfile size (only applies when +shift_age+ is a number).
   #
   # === Description
   #
   # Create an instance.
   #
-  def initialize(logdev, shift_age = 0, shift_size = 1048576)
+  def initialize(logdev)
     @progname = nil
     @level = DEBUG
     @default_formatter = Formatter.new
     @formatter = nil
     @logdev = nil
     if logdev
-      @logdev = LogDevice.new(logdev, :shift_age => shift_age,
-        :shift_size => shift_size)
+      @logdev = LogDevice.new(logdev)
     end
   end
 
@@ -350,10 +345,10 @@ class Logger
     progname ||= @progname
     if message.nil?
       if block_given?
-	message = yield
+	       message = yield
       else
-	message = progname
-	progname = @progname
+	      message = progname
+	      progname = @progname
       end
     end
     @logdev.write(
@@ -518,36 +513,12 @@ private
     attr_reader :dev
     attr_reader :filename
 
-    def initialize(log = nil, opt = {})
-      @dev = @filename = @shift_age = @shift_size = nil
-      if log.respond_to?(:write) and log.respond_to?(:close)
-	      @dev = log
-      else
-      	@dev = open_logfile(log)
-      	@dev.sync = true
-      	@filename = log
-      	@shift_age = opt[:shift_age] || 7
-      	@shift_size = opt[:shift_size] || 1048576
-      end
+    def initialize(log)
+      @dev = log
     end
 
     def write(message)
-      begin
-        if @shift_age and @dev.respond_to?(:stat)
-          begin
-            check_shift_log
-          rescue
-            warn("log shifting failed. #{$!}")
-          end
-        end
-        begin
-          @dev.write(message)
-        rescue
-          warn("log writing failed. #{$!}")
-        end
-      rescue Exception => ignored
-        warn("log writing failed. #{ignored}")
-      end
+      @dev.write(message)
     end
 
     def close
@@ -560,87 +531,8 @@ private
 
   private
 
-    def open_logfile(filename)
-      if (FileTest.exist?(filename))
-     	open(filename, (File::WRONLY | File::APPEND))
-      else
-       	create_logfile(filename)
-      end
-    end
-
-    def create_logfile(filename)
-      logdev = open(filename, (File::WRONLY | File::APPEND | File::CREAT))
-      logdev.sync = true
-      add_log_header(logdev)
-      logdev
-    end
-
-    def add_log_header(file)
-      file.write(
-        "# Logfile created on %s by %s\n" % [Time.now.to_s, Logger::ProgName]
-      )
-    end
-
     SiD = 24 * 60 * 60
 
-    def check_shift_log
-      if @shift_age.is_a?(Integer)
-        # Note: always returns false if '0'.
-        if @filename && (@shift_age > 0) && (@dev.stat.size > @shift_size)
-          shift_log_age
-        end
-      else
-        now = Time.now
-        period_end = previous_period_end(now)
-        if @dev.stat.mtime <= period_end
-          shift_log_period(period_end)
-        end
-      end
-    end
-
-    def shift_log_age
-      (@shift_age-3).downto(0) do |i|
-        if FileTest.exist?("#{@filename}.#{i}")
-          File.rename("#{@filename}.#{i}", "#{@filename}.#{i+1}")
-        end
-      end
-      @dev.close rescue nil
-      File.rename("#{@filename}", "#{@filename}.0")
-      @dev = create_logfile(@filename)
-      return true
-    end
-
-    def shift_log_period(period_end)
-      postfix = period_end.strftime("%Y%m%d")	# YYYYMMDD
-      age_file = "#{@filename}.#{postfix}"
-      if FileTest.exist?(age_file)
-        # try to avoid filename crash caused by Timestamp change.
-        idx = 0
-        # .99 can be overridden; avoid too much file search with 'loop do'
-        while idx < 100
-          idx += 1
-          age_file = "#{@filename}.#{postfix}.#{idx}"
-          break unless FileTest.exist?(age_file)
-        end
-      end
-      @dev.close rescue nil
-      File.rename("#{@filename}", age_file)
-      @dev = create_logfile(@filename)
-      return true
-    end
-
-    def previous_period_end(now)
-      case @shift_age
-      when /^daily$/
-        eod(now - 1 * SiD)
-      when /^weekly$/
-        eod(now - ((now.wday + 1) * SiD))
-      when /^monthly$/
-        eod(now - now.mday * SiD)
-      else
-        now
-      end
-    end
 
     def eod(t)
       Time.mktime(t.year, t.month, t.mday, 23, 59, 59)
@@ -738,8 +630,8 @@ private
     # Sets the log device for this application.  See <tt>Logger.new</tt> for an explanation
     # of the arguments.
     #
-    def set_log(logdev, shift_age = 0, shift_size = 1024000)
-      @log = Logger.new(logdev, shift_age, shift_size)
+    def set_log(logdev)
+      @log = Logger.new(logdev)
       @log.progname = @appname
       @log.level = @level
     end
