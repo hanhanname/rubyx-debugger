@@ -18,7 +18,8 @@ require "views/status_view"
 require "views/source_view"
 require "views/instruction_view"
 require "views/registers_view"
-
+class Bignum
+end
 class MainView < ListView
   include AST::Sexp
 
