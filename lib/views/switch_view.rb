@@ -22,6 +22,7 @@ class SelectView < ElementView
   def draw
     @element =  div("h4", "Code") << (list = div("ul.nav!"))
     list << (div("li.code_list") << div("a.selected" , "none selected"))
+    get_parfait unless @parfait
     get_codes unless @codes
     @element << div("br")
     @element << div("br")
@@ -32,6 +33,13 @@ class SelectView < ElementView
     promise.then do |response|
       @codes = response.text.split("----")
       add_selection
+    end
+  end
+
+  def get_parfait
+    promise = Browser::HTTP.get "/parfait.json"
+    promise.then do |response|
+      @parfait = decode response.text
     end
   end
 
@@ -49,10 +57,11 @@ class SelectView < ElementView
 
   def decode code
     begin
-      return Kernel.eval(code)
+      val =  Kernel.eval(code)
+      return val
     rescue => e
       @element.at_css(".selected").text = "error, #{e}"
-      puts e
+      puts e.backtrace
     end
     s(:statements, s(:class, :Foo, s(:derives, nil), s(:statements, s(:class_field, :Integer, :x))))
   end
@@ -64,8 +73,21 @@ class SelectView < ElementView
     promise.then do |response|
       code = decode( response.text)
       machine = Register.machine.boot
-      Soml.compile( code  )
+      @parfait.each do |part|
+        begin
+          Soml.compile( part )
+        rescue => e
+          puts e.backtrace
+        end
+      end
+      begin
+        Soml.compile( code  )
+      rescue => e
+        puts e.backtrace
+        raise e
+      end
       machine.collect
+      puts "starting"
       @interpreter.start machine.init
     end
   end
