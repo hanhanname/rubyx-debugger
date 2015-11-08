@@ -17,12 +17,21 @@ class DebugServer < Opal::Server
     route = path[1 .. path.index(".") - 1]
     if( route == "codes")
       [200, { 'Content-Type' => 'text/json' },  codes ]
+    elsif( route == "parfait")
+        [200, { 'Content-Type' => 'text/json' },  parfait ]
     else
       [200, { 'Content-Type' => 'text/json' },  code(route) ]
     end
   end
   def codes
     [Dir["codes/*.soml"].collect{|f| f.sub("codes/","").sub(".soml","")}.join("----")]
+  end
+  def parfait
+    all = []
+    Soml::Compiler.each_parfait do |part|
+      all << part
+    end
+    [all.inspect]
   end
   def code at
     soml = File.new("codes/#{at}.soml").read
