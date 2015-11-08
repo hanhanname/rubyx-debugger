@@ -20,6 +20,21 @@ require "views/instruction_view"
 require "views/registers_view"
 class Bignum
 end
+class String
+  def codepoints
+    arr = []
+    one = nil
+    self.each_byte do |c|
+      if( one )
+        arr << (one + c * 256)
+        one = nil
+      else
+        one = c
+      end
+    end
+    arr
+  end
+end
 class MainView < ListView
   include AST::Sexp
 
