@@ -8,6 +8,7 @@ class HtmlConverter < AST::Processor
   end
   def handler_missing s
     puts "Missing: " + s.type
+    "Missing #{s.type}"
   end
   def div statement , html
     "<div class='statement' id='i#{statement.object_id}'>" + html + "</div>"
@@ -33,6 +34,18 @@ class HtmlConverter < AST::Processor
   end
   def on_string s
     span(s, "'" + s.first + "'")
+  end
+  def on_receiver expression
+    span expression , process(expression.first)
+  end
+  def on_field expression
+    span expression , process(expression.first)
+  end
+  def on_field_access statement
+    receiver_ast , field_ast = *statement
+    receiver = process(receiver_ast)
+    field = process(field_ast)
+    span( statement , receiver + "." + field)
   end
   def on_field_def statement
     type , name , value = *statement
