@@ -1,6 +1,6 @@
 class Object
   int main()
     Word five = 4.to_s()
-    five.putstring()
+    return five.putstring()
   end
 end

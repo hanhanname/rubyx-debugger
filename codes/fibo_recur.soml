@@ -17,6 +17,6 @@ class Object
     return fib
   end
   int main()
-    return fib_print(10)
+    return fib_print(7)
   end
 end
