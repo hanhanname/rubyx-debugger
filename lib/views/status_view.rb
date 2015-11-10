@@ -26,7 +26,7 @@ class StatusView < ElementView
     @element.at_css(".act").on("click") { self.update }
     @element.at_css(".crawl").on("mousedown") { self.start( 0.5 ) }
     @element.at_css(".run").on("mousedown") { self.start( 0.1 ) }
-    @element.at_css(".wizz").on("mousedown") { self.start( 0.05 ) }
+    @element.at_css(".wizz").on("mousedown") { self.start( 0.0 ) }
     @element.at_css(".crawl").on("mouseup") { self.stop }
     @element.at_css(".run").on("mouseup") { self.stop }
     @element.at_css(".wizz").on("mouseup") { self.stop }
