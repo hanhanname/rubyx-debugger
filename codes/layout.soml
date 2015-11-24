@@ -1,7 +1,7 @@
 class Layout < Object
 
   Class object_class()
-    return get_internal(2)
+    return get_internal_word(2)
   end
 
 end
@@ -9,7 +9,7 @@ end
 class Object
 
   Layout get_layout()
-    return get_internal(1)
+    return get_internal_word(1)
   end
 
   Class get_class()

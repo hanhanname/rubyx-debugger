@@ -39,7 +39,7 @@ class SourceView < ElementView
     if i.is_a?(Register::FunctionReturn)
       object = @interpreter.get_register( i.register )
       #puts "Object #{object}"
-      link = object.get_internal( i.index )
+      link = object.get_internal_word( i.index )
       #puts "Link #{link}"
       raise "No link method" unless link
       i = link
@@ -47,7 +47,8 @@ class SourceView < ElementView
     return unless (i.is_a? Register::Label)
     if i.is_method
       cl_name , method_name = *i.name.split(".")
-      clazz = Register.machine.space.get_class_by_name cl_name
+      clazz = Register.machine.space.get_class_by_name cl_name.split(" ").last
+      raise "No class for #{cl_name} , #{i.name}" unless clazz
       method = clazz.get_instance_method( method_name)
     else
       return

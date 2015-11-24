@@ -9,7 +9,7 @@ require 'native'
 require "salama"
 require "salama-reader"
 require "ast"
-require "interpreter/interpreter"
+require "register/interpreter"
 # the base, our own litle framework, allows for child and parent views and handles updates
 require "base/list_view"
 # each seperate view is in it's own class.
@@ -44,7 +44,7 @@ class MainView < ListView
                 s(:statements, s(:class_field, :Integer, :x))))
     Soml.compile( code  )
     machine.collect
-    @interpreter = Interpreter::Interpreter.new
+    @interpreter = Register::Interpreter.new
     super( [SwitchView.new(@interpreter)      ,
             SourceView.new(@interpreter)  ,
             InstructionView.new(@interpreter)     ,
