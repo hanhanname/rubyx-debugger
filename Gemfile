@@ -1,16 +1,14 @@
 source 'https://rubygems.org'
 
-gem "opal" , :github => "opal/opal"
+gem "opal"
+gem 'opal-sprockets'
 gem 'opal-browser'
 #gem "ast" , :path => "../ast"
-gem "ast" , :github => "whitequark/ast"
+gem "ast" , :github => "whitequark/ast" , branch: :master
 
-gem "salama" , "0.3" , :path => "../salama"
+gem "salama" , "0.5" , :path => "../salama"
 #gem "salama" , github: "salama/salama"
 
-gem "parslet"
-gem "salama-reader" , github: "salama/salama-reader"
-gem "salama-arm" , github: "salama/salama-arm"
 gem "salama-object-file" , github: "salama/salama-object-file"
 gem "sass"
 gem "susy"
@@ -19,7 +17,7 @@ group :test do
   # Testing dependencies
   gem "minitest"
   gem 'rspec', '~> 3.2.0'
-  gem 'opal-rspec', '~> 0.4.2'
+  gem 'opal-rspec'
   gem 'capybara', '~> 2.4.2'
   gem 'selenium-webdriver', '~> 2.43.0'
   gem 'chromedriver2-helper', '~> 0.0.8'
