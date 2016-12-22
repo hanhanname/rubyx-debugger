@@ -58,8 +58,8 @@ class ElementView
     @element = wrap_node_with @element , wrapper
   end
 
-  #wrap the given node with the wappper, so for a div wrapper and a button node
-  # the result will be <div> <button>hwatever was in there</button> <div>
+  # wrap the given node with the wappper, so for a div wrapper and a button node
+  # the result will be <div> <button>whatever was in there</button> <div>
   def wrap_node_with node , wrapper
     node.replace_with(wrapper) if node.parent
     wrapper << node

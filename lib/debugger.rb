@@ -7,7 +7,6 @@ require 'browser'
 require 'browser/http'
 require 'native'
 require "salama"
-require "salama-reader"
 require "ast"
 require "register/interpreter"
 # the base, our own litle framework, allows for child and parent views and handles updates
@@ -40,9 +39,8 @@ class MainView < ListView
 
   def initialize
     machine = Register.machine.boot
-    code = s(:statements, s(:class, :Object, s(:derives, nil),
-                s(:statements, s(:class_field, :Integer, :x))))
-    Soml.compile( code  )
+    code = s(:statements, s(:return, s(:operator_value, :+, s(:int, 5), s(:int, 7))))
+    Typed.compile( code  )
     machine.collect
     @interpreter = Register::Interpreter.new
     super( [SwitchView.new(@interpreter)      ,

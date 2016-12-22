@@ -31,12 +31,12 @@ class ListView < ElementView
   # replace the child at index with the given one (second arg)
   # The child must be an ElementView , which will be rendered and
   # the old node will be replaced in the live dom
-  def replace_at index , with
+  def replace_at( index , node)
     old = @elements[index]
-    @children[index] = with
-    rendered = with.draw
+    @children[index] = node
+    rendered = node.draw
     @elements[index] = rendered
-    old.replace_with rendered
+    old.replace_with(rendered) if old
   end
 
   # remove the first child and element (from view)
@@ -46,10 +46,10 @@ class ListView < ElementView
 
   # remove both child and element at given position
   def remove_at index
-     raise "insex out of bounds #{index} => #{@children.length}" if(index >= @children.length or index < 0)
+     raise "index out of bounds #{index} => #{@children.length}" if(index >= @children.length or index < 0)
      @children.delete_at( index )
      element = @elements.delete_at(index)
-     element.remove
+     element.remove if element
   end
 
   # remove all elements and views, basically resetting the list to empty
