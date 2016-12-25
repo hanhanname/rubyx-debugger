@@ -29,6 +29,8 @@ class SourceView < ElementView
       end
     when String
       @ticker.text = i.source
+    when Typed::Code
+      @ticker.text = i.source.to_s
     else
       raise i.source.class.name
     end
@@ -45,14 +47,14 @@ class SourceView < ElementView
       i = link
     end
     return unless (i.is_a? Register::Label)
-    if i.is_method
-      cl_name , method_name = *i.name.split(".")
-      clazz = Register.machine.space.get_class_by_name cl_name.split(" ").last
-      raise "No class for #{cl_name} , #{i.name}" unless clazz
-      method = clazz.get_instance_method( method_name)
-    else
-      return
-    end
+    return unless i.is_method
+    puts i.name
+    cl_t_name , method_name = *i.name.split(".")
+    class_name = cl_t_name.split(" ").last.split("_").first
+    clazz = Register.machine.space.get_class_by_name class_name
+    raise "No class for #{cl_name} , #{i.name}" unless clazz
+    type = clazz.instance_type
+    method = type.get_instance_method( method_name )
     @element.at_css(".source").text = i.name
     @text.inner_html = HtmlConverter.new.process( method.source )
   end

@@ -39,7 +39,10 @@ class MainView < ListView
 
   def initialize
     machine = Register.machine.boot
-    code = s(:statements, s(:return, s(:operator_value, :+, s(:int, 5), s(:int, 7))))
+    code = s(:statements, s(:call,
+                  s(:name, :set_internal_byte),
+                  s(:arguments, s(:int, 1), s(:int, 104)),
+                    s(:receiver, s(:string, "Hello"))))
     Typed.compile( code  )
     machine.collect
     @interpreter = Register::Interpreter.new

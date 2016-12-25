@@ -28,7 +28,7 @@ class SelectView < ElementView
   end
 
   def get_codes
-    @codes = ["1", "2"]
+    @codes = ["set_internal_byte"]
     add_selection
   end
 
@@ -41,7 +41,7 @@ class SelectView < ElementView
       list <<  code
     end
     Promise.new.then{
-      select(@codes.first)      
+      select(@codes.first)
     }
     @element.at_css(".code_list") <<  list
   end
@@ -49,7 +49,10 @@ class SelectView < ElementView
   def select code
     @interpreter.set_state :stopped
     @element.at_css(".selected").text = code
-    input = s(:statements, s(:return, s(:operator_value, :+, s(:int, 5), s(:int, 7))))
+    input = s(:statements, s(:call,
+                  s(:name, :set_internal_byte),
+                  s(:arguments, s(:int, 1), s(:int, 104)),
+                    s(:receiver, s(:string, "Hello"))))
 
     machine = Register.machine.boot
     #do_clean_compile
