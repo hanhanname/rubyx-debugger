@@ -9,12 +9,12 @@ $susy: (
 
 .debugger_view { @include container(90%); }
 
-.classes {
-  @include span(3);
-}
-
 .one_class {
   margin: 10px;
+}
+
+.classes {
+  @include span(4);
 }
 
 .source_view {
@@ -22,17 +22,17 @@ $susy: (
   margin-left: span(1);
 }
 
-.instruction_view { @include span(6); }
+.instruction_view { @include span(9); }
+
+.status_view {
+  @include span(3 at 21);
+  line-height : 1.25em;
+}
 
 .labels_view {
   @include span(3);
   margin-right: span(1);
   height: 200px;
-}
-
-.status_view {
-  @include span(4 at 20);
-  line-height : 1.25em;
 }
 
 .registers_view {
