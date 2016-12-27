@@ -38,13 +38,7 @@ class MainView < ListView
   include AST::Sexp
 
   def initialize
-    machine = Register.machine.boot
-    code = s(:statements, s(:call,
-                  s(:name, :set_internal_byte),
-                  s(:arguments, s(:int, 1), s(:int, 104)),
-                    s(:receiver, s(:string, "Hello"))))
-    Typed.compile( code  )
-    machine.collect
+    Register.machine.boot
     @interpreter = Register::Interpreter.new
     super( [SwitchView.new(@interpreter)      ,
             SourceView.new(@interpreter)  ,
