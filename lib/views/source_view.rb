@@ -39,9 +39,7 @@ class SourceView < ElementView
   def update_method
     i = @interpreter.instruction
     if i.is_a?(Risc::FunctionReturn)
-      object = @interpreter.get_register( i.register )
-      #puts "Object #{object}"
-      link = object.get_internal_word( i.index )
+      link = @interpreter.get_register( i.register )
       #puts "Link #{link}"
       raise "No link method" unless link
       i = link

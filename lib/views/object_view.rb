@@ -18,7 +18,7 @@ class ObjectView < ListView
     return @element
   end
 
-  def object_changed reg , at
+  def object_changed( reg , at)
     #puts "Object changed in #{reg} , at #{at}"
     for_object = @interpreter.get_register( reg )
     return unless for_object == @object
@@ -27,7 +27,7 @@ class ObjectView < ListView
     if(variable)
       f = @object.get_instance_variable(variable)
     else
-      variable = (at - @object.class.get_length_index).to_s
+      variable = at.to_s
       f = @object.get_internal_word(at)
     end
     #puts "got var name #{variable}#{variable.class} for #{at}, #{f}"
