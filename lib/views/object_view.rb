@@ -41,7 +41,7 @@ class ObjectView < ListView
 
   def class_header
     clazz = @object.class.name.split("::").last
-    [clazz, @object.object_id].join " : "
+    [clazz, @object.object_id.to_s(16)].join " : "
   end
 
   def content_elements
@@ -52,7 +52,7 @@ class ObjectView < ListView
         f = object.get_instance_variable(variable)
         fields << RefView.new( variable , f , @z )
       end
-      if( object.is_a?(Parfait::Indexed) )
+      if( object.is_a?(Parfait::List) )
         index = 1
         object.each do | o|
           fields << RefView.new( index.to_s , o , @z )

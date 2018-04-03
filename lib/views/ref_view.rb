@@ -60,7 +60,7 @@ class RefView < ListView
     elsif is_object?
       var = @value
       str = var.class.name.split("::").last[0,2]
-      str + " : #{@value.object_id}"
+      str + " : #{@value.object_id.to_s(16)}"
     elsif is_label?
       str = "Label"
     else

@@ -39,39 +39,25 @@ class SelectView < ElementView
     @element.at_css(".code_list") <<  list
   end
 
-  def select code
+  def select( code )
     puts "selecting #{code}"
+    machine = Risc.machine.boot
     @interpreter.set_state :stopped
     @element.at_css(".selected").text = code
-    main , clean = get_codes[code]
-
-    machine = Risc.machine.boot
-    clean_compile(*clean) if clean
-    Typed.compile( main )
-    machine.collect
-
+    ruby = get_codes[code]
+    Vool::VoolCompiler.ruby_to_vool( as_main(ruby) )
+    machine.objects
     puts "starting"
-    @interpreter.start machine.init
+    @interpreter.start machine.risc_init
   end
-
+  def as_main(statements)
+    "class Space ;def main(arg) ; #{statements}; end; end"
+  end
   def get_codes
-    {"set_internal_byte" => [s(:statements, s(:call,
-                  s(:name, :set_internal_byte),
-                  s(:arguments, s(:int, 1), s(:int, 104)),
-                    s(:receiver, s(:string, "Hello"))))  , nil ] ,
-      "called_if" => [s(:statements, s(:call, s(:name, :itest), s(:arguments, s(:int, 20)))) ,
-                      [:Space , :itest , {:n => :Integer} ,
-          s(:statements, s(:if_statement, :zero, s(:condition, s(:operator_value, :-, s(:name, :n), s(:int, 12))),
-                  s(:true_statements, s(:call, s(:name, :putstring), s(:arguments), s(:receiver, s(:string, "then")))),
-                  s(:false_statements, s(:call, s(:name, :putstring), s(:arguments), s(:receiver, s(:string, "else"))))))]],
-      "hello world" => [ s(:statements, s(:return, s(:call, s(:name, :putstring), s(:arguments),
-                          s(:receiver, s(:string, "Hello again\\n"))))),
-                          nil],
+    {set_internal_byte: "return 'Hello'.set_internal_byte(1,75)" ,
+     called_if: 'if( 10 ); return "then";else;return "else";end' ,
+     hello_world: "return 'Hello again'.putstring"
       }
-  end
-  def clean_compile(clazz_name , method_name , args , statements)
-    compiler = Typed::MethodCompiler.new.create_method(clazz_name,method_name,args ).init_method
-    compiler.process( Typed.ast_to_code( statements ) )
   end
 
 end

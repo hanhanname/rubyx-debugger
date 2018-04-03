@@ -8,6 +8,7 @@ require 'browser/http'
 require 'native'
 require "rubyx"
 require "ast"
+require "util/eventable"
 require "risc/interpreter"
 # the base, our own litle framework, allows for child and parent views and handles updates
 require "base/list_view"

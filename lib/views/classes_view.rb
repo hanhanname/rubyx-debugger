@@ -10,7 +10,7 @@ class ClassesView < ListView
 
   def class_views
     classes = []
-    Risc.machine.space.classes.each do |name , claz|
+    Parfait.object_space.classes.each do |name , claz|
       classes << claz
     end
     classes.sort! {|a,b| a.name <=> b.name }

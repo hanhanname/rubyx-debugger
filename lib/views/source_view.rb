@@ -19,8 +19,8 @@ class SourceView < ElementView
     return "" unless i
     update_method
     case i.source
-    when AST::Node
-      id = i.source.object_id
+    when Mom::Instruction
+      id = i.source.object_id.to_s(16)
       if e = @text.at_css("#i#{id}")
         if (old = @text.at_css(".fade_in"))
           old.remove_class("fade_in")
@@ -29,7 +29,7 @@ class SourceView < ElementView
       end
     when String
       @ticker.text = i.source
-    when Typed::Code
+    when Risc::Instruction
       @ticker.text = i.source.to_s
     else
       raise i.source.class.name
@@ -51,10 +51,10 @@ class SourceView < ElementView
     puts i.name
     cl_t_name , method_name = *i.name.split(".")
     class_name = cl_t_name.split(" ").last.split("_").first
-    clazz = Risc.machine.space.get_class_by_name class_name
+    clazz = Parfait.object_space.get_class_by_name class_name
     raise "No class for #{cl_name} , #{i.name}" unless clazz
     type = clazz.instance_type
-    method = type.get_instance_method( method_name )
+    method = type.get_method( method_name )
     @element.at_css(".source").text = i.name
     @text.inner_html = HtmlConverter.new.process( method.source )
   end
