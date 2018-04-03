@@ -45,7 +45,7 @@ class SelectView < ElementView
     @element.at_css(".selected").text = code
     main , clean = get_codes[code]
 
-    machine = Register.machine.boot
+    machine = Risc.machine.boot
     clean_compile(*clean) if clean
     Typed.compile( main )
     machine.collect

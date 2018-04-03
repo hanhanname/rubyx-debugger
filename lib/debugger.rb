@@ -6,9 +6,9 @@ require "logger"
 require 'browser'
 require 'browser/http'
 require 'native'
-require "salama"
+require "rubyx"
 require "ast"
-require "register/interpreter"
+require "risc/interpreter"
 # the base, our own litle framework, allows for child and parent views and handles updates
 require "base/list_view"
 # each seperate view is in it's own class.
@@ -38,8 +38,8 @@ class MainView < ListView
   include AST::Sexp
 
   def initialize
-    Register.machine.boot
-    @interpreter = Register::Interpreter.new
+    Risc.machine.boot
+    @interpreter = Risc::Interpreter.new
     super( [SwitchView.new(@interpreter)      ,
             SourceView.new(@interpreter)  ,
             InstructionView.new(@interpreter)     ,

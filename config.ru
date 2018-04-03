@@ -5,9 +5,9 @@ require 'tilt/erb'
 require "opal"
 require 'opal-browser'
 
-Opal.use_gem("salama")
+Opal.use_gem("rubyx")
 Opal.use_gem("ast")
-Register.machine.boot
+Risc.machine.boot
 
 class DebugServer < Opal::Server
   def ball(env)

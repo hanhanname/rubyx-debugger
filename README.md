@@ -3,7 +3,7 @@
 After some tryouts it ended up being an Opal application. That is ruby as javascript in the browser.
 Below is a screenshot.
 
-![Debugger](https://raw.githubusercontent.com/salama/salama-debugger/master/static/debugger.png)
+![Debugger](https://raw.githubusercontent.com/rubyx/rubyx-debugger/master/static/debugger.png)
 
 ## Views
 

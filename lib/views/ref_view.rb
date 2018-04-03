@@ -41,7 +41,7 @@ class RefView < ListView
   end
 
   def is_label?
-    @value.is_a?(Register::Label)
+    @value.is_a?(Risc::Label)
   end
 
   def is_nil?()

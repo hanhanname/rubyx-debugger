@@ -38,7 +38,7 @@ class SourceView < ElementView
 
   def update_method
     i = @interpreter.instruction
-    if i.is_a?(Register::FunctionReturn)
+    if i.is_a?(Risc::FunctionReturn)
       object = @interpreter.get_register( i.register )
       #puts "Object #{object}"
       link = object.get_internal_word( i.index )
@@ -46,12 +46,12 @@ class SourceView < ElementView
       raise "No link method" unless link
       i = link
     end
-    return unless (i.is_a? Register::Label)
+    return unless (i.is_a? Risc::Label)
     return unless i.is_method
     puts i.name
     cl_t_name , method_name = *i.name.split(".")
     class_name = cl_t_name.split(" ").last.split("_").first
-    clazz = Register.machine.space.get_class_by_name class_name
+    clazz = Risc.machine.space.get_class_by_name class_name
     raise "No class for #{cl_name} , #{i.name}" unless clazz
     type = clazz.instance_type
     method = type.get_instance_method( method_name )
