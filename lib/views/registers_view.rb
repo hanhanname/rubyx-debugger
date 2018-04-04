@@ -21,7 +21,7 @@ class RegistersView < ListView
     @element
   end
 
-  def register_changed reg , old , value
+  def register_changed( reg , old , value )
     reg = reg.symbol unless reg.is_a? Symbol
     index = reg.to_s[1 .. -1 ].to_i
     has = Risc.machine.objects[value.object_id]
@@ -47,6 +47,8 @@ class ValueView < ElementView
   end
 
   def draw
-    @element = div("ul.nav!") << div("li") << div("span",  @value)
+    li = div("li")
+    li << div("span",  @value)
+    @element = div("ul.nav!") << li 
   end
 end
