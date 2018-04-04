@@ -56,7 +56,8 @@ class SelectView < ElementView
   def get_codes
     {set_internal_byte: "return 'Hello'.set_internal_byte(1,75)" ,
      called_if: 'if( 10 ); return "then";else;return "else";end' ,
-     hello_world: "return 'Hello again'.putstring"
+     hello_world: "h = 'Hello World'.putstring;return h",
+     dynamic_call: "a = 15 ; return a.div10",
       }
   end
 

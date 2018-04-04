@@ -29,8 +29,8 @@ run Opal::Server.new { |s|
   s.main = 'debugger.js.rb'
   s.append_path 'lib'
   s.append_path 'assets'
-#  s.debug = !ENV["DEBUG"].nil?
+  s.debug = !ENV["DEBUG"].nil?
 #  s.source_map = true
   s.index_path = "index.html.erb"
-  s.sprockets.cache = Sprockets::Cache::MemoryStore.new(5000)
+  s.sprockets.cache = Sprockets::Cache::MemoryStore.new(10000)
 }
