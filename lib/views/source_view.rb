@@ -20,13 +20,13 @@ class SourceView < ElementView
     update_method
     case i.source
     when Mom::Instruction
-      id = i.source.object_id.to_s(16)
-      if e = @text.at_css("#i#{id}")
-        if (old = @text.at_css(".fade_in"))
-          old.remove_class("fade_in")
-        end
-        e.add_class "fade_in"
-      end
+      @ticker.text = i.source.class.name
+      # if e = @text.at_css("#i#{id}")
+      #   if (old = @text.at_css(".fade_in"))
+      #     old.remove_class("fade_in")
+      #   end
+      #   e.add_class "fade_in"
+      # end
     when String
       @ticker.text = i.source
     when Risc::Instruction

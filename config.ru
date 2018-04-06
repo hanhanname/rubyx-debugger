@@ -25,7 +25,7 @@ class DebugServer < Opal::Server
   end
 end
 
-run Opal::Server.new { |s|
+run Opal::Sprockets::Server.new { |s|
   s.main = 'debugger.js.rb'
   s.append_path 'lib'
   s.append_path 'assets'

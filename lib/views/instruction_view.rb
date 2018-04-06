@@ -36,7 +36,8 @@ class InstructionView < ListView
 
   def instruction_text
     return "" unless @interpreter.instruction
-    @interpreter.instruction.to_s
+    text = @interpreter.instruction.to_s
+    text.split("(").first
   end
 
 end
