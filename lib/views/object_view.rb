@@ -59,6 +59,12 @@ class ObjectView < ListView
           index += 1
         end
       end
+      if( object.is_a?(Parfait::Integer) )
+        fields << RefView.new( 3.to_s , object.value , @z )
+      end
+      if( object.is_a?(Parfait::Word) )
+        fields << RefView.new( 3.to_s , object.to_string , @z )
+      end
     end
     fields
   end

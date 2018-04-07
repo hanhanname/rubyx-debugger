@@ -1,16 +1,17 @@
 require_relative "classes_view"
 
-class SwitchView < ListView
+class LeftView < ListView
   def initialize interpreter
-    super([ SelectView.new(interpreter) , ClassesView.new(interpreter) ])
+    super([ SelectView.new(interpreter) ,
+      ObjectView.new( Parfait.object_space , interpreter , 16),
+      ClassesView.new(interpreter) ])
   end
 
   def draw
     super(".classes")
   end
 end
-# opal eval seems to get the scope wrong and evals in object (not where its called)
-include AST::Sexp
+
 
 class SelectView < ElementView
 
