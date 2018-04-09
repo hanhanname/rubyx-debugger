@@ -3,7 +3,7 @@ require_relative "classes_view"
 class LeftView < ListView
   def initialize interpreter
     super([ SelectView.new(interpreter) ,
-      ObjectView.new( Parfait.object_space , interpreter , 16),
+      ObjectView.new( Parfait.object_space , interpreter , 26),
       ClassesView.new(interpreter) ])
   end
 
