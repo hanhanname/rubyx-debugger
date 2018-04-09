@@ -32,7 +32,7 @@ class SourceView < ElementView
     when Risc::Instruction
       @ticker.text = i.source.to_s
     else
-      raise i.source.class.name
+      raise "Unrecognized source #{i.source.class.name} for #{i}"
     end
   end
 
@@ -47,6 +47,7 @@ class SourceView < ElementView
     return unless (i.is_a? Risc::Label)
     return unless i.is_method
     puts i.name
+    return
     cl_t_name , method_name = *i.name.split(".")
     class_name = cl_t_name.split(" ").last.split("_").first
     clazz = Parfait.object_space.get_class_by_name class_name
