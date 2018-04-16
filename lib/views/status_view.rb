@@ -10,8 +10,7 @@ class StatusView < ElementView
   def draw
     @element = div(".status_view") <<
     div("h4" , "Interpreter" ) <<
-      div("button.act" , "Next") <<
-      div("button.crawl" , "Crawl") <<
+      div("button.next" , "Next") <<
       div("button.run" , "Run") <<
       div("button.wizz" , "Wizz") <<
       div( "br") <<
@@ -23,11 +22,9 @@ class StatusView < ElementView
       div( "br" , "Stdout") <<
       div("span.stdout")
     # set up event handler
-    @element.at_css(".act").on("click") { self.update }
-    @element.at_css(".crawl").on("mousedown") { self.start( 0.5 ) }
+    @element.at_css(".next").on("click") { self.update }
     @element.at_css(".run").on("mousedown") { self.start( 0.1 ) }
     @element.at_css(".wizz").on("mousedown") { self.start( 0.0 ) }
-    @element.at_css(".crawl").on("mouseup") { self.stop }
     @element.at_css(".run").on("mouseup") { self.stop }
     @element.at_css(".wizz").on("mouseup") { self.stop }
     return @element
