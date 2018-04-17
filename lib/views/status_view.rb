@@ -8,15 +8,15 @@ class StatusView < ElementView
   end
 
   def draw
+    header = div("h4" , "Interpreter" )
+    header <<  div("span.header_state" ,  state_text)
     @element = div(".status_view") <<
-    div("h4" , "Interpreter" ) <<
+      header <<
       div("button.next" , "Next") <<
       div("button.run" , "Run") <<
       div("button.wizz" , "Wizz") <<
       div( "br") <<
       div("span.clock" , clock_text) <<
-      div( "br") <<
-      div("span.state" ,  state_text) <<
       div( "br") <<
       div("span.flags" ,  flags_text) <<
       div( "br" , "Stdout") <<
@@ -55,7 +55,7 @@ class StatusView < ElementView
   end
 
   def state_text
-    "State #{@interpreter.state}"
+    " (#{@interpreter.state})"
   end
 
   def flags_text

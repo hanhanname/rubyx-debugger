@@ -12,5 +12,5 @@ run Opal::Sprockets::Server.new { |s|
   s.append_path 'assets'
   s.debug = !ENV["DEBUG"].nil?
   s.index_path = "index.html.erb"
-  s.sprockets.cache = Sprockets::Cache::MemoryStore.new(10000)
+  s.sprockets.cache = Sprockets::Cache::MemoryStore.new(50000)
 }
