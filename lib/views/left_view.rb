@@ -1,10 +1,23 @@
 require_relative "classes_view"
 
 class LeftView < ListView
-  def initialize interpreter
+  def initialize( interpreter )
+    @interpreter = interpreter
+    init_space
     super([ SelectView.new(interpreter) ,
-      ObjectView.new( Parfait.object_space , interpreter , 26),
+      @space,
       ClassesView.new(interpreter) ])
+    interpreter.register_event(:state_changed,  self)
+  end
+
+  def init_space
+    @space = ObjectView.new( Parfait.object_space , @interpreter , 26)
+  end
+
+  def state_changed( old , new_s )
+    return unless new_s == :running
+    init_space
+    replace_at( 1 , @space )
   end
 
   def draw
