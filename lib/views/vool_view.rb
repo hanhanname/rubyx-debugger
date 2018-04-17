@@ -1,6 +1,6 @@
 require_relative "html_converter"
 
-class SourceView < ElementView
+class VoolView < ElementView
 
   def initialize interpreter
     @interpreter = interpreter
@@ -10,7 +10,7 @@ class SourceView < ElementView
   def draw
     @text = div(".text")
     @ticker = div(".ticker")
-    @element = div(".source_view") << div("h4.source" , "Class.Method") << @ticker << @text
+    @element = div(".vool_view") << div("h4.source" , "Class.Method") << @ticker << @text
     @element
   end
 

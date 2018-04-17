@@ -1,7 +1,7 @@
 require "base/constant_view"
 require "base/list_view"
 
-class InstructionView < ListView
+class RiscView < ListView
 
   def initialize interpreter
     @interpreter = interpreter
@@ -24,7 +24,7 @@ class InstructionView < ListView
   def draw
     super()
     wrap_node_with @elements.first , div
-    wrap_element div(".instruction_view") << div("h4" ,"Register Machine Instruction")
+    wrap_element div(".risc_view") << div("h4" ,"Register Machine Instruction")
     @element
   end
 

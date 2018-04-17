@@ -16,8 +16,9 @@ require "base/list_view"
 # each seperate view is in it's own class.
 require "views/left_view"
 require "views/status_view"
-require "views/source_view"
-require "views/instruction_view"
+require "views/vool_view"
+require "views/mom_view"
+require "views/risc_view"
 require "views/registers_view"
 class Bignum
 end
@@ -43,8 +44,9 @@ class MainView < ListView
     Risc.machine.boot
     @interpreter = Risc::Interpreter.new
     super( [LeftView.new(@interpreter)  ,
-            SourceView.new(@interpreter)  ,
-            InstructionView.new(@interpreter)     ,
+            VoolView.new(@interpreter)  ,
+            MomView.new(@interpreter)  ,
+            RiscView.new(@interpreter)     ,
             StatusView.new(@interpreter)     ,
             RegistersView.new(@interpreter) ] )
   end

@@ -15,19 +15,23 @@ body
 .classes
   @include span(12%)
 
-.source_view
-  @include span(24%)
+.vool_view
+  @include span(18%)
 
+.mom_view
+  @include span(18%)
 
-.instruction_view
-  @include span(30%)
-
+.risc_view
+  @include span(18%)
 
 .status_view
-  @include span(15%)
+  @include span(14%)
   line-height : 1.25em
   .header_state
     color: #53a5ff
+
+.vool_view , .mom_view , .risc_view , .status_view
+  margin-left: 0%
 
 .labels_view
   @include span(1)
@@ -40,8 +44,6 @@ body
   .register_view
     @include gallery(1)
     margin-top: 10px
-
-
 
 .field
   @include span(5)
