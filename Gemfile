@@ -4,7 +4,7 @@ gem "opal"
 gem 'opal-sprockets'
 gem 'opal-browser'
 
-gem "rubyx" , "0.6" , :path => "../rubyx"
+gem "rubyx" , "0.6" , path: "../rubyx"
 
 gem "rx-file" , :git => "https://github.com/ruby-x/rx-file"
 

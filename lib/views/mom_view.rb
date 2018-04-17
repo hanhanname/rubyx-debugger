@@ -18,9 +18,10 @@ class MomView < ListView
   def instruction_changed
     i = @interpreter.instruction
     return unless i && i.source.is_a?(Mom::Instruction)
+    return if i.source == @current
+    @current = i.source
     @element.at_css(".mom_bright").remove_class("mom_bright")
-    instruction_text = i.source.to_s
-    instruction = append_view( ConstantView.new( "span.mom_bright" , instruction_text ) )
+    instruction = append_view( ConstantView.new( "span.mom_bright" , @current.to_s ) )
     wrap_node_with( instruction , div )
     remove_first if( @elements.length > 6)
   end
