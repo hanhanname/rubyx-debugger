@@ -11,12 +11,12 @@ class RiscView < ListView
   end
 
   def start_view
-    ConstantView.new( "span.bright" , "starting" )
+    ConstantView.new( "span.risc_bright" , "starting" )
   end
 
   def instruction_changed
-    @element.at_css(".bright").remove_class("bright")
-    instruction = append_view( ConstantView.new( "span.bright" , instruction_text ) )
+    @element.at_css(".risc_bright").remove_class("risc_bright")
+    instruction = append_view( ConstantView.new( "span.risc_bright" , instruction_text ) )
     wrap_node_with instruction , div
     remove_first if( @elements.length > 6)
   end

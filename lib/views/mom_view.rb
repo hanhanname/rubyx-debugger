@@ -12,7 +12,7 @@ class MomView < ListView
   end
 
   def start_view
-    ConstantView.new( "span.bright" , "starting" )
+    ConstantView.new( "span.mom_bright" , "starting" )
   end
 
   def instruction_changed

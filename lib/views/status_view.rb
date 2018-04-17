@@ -49,7 +49,7 @@ class StatusView < ElementView
   def update
     @interpreter.tick
     @element.at_css(".clock").text = clock_text
-    @element.at_css(".state").text = state_text
+    @element.at_css(".header_state").text = state_text
     @element.at_css(".flags").text = flags_text
     @element.at_css(".stdout").text = @interpreter.stdout
   end
