@@ -9,7 +9,6 @@ gem "rubyx" , "0.6" , path: "../rubyx"
 gem "rx-file" , :git => "https://github.com/ruby-x/rx-file"
 
 gem "sass"
-gem "susy"
 
 group :test do
   # Testing dependencies

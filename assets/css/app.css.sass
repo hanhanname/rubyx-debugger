@@ -1,69 +1,70 @@
-// Place your apps css here
-@import "susy"
-
-
-$susy: ( columns: 5 , gutter-position: split )
 
 body
   background-color: black
   color: white
 
+.one_class, .classes, .vool_view ,.mom_view , .risc_view, .status_view ,.vool_view
+  position: relative
+  float: left
+.mom_view , .risc_view , .status_view , .registers_view, .register_view
+  position: relative
+  float: left
+
 .one_class
   margin: 10px
 
-
 .classes
-  @include span(12%)
+  width: 16%
+  margin-left: 1%
 
 .vool_view
-  @include span(18%)
+  width: 18%
+  margin-left: 1%
 
 .mom_view
-  @include span(20%)
+  width: 20%
+  margin-left: 1%
 
 .risc_view
-  @include span(24%)
+  width: 24%
+  margin-left: 1%
 
 .status_view
-  @include span(14%)
+  width: 14%
+  margin-left: 1%
   line-height : 1.25em
   .header_state
     color: #53a5ff
 
-.vool_view , .mom_view , .risc_view , .status_view
-  margin-left: 0%
-
 .labels_view
-  @include span(1)
-  margin-right: span(1)
+  width: 18%
+  margin-right: 2%
   height: 200px
 
 
 .registers_view
-  @include span(80%)
+  width: 79%
+  margin-left: 1%
   .register_view
-    @include gallery(1)
+    width: 19%
+    min-height: 250px
+    margin-right: 1%
     margin-top: 10px
 
 .field
-  @include span(5)
-
+  width: 80%
 
 .value
-  @include span(18)
-
+  width: 80%
 
 .value_head
   background-color: #C5FFD9
 
-
 .statement
   margin-left: 10px
 
-
 .ticker
   text-align: right
-
 
 .next , .run , .wizz
   border-radius: 7px
@@ -78,18 +79,18 @@ body
 .wizz
   background-color: #009900
 
-
 .risc_bright , .mom_bright
   padding-right: 6px
   padding-left: 6px
   background-color: #00E3FF
   border-radius: 7px
 
-
 .fade_in
   transition: background-color 100ms linear
   padding-right: 6px
   padding-left: 6px
   background-color: #00E3FF
-  -moz-border-radius: 7px
-  -webkit-border-radius: 7px
+  border-radius: 7px
+
+h4.select
+  z-index: 20
