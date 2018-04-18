@@ -45,7 +45,7 @@ class ObjectView < ListView
   end
 
   def content_elements
-    fields = [ConstantView.new("li" , "---------------------------------")]
+    fields = [ConstantView.new("li" , "------------------------------")]
     object = @object
     if object and ! object.is_a?(String)
       object.get_instance_variables.each do |variable|

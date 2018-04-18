@@ -28,13 +28,14 @@ end
 
 class SelectView < ElementView
 
-  def initialize interpreter
+  def initialize( interpreter )
+    super
     @interpreter = interpreter
     @codes = nil
   end
 
   def draw
-    @element =  div("h4", "Code") << (list = div("ul.nav!"))
+    @element =  div("h4.select", "Code") << (list = div("ul.nav!"))
     list << (div("li.code_list") << div("a.selected" , "none selected"))
     selection_codes unless @codes
     @element << div("br")
@@ -47,6 +48,7 @@ class SelectView < ElementView
     @codes << @codes.first if @codes.length == 1  #otherwise unselectable
     @codes.each do |c|
       code = div("li") << div("a" , c )
+      code.style["z-index"] = 10
       code.on("click"){ select(c) }
       list <<  code
     end
