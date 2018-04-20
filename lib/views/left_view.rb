@@ -63,18 +63,18 @@ class SelectView < ElementView
     ruby = get_codes[code]
     Vool::VoolCompiler.ruby_to_vool( as_main(ruby) )
     machine.objects
-    puts "starting"
     @interpreter.start machine.risc_init
   end
   def as_main(statements)
     "class Space ;def main(arg) ; #{statements}; end; end"
   end
   def get_codes
-    {set_internal_byte: "return 'Hello'.set_internal_byte(1,75)" ,
-     called_if: 'if( 10 ); return "then";else;return "else";end' ,
-     hello_world: "h = 'Hello World'.putstring;return h",
-     dynamic_call: "a = 150 ; return a.div10",
-    }
+    { while_with_calls: 'a = 0; while( 0 > a); a = 1 + a;end;return a',
+      set_internal_byte: "return 'Hello'.set_internal_byte(1,75)" ,
+      called_if: 'if( 10 ); return "then";else;return "else";end' ,
+      hello_world: "h = 'Hello World'.putstring;return h",
+      dynamic_call: "a = 150 ; return a.div10",
+      }
   end
 
 end
