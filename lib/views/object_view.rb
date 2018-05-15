@@ -32,8 +32,8 @@ class ObjectView < ListView
     end
     #puts "got var name #{variable}#{variable.class} for #{at}, #{f}"
     view = RefView.new( variable , f , @z )
-    if( @children[at] )
-      replace_at(at , view)
+    if( @children[at + 1] )
+      replace_at(at + 1, view)
     else
       append_view(view)
     end
@@ -53,7 +53,7 @@ class ObjectView < ListView
         fields << RefView.new( variable , f , @z )
       end
       if( object.is_a?(Parfait::List) )
-        index = 1
+        index = 0
         object.each do | o|
           fields << RefView.new( index.to_s , o , @z )
           index += 1

@@ -72,6 +72,7 @@ class SelectView < ElementView
     { while_with_calls: 'a = 0; while( 0 > a); a = 1 + a;end;return a',
       set_internal_byte: "return 'Hello'.set_internal_byte(1,75)" ,
       called_if: 'if( 10 ); return "then";else;return "else";end' ,
+      plus: 'return 5 + 7' ,
       hello_world: "h = 'Hello World'.putstring;return h",
       dynamic_call: "a = 150 ; return a.div10",
       }
