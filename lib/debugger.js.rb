@@ -3,7 +3,6 @@ require "opal"
 require "opal-parser"
 require 'opal/compiler'
 
-require "logger"
 require 'browser'
 require 'browser/http'
 require 'native'
