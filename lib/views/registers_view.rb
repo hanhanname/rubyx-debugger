@@ -24,10 +24,10 @@ class RegistersView < ListView
   def register_changed( reg , old , value )
     reg = reg.symbol unless reg.is_a? Symbol
     index = reg.to_s[1 .. -1 ].to_i
-    has = Risc.machine.objects[value.object_id]
+    has = Risc::Position.set?(value)
     if( has )
-      if has.is_a?(Risc::Label)
-        swap = ValueView.new "Label: #{has.name}"
+      if has.object.is_a?(Risc::Label)
+        swap = ValueView.new "Label: #{has.object.name}"
       else
         swap =  ObjectView.new( value , @interpreter , 16 - index )
       end
@@ -49,6 +49,6 @@ class ValueView < ElementView
   def draw
     li = div("li")
     li << div("span",  @value)
-    @element = div("ul.nav!") << li 
+    @element = div("ul.nav!") << li
   end
 end

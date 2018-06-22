@@ -19,8 +19,10 @@ class StatusView < ElementView
       div("span.clock" , clock_text) <<
       div( "br") <<
       div("span.flags" ,  flags_text) <<
-      div( "br" , "Stdout") <<
-      div("span.stdout")
+      div( "br") <<
+      div( "span.stdout" , "Stdout") <<
+      div( "br") <<
+      div( "span.status" , "Status")
     # set up event handler
     @element.at_css(".next").on("click") { self.update }
     @element.at_css(".run").on("mousedown") { self.start( 0.1 ) }
@@ -52,8 +54,18 @@ class StatusView < ElementView
     @element.at_css(".header_state").text = state_text
     @element.at_css(".flags").text = flags_text
     @element.at_css(".stdout").text = @interpreter.stdout
+    @element.at_css(".status").text = status_text
   end
 
+  def status_text
+    return "#{@interpreter.instruction.to_s}" unless @interpreter.instruction.source
+    source = @interpreter.instruction.source
+    s = "#{source.to_s}"
+    if( source.respond_to?(:source) and source.source )
+      s += @interpreter.instruction.source.source.to_s
+    end
+    s
+  end
   def state_text
     " (#{@interpreter.state})"
   end
@@ -67,6 +79,6 @@ class StatusView < ElementView
   end
 
   def clock_text
-    "Instruction #{@interpreter.clock}"
+    "Instruction #{@interpreter.clock}-0x#{@interpreter.pc.to_s(16)}"
   end
 end

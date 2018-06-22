@@ -57,13 +57,13 @@ class SelectView < ElementView
 
   def select( code )
     puts "selecting #{code}"
-    machine = Risc.machine.boot
+    Risc.machine.boot
     @interpreter.set_state :stopped
     @element.at_css(".selected").text = code
     ruby = get_codes[code]
-    Vool::VoolCompiler.ruby_to_vool( as_main(ruby) )
-    machine.objects
-    @interpreter.start machine.risc_init
+    Risc.machine.boot
+    Vool::VoolCompiler.ruby_to_binary( as_main(ruby) ,  :interpreter )
+    @interpreter.start_machine
   end
   def as_main(statements)
     "class Space ;def main(arg) ; #{statements}; end; end"
@@ -73,6 +73,7 @@ class SelectView < ElementView
       set_internal_byte: "return 'Hello'.set_internal_byte(1,75)" ,
       called_if: 'if( 10 ); return "then";else;return "else";end' ,
       plus: 'return 5 + 7' ,
+      return: 'return 5' ,
       hello_world: "h = 'Hello World'.putstring;return h",
       dynamic_call: "a = 150 ; return a.div10",
       }

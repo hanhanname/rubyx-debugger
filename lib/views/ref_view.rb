@@ -60,6 +60,8 @@ class RefView < ListView
     elsif is_object?
       var = @value
       str = var.class.name.split("::").last[0,2]
+      pos = Risc::Position.set?(@value)
+      str += pos ? pos.to_s : @value.object_id.to_s(16)
       str + " : #{@value.object_id.to_s(16)}"
     elsif is_label?
       str = "Label"

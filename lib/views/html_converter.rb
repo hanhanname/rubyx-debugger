@@ -10,13 +10,13 @@ class HtmlConverter < AST::Processor
     puts "Missing: " + s.type
     "Missing #{s.type}"
   end
-  def div statement , html
+  def div( statement , html)
     "<div class='statement' id='i#{statement.object_id.to_s(16)}'>" + html + "</div>"
   end
-  def span statement , html
+  def span( statement , html)
     "<span class='expression' id='i#{statement.object_id.to_s(16)}'>" + html + "</span>"
   end
-  def on_function  statement
+  def on_function( statement)
     return_type , name , parameters, kids , receiver = *statement
     str = return_type + " "
     str += receiver + "." if receiver

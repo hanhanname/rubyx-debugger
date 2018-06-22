@@ -40,8 +40,10 @@ class ObjectView < ListView
   end
 
   def class_header
+    pos = Risc::Position.set?(@object)
+    str = pos ? pos.to_s : @object.object_id.to_s(16)
     clazz = @object.class.name.split("::").last
-    [clazz, @object.object_id.to_s(16)].join " : "
+    [clazz, str].join " : "
   end
 
   def content_elements
