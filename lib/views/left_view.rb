@@ -57,13 +57,11 @@ class SelectView < ElementView
 
   def select( code )
     puts "selecting #{code}"
-    Risc.machine.boot
     @interpreter.set_state :stopped
     @element.at_css(".selected").text = code
     ruby = get_codes[code]
-    Risc.machine.boot
-    Vool::VoolCompiler.ruby_to_binary( as_main(ruby) ,  :interpreter )
-    @interpreter.start_machine
+    linker = RubyX::RubyXCompiler.new(as_main(ruby)).ruby_to_binary(:interpreter)
+    @interpreter.start_program(linker)
   end
   def as_main(statements)
     "class Space ;def main(arg) ; #{statements}; end; end"

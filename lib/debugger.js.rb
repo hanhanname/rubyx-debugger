@@ -40,8 +40,9 @@ class MainView < ListView
   include AST::Sexp
 
   def initialize
-    Risc.machine.boot
-    @interpreter = Risc::Interpreter.new
+    input = "class Space;def main(arg); return 1; end; end"
+    linker = RubyX::RubyXCompiler.new(input).ruby_to_binary(:interpreter)
+    @interpreter = Risc::Interpreter.new(linker)
     super( [LeftView.new(@interpreter)  ,
             VoolView.new(@interpreter)  ,
             MomView.new(@interpreter)  ,

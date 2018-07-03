@@ -19,9 +19,8 @@ class VoolView < ElementView
     return "" unless i
     if i.is_a?(Risc::FunctionReturn)
       link = @interpreter.get_register( i.register )
-      puts "Link #{link}:#{link.source}"
+      puts "Link #{link}:#{link.class}"
       raise "No link method" unless link
-      i = link
     end
     method = nil
     case i.source
