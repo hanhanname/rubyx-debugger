@@ -29,7 +29,7 @@ class VoolView < ElementView
         method = i.source.method
       end
       #TODO, give mom a source
-    when Parfait::TypedMethod
+    when Parfait::Callable
       method = i.source
     when String
       return

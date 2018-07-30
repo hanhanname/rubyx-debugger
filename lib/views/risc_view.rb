@@ -36,7 +36,7 @@ class RiscView < ListView
 
   def instruction_text
     return "" unless @interpreter.instruction
-    @interpreter.instruction.to_s.split("(").first
+    @interpreter.instruction.to_s
   end
 
 end
