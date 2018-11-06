@@ -16,6 +16,10 @@ class ListView < ElementView
     @elements = []
   end
 
+  def length
+    @children.length
+  end
+
   # create a root node acording to the tag given (default div)
   # The tag name will be passed to the div function, so class and id may be set as well (see there)
   # draw all children and keep the elements as @elements
