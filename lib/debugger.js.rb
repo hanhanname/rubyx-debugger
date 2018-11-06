@@ -10,7 +10,7 @@ require "rubyx"
 require "ast"
 require "util/eventable"
 require "risc/interpreter"
-# the base, our own litle framework, allows for child and parent views and handles updates
+# the base, our own mini framework, allows for child and parent views and handles updates
 require "base/list_view"
 # each seperate view is in it's own class.
 require "views/left_view"
@@ -37,11 +37,10 @@ class String
   end
 end
 class MainView < ListView
-  include AST::Sexp
 
   def initialize
     input = "class Space;def main(arg); return 1; end; end"
-    linker = RubyX::RubyXCompiler.new(input).ruby_to_binary(:interpreter)
+    linker = RubyX::RubyXCompiler.new.ruby_to_binary(input , :interpreter)
     @interpreter = Risc::Interpreter.new(linker)
     super( [LeftView.new(@interpreter)  ,
             VoolView.new(@interpreter)  ,

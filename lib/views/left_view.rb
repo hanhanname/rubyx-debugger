@@ -61,7 +61,7 @@ class SelectView < ElementView
     @interpreter.set_state :stopped
     @element.at_css(".selected").text = code
     ruby = get_codes[code]
-    linker = RubyX::RubyXCompiler.new(as_main(ruby)).ruby_to_binary(:interpreter)
+    linker = RubyX::RubyXCompiler.new.ruby_to_binary(as_main(ruby), :interpreter)
     @interpreter.start_program(linker)
   end
   def as_main(statements)
