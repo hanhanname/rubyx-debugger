@@ -36,11 +36,17 @@ class String
     arr
   end
 end
+module RubyX
+  def self.debugger_options
+    { parfait: {factory: 50} }
+  end
+end
 class MainView < ListView
 
   def initialize
+    compiler = RubyX::RubyXCompiler.new(RubyX.debugger_options)
     input = "class Space;def main(arg); return 1; end; end"
-    linker = RubyX::RubyXCompiler.new.ruby_to_binary(input , :interpreter)
+    linker = compiler.ruby_to_binary(input , :interpreter)
     @interpreter = Risc::Interpreter.new(linker)
     super( [LeftView.new(@interpreter)  ,
             VoolView.new(@interpreter)  ,

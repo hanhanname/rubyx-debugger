@@ -58,6 +58,7 @@ class StatusView < ElementView
   end
 
   def status_text
+    return unless @interpreter.instruction
     return "#{@interpreter.instruction.to_s}" unless @interpreter.instruction.source
     source = @interpreter.instruction.source
     s = "#{source.to_s}"
